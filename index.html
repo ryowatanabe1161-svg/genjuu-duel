@@ -88,7 +88,8 @@ button{font-family:inherit;cursor:pointer;border:none}
 .semi{position:absolute;bottom:18%;left:2px;z-index:3;background:#e07a10;color:#fff;font-size:10px;font-weight:900;padding:0 4px;border-radius:5px;box-shadow:0 1px 2px #000}
 .card.fusion{background:linear-gradient(160deg,#c9a6ff,#8a52d8 60%,#5a2aa8);border:.18em solid #2a0f5a}
 .card.fusion .cname{background:linear-gradient(#f4ecff,#dccbff)}
-.card.dragonw .art{box-shadow:inset 0 0 .8em #7fe0ff}
+.card.dragonv .art{box-shadow:inset 0 0 .8em #ffd27a}
+.card.spirit{background:linear-gradient(160deg,#ffe7c2,#d9905a 60%,#8a4a1a);border:.18em solid #4a2008}
 @keyframes spin{to{transform:rotate(360deg)}}
 .art svg{width:92%;height:92%;filter:drop-shadow(0 .08em .12em #0008)}
 .flash.god{background:radial-gradient(circle,#fff8 0%,#ffcc3a55 30%,#000c 75%)}
@@ -218,7 +219,7 @@ button{font-family:inherit;cursor:pointer;border:none}
   <section id="game" class="screen hidden">
     <div class="lpbar cpu" id="lpwrapT">
       <div class="who" id="whoT">👹 CPU</div>
-      <div class="lpbox" id="lpboxT"><div class="lpnum"><small>LP</small><span id="lpT">8000</span></div><div class="lpgauge" id="lpgT"><i></i></div></div>
+      <div class="lpbox" id="lpboxT"><div class="lpnum"><small>ライフ</small><span id="lpT">8000</span></div><div class="lpgauge" id="lpgT"><i></i></div></div>
       <div class="cpuhand" id="opphand"></div>
       <button class="iconbtn" id="btnLog" aria-label="ログ">📜</button>
       <button class="iconbtn" id="btnHelp" aria-label="ヘルプ">？</button>
@@ -232,7 +233,7 @@ button{font-family:inherit;cursor:pointer;border:none}
     </div>
     <div class="lpbar" id="lpwrapB">
       <div class="who" id="whoB">🧑 あなた</div>
-      <div class="lpbox" id="lpboxB"><div class="lpnum"><small>LP</small><span id="lpB">8000</span></div><div class="lpgauge" id="lpgB"><i></i></div></div>
+      <div class="lpbox" id="lpboxB"><div class="lpnum"><small>ライフ</small><span id="lpB">8000</span></div><div class="lpgauge" id="lpgB"><i></i></div></div>
       <div class="who" id="myhandcnt" style="color:#aab"></div>
     </div>
     <div id="hand"></div>
@@ -312,43 +313,43 @@ const CARDS={
  m05:{name:'水晶の番人ゴーレム',type:'monster',lv:4,attr:'地',race:'岩石族',atk:1000,def:2100,art:'🗿',text:'水晶洞窟の奥で眠る番人。動きは遅いが極めて硬い。'},
  m06:{name:'嵐翼のグリフォン',type:'monster',lv:4,attr:'風',race:'鳥獣族',atk:1600,def:1400,art:'🦅',text:'嵐とともに舞い降りる幻鳥。翼のひと振りで竜巻を起こす。'},
  m07:{name:'深海の槍兵トリトス',type:'monster',lv:3,attr:'水',race:'水族',atk:1300,def:1100,art:'🔱',text:'深海王国を守る精鋭の槍兵。'},
- m08:{name:'見習い魔導士ルル',type:'monster',lv:2,attr:'光',race:'魔法使い族',atk:800,def:600,art:'🧙',text:'まだ修行中の小さな魔導士。いつか大魔導士になる日を夢見ている。'},
+ m08:{name:'見習い魔導士ルル',type:'monster',lv:2,attr:'光',race:'魔導士',atk:800,def:600,art:'🧙',text:'まだ修行中の小さな魔導士。いつか大魔導士になる日を夢見ている。'},
  m09:{name:'鋼鉄機兵ガンドロス',type:'monster',lv:5,attr:'地',race:'機械族',atk:2200,def:1600,art:'🤖',text:'古代文明が遺した戦闘機兵。動力炉は今も燃え続けている。'},
  m10:{name:'冥府の騎士ヴァルグ',type:'monster',lv:6,attr:'闇',race:'アンデット族',atk:2400,def:2000,art:'💀',text:'冥府の門を守護する不死の騎士。その剣は魂をも断つ。'},
- m11:{name:'天穹の聖竜エルシオン',type:'monster',lv:7,attr:'光',race:'ドラゴン族',atk:2700,def:2300,art:'🐉',text:'天空の果てに棲む聖なる竜。その光は闇を払う。'},
- m12:{name:'終焉の黒竜ネメシス',type:'monster',lv:8,attr:'闇',race:'ドラゴン族',atk:3000,def:2500,art:'🐲',text:'世界の終わりに目覚めると伝えられる漆黒の竜。'},
+ m11:{name:'天穹の聖竜エルシオン',type:'monster',lv:7,attr:'光',race:'竜族',atk:2700,def:2300,art:'🐉',text:'天空の果てに棲む聖なる竜。その光は闇を払う。'},
+ m12:{name:'終焉の黒竜ネメシス',type:'monster',lv:8,attr:'闇',race:'竜族',atk:3000,def:2500,art:'🐲',text:'世界の終わりに目覚めると伝えられる漆黒の竜。'},
  s01:{name:'業火の雨',type:'spell',effect:'burn',art:'☄️',text:'相手に800ダメージを与える。'},
  s02:{name:'雷光の裁き',type:'spell',effect:'destroy',art:'⚡',text:'相手フィールドのモンスター1体を選んで破壊する。'},
- s03:{name:'勇者の聖剣',type:'spell',effect:'equip',art:'🗡️',text:'自分フィールドの表側表示モンスター1体を選ぶ。そのモンスターの攻撃力は700アップする。'},
- s04:{name:'叡智の書',type:'spell',effect:'draw2',art:'📖',text:'自分のデッキからカードを2枚ドローする。'},
- s05:{name:'癒しの泉',type:'spell',effect:'heal',art:'⛲',text:'自分のライフポイントを1000回復する。'},
- t01:{name:'守護の結界',type:'trap',effect:'negate',art:'🛡️',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、バトルフェイズを終了させる。'},
+ s03:{name:'勇者の聖剣',type:'spell',effect:'equip',art:'🗡️',text:'自分フィールドのおもて向きモンスター1体を選ぶ。そのモンスターの攻撃力は700アップする。'},
+ s04:{name:'叡智の書',type:'spell',effect:'draw2',art:'📖',text:'自分のデッキからカードを2枚引く。'},
+ s05:{name:'癒しの泉',type:'spell',effect:'heal',art:'⛲',text:'自分のライフを1000回復する。'},
+ t01:{name:'守護の結界',type:'trap',effect:'negate',art:'🛡️',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、たたかいの時間を終了させる。'},
  t02:{name:'反撃の雷鳴',type:'trap',effect:'destroyAttacker',art:'🌩️',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃モンスターを破壊する。'},
- m13:{name:'蒼眼の白竜',type:'monster',lv:8,attr:'光',race:'ドラゴン族',atk:3000,def:2500,art:'',svg:`<svg viewBox="0 0 100 100"><defs><linearGradient id="wdg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#9fb4cc"/></linearGradient><radialGradient id="wde"><stop offset="0" stop-color="#f0fdff"/><stop offset=".45" stop-color="#3ad0ff"/><stop offset="1" stop-color="#0050c0"/></radialGradient></defs><path d="M6 62 L28 28 L33 50 L46 18 L50 48 Z" fill="#d6e2f0" stroke="#5f7895" stroke-width="1.5"/><path d="M28 98 C28 72 40 56 55 45 L68 58 C55 66 48 80 50 98 Z" fill="url(#wdg)" stroke="#5f7895" stroke-width="1.5"/><path d="M50 40 L62 26 L70 30 L94 44 L90 50 L76 52 L92 58 L86 62 L68 62 L56 56 Z" fill="url(#wdg)" stroke="#5f7895" stroke-width="1.5"/><path d="M60 28 L52 9 L66 27 Z M66 28 L71 11 L72 30Z" fill="#eef4ff" stroke="#5f7895"/><circle cx="72" cy="40" r="6.5" fill="#3ad0ff" opacity=".45"/><ellipse cx="72" cy="40" rx="4.5" ry="2.6" fill="url(#wde)"/><path d="M78 52 L80 56 L82 52 L84 56 L86 52" fill="none" stroke="#fff" stroke-width="1.2"/></svg>`,cls:'dragonw',text:'白銀の鱗と蒼く輝く瞳をもつ伝説の竜。その咆哮は天地を震わせ、あらゆる敵を光の中に消し去るという。'},
+m13:{name:'琥珀角の雷竜ヴォルテクス',type:'monster',lv:8,attr:'光',race:'竜族',atk:2900,def:2400,art:'',svg:`<svg viewBox="0 0 100 100"><defs><linearGradient id="vxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset="1" stop-color="#d89a2a"/></linearGradient><radialGradient id="vxe"><stop offset="0" stop-color="#eaffef"/><stop offset=".5" stop-color="#2fd17a"/><stop offset="1" stop-color="#0b6b3a"/></radialGradient></defs><path d="M10 90 C20 70 18 52 34 46 C46 42 44 64 58 60 C70 56 64 38 78 36" fill="none" stroke="url(#vxg)" stroke-width="11" stroke-linecap="round"/><path d="M10 90 C20 70 18 52 34 46 C46 42 44 64 58 60 C70 56 64 38 78 36" fill="none" stroke="#7a4a10" stroke-width="1.2" stroke-dasharray="3 3"/><path d="M70 30 Q82 20 94 30 Q90 40 80 42 Q72 42 70 30Z" fill="url(#vxg)" stroke="#7a4a10" stroke-width="1.4"/><path d="M76 26 L70 8 L80 24Z M84 25 L90 8 L88 27Z" fill="#ffb347" stroke="#7a4a10"/><circle cx="84" cy="31" r="3.2" fill="url(#vxe)"/><path d="M26 44 L18 30 L32 40 M48 52 L46 36 L54 50" stroke="#ffd54a" stroke-width="2.5" fill="none"/><path d="M40 20 L46 30 L41 31 L48 42" stroke="#ffe680" stroke-width="2" fill="none"/></svg>`,cls:'dragonv',text:'琥珀色の角と翡翠の瞳をもつ雷の竜。長い体をうねらせ、稲妻とともに空を駆ける。'},
  m14:{name:'光翼の天使ミルフィ',type:'monster',lv:4,attr:'光',race:'天使族',atk:1500,def:1300,art:'👼',text:'夜明けとともに舞い降りる見習い天使。その羽は傷ついた仲間を癒すという。'},
  m15:{name:'聖角獣ルミナ',type:'monster',lv:4,attr:'光',race:'獣族',atk:1400,def:1700,art:'🦄',text:'聖なる角で邪悪を退ける幻の一角獣。'},
- g01:{name:'紅き天空竜神ルブラム',type:'monster',god:true,trib:3,lv:10,attr:'神',race:'幻神獣族',atk:0,def:0,effect:'handAtk',art:'🐉',artFilter:'hue-rotate(-115deg) saturate(2.4) brightness(1.05)',bg:'radial-gradient(circle at 50% 40%,#ffb08a,#d0202a 55%,#3a0008)',text:'このカードの召喚には生贄3体が必要。このカードは罠カードの効果を受けない。このカードの攻撃力・守備力は、自分の手札の枚数×1000になる。'},
- g02:{name:'蒼き巨神兵タイタノス',type:'monster',god:true,trib:3,lv:10,attr:'神',race:'幻神獣族',atk:4000,def:4000,effect:'wipe',art:'🗿',artFilter:'sepia(1) saturate(5) hue-rotate(175deg) brightness(.95)',bg:'radial-gradient(circle at 50% 40%,#bfe6ff,#2060d0 55%,#05103a)',text:'このカードの召喚には生贄3体が必要。このカードは罠カードの効果を受けない。1ターンに1度、自分メインフェイズに自分のモンスター2体を生贄にして発動できる。相手フィールドのモンスターを全て破壊する。'},
- g03:{name:'黄金の太陽神ヘリオラ',type:'monster',god:true,trib:3,lv:10,attr:'神',race:'幻神獣族',atk:3000,def:3000,effect:'payLp',art:'🦅',artFilter:'sepia(1) saturate(4) hue-rotate(5deg) brightness(1.25)',bg:'radial-gradient(circle at 50% 45%,#fffbe0,#ffd23a 35%,#e07a00 65%,#5a2a00)',text:'このカードの召喚には生贄3体が必要。このカードは罠カードの効果を受けない。1ターンに1度、自分メインフェイズに1000LPを払って発動できる。このカードの攻撃力は1000アップする。'},
- f01:{name:'蒼眼の究極白竜',type:'monster',fusion:true,lv:12,attr:'光',race:'ドラゴン族',atk:4500,def:3800,art:'',svg:`<svg viewBox="0 0 100 100"><defs><linearGradient id="wdg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#9fb4cc"/></linearGradient><radialGradient id="wde"><stop offset="0" stop-color="#f0fdff"/><stop offset=".45" stop-color="#3ad0ff"/><stop offset="1" stop-color="#0050c0"/></radialGradient></defs><path d="M4 70 L22 34 L28 56 L40 26 L46 58 Z M96 70 L80 36 L74 56 L62 28 L56 58Z" fill="#d6e2f0" stroke="#5f7895" stroke-width="1.2"/><path d="M30 100 C30 80 40 66 50 60 C60 66 70 80 70 100Z" fill="url(#wdg)" stroke="#5f7895" stroke-width="1.5"/><g transform="translate(-22 18) scale(.62)"><path d="M50 40 L62 26 L70 30 L94 44 L90 50 L76 52 L92 58 L86 62 L68 62 L56 56 Z" fill="url(#wdg)" stroke="#5f7895" stroke-width="1.5"/><path d="M60 28 L52 9 L66 27 Z M66 28 L71 11 L72 30Z" fill="#eef4ff" stroke="#5f7895"/><circle cx="72" cy="40" r="6.5" fill="#3ad0ff" opacity=".45"/><ellipse cx="72" cy="40" rx="4.5" ry="2.6" fill="url(#wde)"/><path d="M78 52 L80 56 L82 52 L84 56 L86 52" fill="none" stroke="#fff" stroke-width="1.2"/></g><g transform="translate(26 30) scale(.62)"><path d="M50 40 L62 26 L70 30 L94 44 L90 50 L76 52 L92 58 L86 62 L68 62 L56 56 Z" fill="url(#wdg)" stroke="#5f7895" stroke-width="1.5"/><path d="M60 28 L52 9 L66 27 Z M66 28 L71 11 L72 30Z" fill="#eef4ff" stroke="#5f7895"/><circle cx="72" cy="40" r="6.5" fill="#3ad0ff" opacity=".45"/><ellipse cx="72" cy="40" rx="4.5" ry="2.6" fill="url(#wde)"/><path d="M78 52 L80 56 L82 52 L84 56 L86 52" fill="none" stroke="#fff" stroke-width="1.2"/></g><g transform="translate(4 -6) scale(.66)"><path d="M50 40 L62 26 L70 30 L94 44 L90 50 L76 52 L92 58 L86 62 L68 62 L56 56 Z" fill="url(#wdg)" stroke="#5f7895" stroke-width="1.5"/><path d="M60 28 L52 9 L66 27 Z M66 28 L71 11 L72 30Z" fill="#eef4ff" stroke="#5f7895"/><circle cx="72" cy="40" r="6.5" fill="#3ad0ff" opacity=".45"/><ellipse cx="72" cy="40" rx="4.5" ry="2.6" fill="url(#wde)"/><path d="M78 52 L80 56 L82 52 L84 56 L86 52" fill="none" stroke="#fff" stroke-width="1.2"/></g></svg>`,cls:'dragonw',text:'「蒼眼の白竜」×3\n三つの首をもつ究極の白竜。「白竜三位融合」の効果でのみ特殊召喚できる。'},
- s06:{name:'白竜三位融合',type:'spell',effect:'fusion',art:'🌀',text:'自分の手札・フィールドから「蒼眼の白竜」3体を墓地へ送り、「蒼眼の究極白竜」を攻撃表示で融合召喚する。'},
- t03:{name:'鏡面の盾',type:'trap',effect:'noDamage',art:'🪞',text:'相手モンスターの攻撃宣言時に発動できる。この戦闘で自分が受ける戦闘ダメージは0になり、自分は500LP回復する。'},
+g01:{name:'紅蓮鳳ヒノトリ',type:'monster',spirit:true,trib:2,lv:10,attr:'炎',race:'精霊獣',atk:2500,def:2000,effect:'handBoost',art:'🐦‍🔥',bg:'radial-gradient(circle at 50% 40%,#ffd08a,#e0501a 55%,#4a0e00)',text:'このカードを呼び出すには2体ささげる必要がある。このカードの攻撃力は、自分の手札1枚につき300アップする（最大1500アップ）。'},
+g02:{name:'苔むす大樹ゴウボク',type:'monster',spirit:true,trib:2,lv:10,attr:'地',race:'精霊獣',atk:2000,def:3500,effect:'defSwitch',art:'🌳',bg:'radial-gradient(circle at 50% 40%,#d8f5b0,#3f8a2a 55%,#0f2a08)',text:'このカードを呼び出すには2体ささげる必要がある。1ターンに1度、じゅんびの時間に、相手のこうげき形態のモンスター1体を選んでまもり形態にできる。'},
+g03:{name:'白銀の月狼ルナリス',type:'monster',spirit:true,trib:2,lv:10,attr:'闇',race:'精霊獣',atk:2800,def:2200,effect:'killHeal',art:'🐺',bg:'radial-gradient(circle at 50% 40%,#f2f4ff,#8a90b8 55%,#1a1c33)',text:'このカードを呼び出すには2体ささげる必要がある。このカードが戦闘で相手モンスターを破壊するたび、自分のライフを500回復する。'},
+f01:{name:'雷皇竜ヴォルテクス・オーバー',type:'monster',fusion:true,lv:10,attr:'光',race:'竜族',atk:4000,def:3200,art:'',svg:`<svg viewBox="0 0 100 100"><defs><linearGradient id="vog" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d0"/><stop offset="1" stop-color="#e0a030"/></linearGradient><radialGradient id="voe"><stop offset="0" stop-color="#eaffef"/><stop offset=".5" stop-color="#2fd17a"/><stop offset="1" stop-color="#0b6b3a"/></radialGradient></defs><path d="M50 52 L4 20 L14 46 L2 58 L20 60 L12 76 L44 62Z" fill="#ffe9a8" stroke="#7a4a10" stroke-width="1.3"/><path d="M50 52 L96 20 L86 46 L98 58 L80 60 L88 76 L56 62Z" fill="#ffe9a8" stroke="#7a4a10" stroke-width="1.3"/><path d="M38 98 C38 72 44 58 50 50 C56 58 62 72 62 98Z" fill="url(#vog)" stroke="#7a4a10" stroke-width="1.5"/><path d="M42 40 Q50 22 58 40 Q56 50 50 52 Q44 50 42 40Z" fill="url(#vog)" stroke="#7a4a10" stroke-width="1.5"/><path d="M44 30 L38 10 L47 27Z M56 30 L62 10 L53 27Z" fill="#ffb347" stroke="#7a4a10"/><circle cx="46.5" cy="38" r="2.4" fill="url(#voe)"/><circle cx="53.5" cy="38" r="2.4" fill="url(#voe)"/><path d="M50 4 L46 14 L52 14 L48 24" stroke="#ffe680" stroke-width="2.4" fill="none"/></svg>`,cls:'dragonv',text:'「琥珀角の雷竜ヴォルテクス」＋光属性モンスター\n「雷鳴の合一」の効果でのみ特別に呼び出せる。呼び出したターン、このカードは相手のしかけカードの効果を受けない。'},
+s06:{name:'雷鳴の合一',type:'spell',effect:'fusion',art:'🌩️',text:'自分の手札・フィールドから「琥珀角の雷竜ヴォルテクス」と光属性モンスター1体をすてばへ送り、「雷皇竜ヴォルテクス・オーバー」をこうげき形態で合体呼び出す。'},
+ t03:{name:'鏡面の盾',type:'trap',effect:'noDamage',art:'🪞',text:'相手モンスターの攻撃宣言時に発動できる。この戦闘で自分が受ける戦闘ダメージは0になり、自分は500ライフ回復する。'},
  n01:{name:'火焔の剣闘士',type:'monster',lv:4,attr:'炎',race:'戦士族',atk:1700,def:1100,art:'🤺',text:'炎の闘技場で百戦無敗を誇る剣闘士。'},
  n02:{name:'炎獄の魔神バルガ',type:'monster',lv:7,attr:'炎',race:'悪魔族',atk:2600,def:2100,art:'👹',text:'灼熱の地獄に君臨する魔神。その拳は大地を割る。'},
  n03:{name:'闇夜の吸血蝙蝠',type:'monster',lv:3,attr:'闇',race:'獣族',atk:1200,def:900,art:'🦇',text:'闇夜を群れで飛び回る吸血蝙蝠。'},
- n04:{name:'死霊の大魔導師',type:'monster',lv:6,attr:'闇',race:'魔法使い族',atk:2300,def:1700,art:'🧟',text:'禁じられた死霊術を極めた魔導師。'},
+ n04:{name:'死霊の大魔導師',type:'monster',lv:6,attr:'闇',race:'魔導士',atk:2300,def:1700,art:'🧟',text:'禁じられた死霊術を極めた魔導師。'},
  n05:{name:'牙鮫ガルシャーク',type:'monster',lv:4,attr:'水',race:'魚族',atk:1700,def:1000,art:'🦈',text:'鋼の牙で船をも噛み砕く巨大な鮫。'},
  n06:{name:'海竜王レヴィアス',type:'monster',lv:7,attr:'水',race:'海竜族',atk:2600,def:2200,art:'🐋',text:'七つの海を統べる海竜の王。'},
  n07:{name:'翠風の隼',type:'monster',lv:4,attr:'風',race:'鳥獣族',atk:1600,def:1000,art:'🦜',text:'翠の風をまとい音より速く飛ぶ隼。'},
  n08:{name:'天翔ける白馬',type:'monster',lv:5,attr:'風',race:'獣族',atk:2000,def:1600,art:'🐎',text:'雲の上を駆ける純白の天馬。'},
  e01:{name:'火吹き小鬼ボルカ',type:'monster',lv:3,attr:'炎',race:'悪魔族',atk:1300,def:700,art:'👺',fx:{sum:'burn500'}},
  e02:{name:'紅蓮の獅子王レオン',type:'monster',lv:4,attr:'炎',race:'獣族',atk:1600,def:1200,art:'🦁',fx:{boostAttr:true}},
- e03:{name:'爆炎竜ブレイズドレイク',type:'monster',lv:6,attr:'炎',race:'ドラゴン族',atk:2300,def:1800,art:'🦖',fx:{onDes:'burn800'}},
- e04:{name:'冥界の案内人カロン',type:'monster',lv:4,attr:'闇',race:'魔法使い族',atk:1400,def:1400,art:'🧛',fx:{sum:'draw1'}},
+ e03:{name:'爆炎竜ブレイズドレイク',type:'monster',lv:6,attr:'炎',race:'竜族',atk:2300,def:1800,art:'🦖',fx:{onDes:'burn800'}},
+ e04:{name:'冥界の案内人カロン',type:'monster',lv:4,attr:'闇',race:'魔導士',atk:1400,def:1400,art:'🧛',fx:{sum:'draw1'}},
  e05:{name:'夜霧の暗殺者',type:'monster',lv:4,attr:'闇',race:'戦士族',atk:1500,def:600,art:'🥷',fx:{direct:true}},
  e06:{name:'闇夜の魔王ザルグ',type:'monster',lv:4,attr:'闇',race:'悪魔族',atk:1700,def:1000,art:'😈',fx:{boostAttr:true}},
  e07:{name:'さまよう怨霊',type:'monster',lv:2,attr:'闇',race:'アンデット族',atk:600,def:400,art:'👻',fx:{onDes:'draw1'}},
- e08:{name:'渦潮の魔術師マリナ',type:'monster',lv:4,attr:'水',race:'魔法使い族',atk:1400,def:1200,art:'🧜',fx:{sum:'destroyST'}},
+ e08:{name:'渦潮の魔術師マリナ',type:'monster',lv:4,attr:'水',race:'魔導士',atk:1400,def:1200,art:'🧜',fx:{sum:'destroyST'}},
  e09:{name:'大海蛇リヴァイア',type:'monster',lv:5,attr:'水',race:'海竜族',atk:2100,def:1500,art:'🐍',fx:{pierce:true}},
  e10:{name:'氷結の守り手ペンギ',type:'monster',lv:3,attr:'水',race:'水族',atk:800,def:1800,art:'🐧',fx:{guard:true}},
  e11:{name:'潮騒のイルカ姫',type:'monster',lv:4,attr:'水',race:'水族',atk:1300,def:1300,art:'🐬',fx:{boostAttr:true}},
@@ -362,26 +363,26 @@ const CARDS={
  e19:{name:'機械仕掛けの爆弾兵',type:'monster',lv:3,attr:'地',race:'機械族',atk:1000,def:1000,art:'💣',fx:{onDes:'burn800'}},
  e20:{name:'突進する鎧サイ',type:'monster',lv:4,attr:'地',race:'獣族',atk:1700,def:800,art:'🦏',fx:{pierce:true}},
  s07:{name:'大災厄の隕石',type:'spell',effect:'wipeAll',art:'🌠',text:'フィールドのモンスターを全て破壊する。'},
- s08:{name:'魂の帰還',type:'spell',effect:'revive',art:'✨',text:'自分の墓地のモンスター1体を選び、攻撃表示で特殊召喚する（神・融合モンスターは選べない）。'},
+ s08:{name:'魂の帰還',type:'spell',effect:'revive',art:'✨',text:'自分のすてばのモンスター1体を選び、こうげき形態で特別呼び出す（神・合体モンスターは選べない）。'},
  s09:{name:'突風の帰還',type:'spell',effect:'bounce',art:'🌬️',text:'相手フィールドのモンスター1体を選び、持ち主の手札に戻す。'},
  s10:{name:'導きの羅針盤',type:'spell',effect:'search',art:'🧭',text:'自分のデッキからレベル4以下のモンスター1体を選んで手札に加える。'},
- s11:{name:'疾風の一閃',type:'spell',effect:'destroyST',art:'💨',text:'相手フィールドの魔法・罠カード1枚を選んで破壊する。'},
- s12:{name:'魔剣ダークブレイド',type:'spell',effect:'equip',val:500,bonusAttr:'闇',bonusVal:1000,art:'🔪',text:'装備魔法：自分の表側表示モンスター1体に装備する。装備モンスターの攻撃力は500アップする（闇属性なら代わりに1000アップ）。装備モンスターがフィールドを離れた時、このカードを墓地へ送る。'},
- s13:{name:'灼熱の火山帯',type:'spell',effect:'field',attr:'炎',val:500,art:'🌋',text:'フィールド魔法：このカードが表側表示で存在する限り、自分フィールドの炎属性モンスターの攻撃力は500アップする。'},
- s14:{name:'深淵の闇夜',type:'spell',effect:'field',attr:'闇',val:500,art:'🌑',text:'フィールド魔法：このカードが表側表示で存在する限り、自分フィールドの闇属性モンスターの攻撃力は500アップする。'},
- s15:{name:'蒼き大海原',type:'spell',effect:'field',attr:'水',val:500,art:'🌊',text:'フィールド魔法：このカードが表側表示で存在する限り、自分フィールドの水属性モンスターの攻撃力は500アップする。'},
- s16:{name:'天空の聖域',type:'spell',effect:'field',attr:'光',val:500,art:'🏛️',text:'フィールド魔法：このカードが表側表示で存在する限り、自分フィールドの光属性モンスターの攻撃力は500アップする。'},
- s17:{name:'嵐の峡谷',type:'spell',effect:'field',attr:'風',val:500,art:'🏞️',text:'フィールド魔法：このカードが表側表示で存在する限り、自分フィールドの風属性モンスターの攻撃力は500アップする。'},
- t04:{name:'聖なる鏡壁',type:'trap',effect:'wipeAtk',trig:'attack',art:'🔮',text:'相手モンスターの攻撃宣言時に発動できる。相手フィールドの攻撃表示モンスターを全て破壊する。'},
+ s11:{name:'疾風の一閃',type:'spell',effect:'destroyST',art:'💨',text:'相手フィールドのじゅもん・しかけカード1枚を選んで破壊する。'},
+ s12:{name:'魔剣ダークブレイド',type:'spell',effect:'equip',val:500,bonusAttr:'闇',bonusVal:1000,art:'🔪',text:'装備じゅもん：自分のおもて向きモンスター1体に装備する。装備モンスターの攻撃力は500アップする（闇属性なら代わりに1000アップ）。装備モンスターがフィールドを離れた時、このカードをすてばへ送る。'},
+ s13:{name:'灼熱の火山帯',type:'spell',effect:'field',attr:'炎',val:500,art:'🌋',text:'フィールドじゅもん：このカードがおもて向きで存在する限り、自分フィールドの炎属性モンスターの攻撃力は500アップする。'},
+ s14:{name:'深淵の闇夜',type:'spell',effect:'field',attr:'闇',val:500,art:'🌑',text:'フィールドじゅもん：このカードがおもて向きで存在する限り、自分フィールドの闇属性モンスターの攻撃力は500アップする。'},
+ s15:{name:'蒼き大海原',type:'spell',effect:'field',attr:'水',val:500,art:'🌊',text:'フィールドじゅもん：このカードがおもて向きで存在する限り、自分フィールドの水属性モンスターの攻撃力は500アップする。'},
+ s16:{name:'天空の聖域',type:'spell',effect:'field',attr:'光',val:500,art:'🏛️',text:'フィールドじゅもん：このカードがおもて向きで存在する限り、自分フィールドの光属性モンスターの攻撃力は500アップする。'},
+ s17:{name:'嵐の峡谷',type:'spell',effect:'field',attr:'風',val:500,art:'🏞️',text:'フィールドじゅもん：このカードがおもて向きで存在する限り、自分フィールドの風属性モンスターの攻撃力は500アップする。'},
+ t04:{name:'聖なる鏡壁',type:'trap',effect:'wipeAtk',trig:'attack',art:'🔮',text:'相手モンスターの攻撃宣言時に発動できる。相手フィールドのこうげき形態モンスターを全て破壊する。'},
  t05:{name:'報復の鏡',type:'trap',effect:'reflect',trig:'attack',art:'💫',text:'相手モンスターの攻撃宣言時に発動できる。この戦闘で自分が受ける戦闘ダメージは、代わりに相手が受ける。'},
- t06:{name:'深淵の落とし穴',type:'trap',effect:'summonTrap',trig:'summon',art:'🕳️',text:'相手が攻撃力1500以上のモンスターを召喚・特殊召喚した時に発動できる。そのモンスターを破壊する。'},
- t07:{name:'封魔の宣告',type:'trap',effect:'negateSpell',trig:'spell',art:'🚫',text:'相手が魔法カードを発動した時、1000LPを払って発動できる。その発動を無効にし破壊する。'},
+ t06:{name:'深淵の落とし穴',type:'trap',effect:'summonTrap',trig:'summon',art:'🕳️',text:'相手が攻撃力1500以上のモンスターを呼び出し・特別呼び出した時に発動できる。そのモンスターを破壊する。'},
+ t07:{name:'封魔の宣告',type:'trap',effect:'negateSpell',trig:'spell',art:'🚫',text:'相手がじゅもんカードを発動した時、1000ライフを払って発動できる。その発動を無効にし破壊する。'},
  e21:{name:'断罪の処刑人',type:'monster',lv:4,attr:'闇',race:'戦士族',atk:1600,def:1100,art:'🪓',fx:{ign:'destroyLower'}},
- e22:{name:'癒しの聖女リリア',type:'monster',lv:4,attr:'光',race:'魔法使い族',atk:1200,def:1700,art:'💐',fx:{ign:'gainLp'}},
+ e22:{name:'癒しの聖女リリア',type:'monster',lv:4,attr:'光',race:'魔導士',atk:1200,def:1700,art:'💐',fx:{ign:'gainLp'}},
  e23:{name:'号令の角笛兵',type:'monster',lv:4,attr:'地',race:'戦士族',atk:1400,def:1200,art:'📯',fx:{ign:'ssLv4'}},
  e24:{name:'古城の吸血姫カミラ',type:'monster',lv:3,attr:'闇',race:'アンデット族',atk:1000,def:1500,art:'⚰️',fx:{flip:'destroy'}},
- e25:{name:'星読みの占い人形',type:'monster',lv:2,attr:'光',race:'魔法使い族',atk:600,def:1200,art:'🃏',fx:{flip:'draw2'}},
- e26:{name:'紅玉の贄竜',type:'monster',lv:3,attr:'炎',race:'ドラゴン族',atk:1000,def:800,art:'💎',fx:{dblTrib:true}},
+ e25:{name:'星読みの占い人形',type:'monster',lv:2,attr:'光',race:'魔導士',atk:600,def:1200,art:'🃏',fx:{flip:'draw2'}},
+ e26:{name:'紅玉の贄竜',type:'monster',lv:3,attr:'炎',race:'竜族',atk:1000,def:800,art:'💎',fx:{dblTrib:true}},
  e27:{name:'魂喰らいの魔剣士',type:'monster',lv:4,attr:'闇',race:'戦士族',atk:1500,def:1000,art:'☠️',fx:{ign:'discardBoost'}},
  e28:{name:'霧の幻影騎士',type:'monster',lv:4,attr:'水',race:'戦士族',atk:1300,def:1800,art:'🌫️',fx:{negAtk:true}},
  e29:{name:'蜃気楼の踊り子',type:'monster',lv:3,attr:'風',race:'天使族',atk:1100,def:1000,art:'💃',fx:{negAtk:true}},
@@ -391,157 +392,157 @@ const CARDS={
  e33:{name:'岩窟の地帝ガイアロス',type:'monster',lv:7,attr:'地',race:'岩石族',atk:2300,def:2600,art:'⛰️',fx:{lord:true}},
  e34:{name:'暁の光帝アウローラ',type:'monster',lv:7,attr:'光',race:'天使族',atk:2500,def:2100,art:'🌅',fx:{lord:true}},
  e35:{name:'奈落の闇帝ゾルディア',type:'monster',lv:7,attr:'闇',race:'悪魔族',atk:2500,def:2000,art:'🌘',fx:{lord:true}},
- s18:{name:'神速の雷撃',type:'spell',effect:'quickBurn',quick:true,trig:['attack','summon'],art:'🎯',text:'速攻魔法：相手に600ダメージを与える。セットした次のターン以降は、相手ターンの攻撃宣言時・モンスター召喚時にも発動できる。'},
- s19:{name:'闘魂の瞬撃',type:'spell',effect:'quickPump',quick:true,trig:'attack',art:'💪',text:'速攻魔法：自分の表側表示モンスター1体の攻撃力をターン終了時まで800アップする。セットした次のターン以降は、相手モンスターの攻撃宣言時に、攻撃された自分の攻撃表示モンスターを対象に発動できる。'},
- s20:{name:'二重召喚の印',type:'spell',effect:'doubleSummon',art:'✌️',text:'このターン、自分は通常召喚（召喚・セット）をもう1回行うことができる。'},
- s21:{name:'等価交換の儀',type:'spell',effect:'discardDraw',art:'♻️',text:'自分の手札を1枚選んで捨て、デッキから2枚ドローする。'},
- s22:{name:'威圧の咆哮',type:'spell',effect:'allDef',art:'📢',text:'相手フィールドの表側攻撃表示モンスターを全て守備表示にする。'},
- s23:{name:'支配の魔眼',type:'spell',effect:'steal',art:'👁️',text:'相手フィールドのモンスター1体（神は除く）を選び、エンドフェイズまでそのコントロールを得る。そのモンスターは攻撃も生贄にもできる。'},
- s24:{name:'大嵐の旋風',type:'spell',effect:'wipeST',art:'🍃',text:'相手フィールドの魔法・罠カードを全て破壊する。'},
- s25:{name:'闘志の雄叫び',type:'spell',effect:'allAtkUp',art:'📣',text:'自分フィールドの表側表示モンスター全ての攻撃力を、ターン終了時まで500アップする。'},
+ s18:{name:'神速の雷撃',type:'spell',effect:'quickBurn',quick:true,trig:['attack','summon'],art:'🎯',text:'速攻じゅもん：相手に600ダメージを与える。セットした次のターン以降は、相手ターンの攻撃宣言時・モンスター呼び出し時にも発動できる。'},
+ s19:{name:'闘魂の瞬撃',type:'spell',effect:'quickPump',quick:true,trig:'attack',art:'💪',text:'速攻じゅもん：自分のおもて向きモンスター1体の攻撃力をターン終了時まで800アップする。セットした次のターン以降は、相手モンスターの攻撃宣言時に、攻撃された自分のこうげき形態モンスターを対象に発動できる。'},
+ s20:{name:'二重呼び出しの印',type:'spell',effect:'doubleSummon',art:'✌️',text:'このターン、自分は通常呼び出し（呼び出し・セット）をもう1回行うことができる。'},
+ s21:{name:'等価交換の儀',type:'spell',effect:'discardDraw',art:'♻️',text:'自分の手札を1枚選んで捨て、デッキから2枚引く。'},
+ s22:{name:'威圧の咆哮',type:'spell',effect:'allDef',art:'📢',text:'相手フィールドの表側こうげき形態モンスターを全てまもり形態にする。'},
+ s23:{name:'支配の魔眼',type:'spell',effect:'steal',art:'👁️',text:'相手フィールドのモンスター1体（神は除く）を選び、おわりの時間までそのコントロールを得る。そのモンスターは攻撃もささげものにもできる。'},
+ s24:{name:'大嵐の旋風',type:'spell',effect:'wipeST',art:'🍃',text:'相手フィールドのじゅもん・しかけカードを全て破壊する。'},
+ s25:{name:'闘志の雄叫び',type:'spell',effect:'allAtkUp',art:'📣',text:'自分フィールドのおもて向きモンスター全ての攻撃力を、ターン終了時まで500アップする。'},
  s26:{name:'光の封陣',type:'spell',effect:'noAttack',art:'🔆',text:'相手は次のターン、モンスターで攻撃宣言できない。'},
- s27:{name:'星降る祈り',type:'spell',effect:'gyRecycle',art:'🌟',text:'自分の墓地のモンスター1体（融合モンスターは除く）を選んで手札に加える。'},
- t08:{name:'弱体化の呪縛',type:'trap',effect:'contWeaken',cont:true,trig:['attack','summon'],art:'🕸️',text:'永続罠：相手の攻撃宣言時・モンスター召喚時に発動できる。このカードが表側表示で存在する限り、相手フィールドのモンスターの攻撃力は500ダウンする（神は受けない）。'},
- t09:{name:'怨嗟の火柱',type:'trap',effect:'contBurn',cont:true,trig:['attack','summon'],art:'🧨',text:'永続罠：相手の攻撃宣言時・モンスター召喚時に発動できる。このカードが表側表示で存在する限り、相手がモンスターを表側表示で召喚・特殊召喚するたびに、相手に300ダメージを与える（召喚時に発動した場合はその召喚にも適用）。'},
+ s27:{name:'星降る祈り',type:'spell',effect:'gyRecycle',art:'🌟',text:'自分のすてばのモンスター1体（合体モンスターは除く）を選んで手札に加える。'},
+ t08:{name:'弱体化の呪縛',type:'trap',effect:'contWeaken',cont:true,trig:['attack','summon'],art:'🕸️',text:'永続しかけ：相手の攻撃宣言時・モンスター呼び出し時に発動できる。このカードがおもて向きで存在する限り、相手フィールドのモンスターの攻撃力は500ダウンする（神は受けない）。'},
+ t09:{name:'怨嗟の火柱',type:'trap',effect:'contBurn',cont:true,trig:['attack','summon'],art:'🧨',text:'永続しかけ：相手の攻撃宣言時・モンスター呼び出し時に発動できる。このカードがおもて向きで存在する限り、相手がモンスターをおもて向きで呼び出し・特別呼び出すたびに、相手に300ダメージを与える（呼び出し時に発動した場合はその呼び出しにも適用）。'},
  t10:{name:'聖光の反射鏡',type:'trap',effect:'mirrorBurn',trig:'attack',art:'💠',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃モンスターを破壊し、その元々の攻撃力の半分のダメージを相手に与える。'},
- t11:{name:'魔封じの鎖',type:'trap',effect:'negateEff',trig:'effect',art:'⛓️',text:'相手がモンスターの効果（起動効果・召喚時効果・リバース効果）を発動した時に発動できる。その発動を無効にし、そのモンスターを破壊する。'},
- t12:{name:'冥府からの呼び声',type:'trap',effect:'reviveTrap',trig:'attack',art:'⚱️',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、自分の墓地から攻撃力が最も高いモンスター1体（神・融合を除く）を守備表示で特殊召喚する。'},
- t13:{name:'砂塵の旋風',type:'trap',effect:'destroyST',trig:['attack','summon'],art:'🏜️',text:'相手の攻撃宣言時・モンスター召喚時に発動できる。相手フィールドの魔法・罠カード1枚（伏せカード優先）をランダムに破壊する。'},
- t14:{name:'封じられた知識',type:'trap',effect:'skipDraw',trig:['attack','summon','spell'],art:'📕',text:'相手の攻撃宣言時・モンスター召喚時・魔法発動時に発動できる。相手は次のドローフェイズにドローできない。'},
+ t11:{name:'魔封じの鎖',type:'trap',effect:'negateEff',trig:'effect',art:'⛓️',text:'相手がモンスターの効果（起動効果・呼び出し時効果・リバース効果）を発動した時に発動できる。その発動を無効にし、そのモンスターを破壊する。'},
+ t12:{name:'冥府からの呼び声',type:'trap',effect:'reviveTrap',trig:'attack',art:'⚱️',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、自分のすてばから攻撃力が最も高いモンスター1体（神・合体を除く）をまもり形態で特別呼び出す。'},
+ t13:{name:'砂塵の旋風',type:'trap',effect:'destroyST',trig:['attack','summon'],art:'🏜️',text:'相手の攻撃宣言時・モンスター呼び出し時に発動できる。相手フィールドのじゅもん・しかけカード1枚（伏せカード優先）をランダムに破壊する。'},
+ t14:{name:'封じられた知識',type:'trap',effect:'skipDraw',trig:['attack','summon','spell'],art:'📕',text:'相手の攻撃宣言時・モンスター呼び出し時・じゅもん発動時に発動できる。相手は次のひく時間に引くできない。'},
  t15:{name:'逆巻く大渦',type:'trap',effect:'bounceAtk',trig:'attack',art:'🐚',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃モンスターを持ち主の手札に戻す。'},
- t16:{name:'弱体の烙印',type:'trap',effect:'summonWeaken',trig:'summon',art:'🔻',text:'相手が攻撃力1000以上のモンスターを召喚・特殊召喚した時に発動できる。そのモンスターの攻撃力は1000ダウンする。'},
- x01:{name:'混沌の魔術師ノクティス',type:'monster',lv:6,attr:'闇',race:'魔法使い族',atk:2300,def:2000,art:'🧿',fx:{chaos:true,ign:'banishOne'},text:'このカードは通常召喚できない。自分の墓地の光属性と闇属性のモンスターを1体ずつ除外した場合のみ、手札から特殊召喚できる。【起動効果】1ターンに1度、相手フィールドのモンスター1体を除外できる。この効果を発動したターン、このカードは攻撃できない。'},
- x02:{name:'黎明の双極剣士エクリプス',type:'monster',lv:8,attr:'光',race:'戦士族',atk:3000,def:2500,art:'☯️',fx:{chaos:true,ign:'banishOne',ign2:'dblAtk'},text:'このカードは通常召喚できない。自分の墓地の光属性と闇属性のモンスターを1体ずつ除外した場合のみ、手札から特殊召喚できる。【起動効果】1ターンに1度、次のどちらかを発動できる。●相手フィールドのモンスター1体を除外する（このターンこのカードは攻撃できない）。●このターン、このカードは2回攻撃できる。'},
- x03:{name:'紫電の魔剣士ヴォルト',type:'monster',lv:4,attr:'闇',race:'魔法使い族',atk:1600,def:1000,art:'🎇',fx:{sum:'counter',ign:'counterST'},text:'このカードが表側表示で召喚・特殊召喚に成功した時、魔力カウンターを1つ置く。このカードの攻撃力はカウンター1つにつき300アップする。【起動効果】このカードの魔力カウンターを1つ取り除いて発動できる。相手フィールドの魔法・罠カード1枚を破壊する。'},
- x04:{name:'不死の小蛇ウロボ',type:'monster',lv:1,attr:'水',race:'爬虫類族',atk:300,def:250,art:'🐛',fx:{gyReturn:true},text:'このカードが自分の墓地に存在する場合、自分のターンのドローフェイズの後に、このカードを手札に戻す（1ターンに1枚まで）。'},
- x05:{name:'疫病の魔獣ペスティ',type:'monster',lv:4,attr:'水',race:'水族',atk:1600,def:1000,art:'🦠',fx:{ign:'virus'},text:'【起動効果】1ターンに1度、手札を1枚捨て、種族を1つ宣言して発動できる。フィールドの表側表示のその種族のモンスターを全て破壊する。'},
- x06:{name:'機巧の魔人ギアゾ',type:'monster',lv:6,attr:'闇',race:'機械族',atk:2400,def:1500,art:'🦾',fx:{trapLock:true},text:'このカードが表側表示で存在する限り、お互いに罠カードを発動できず、フィールドの永続罠の効果も無効になる。'},
- x07:{name:'骸骨の案内人スカラ',type:'monster',lv:3,attr:'闇',race:'悪魔族',atk:1000,def:600,art:'🦴',fx:{toGY:'atk1500'},text:'このカードがフィールドから墓地へ送られた時（生贄を含む）、自分のデッキから攻撃力1500以下のモンスター1体を選んで手札に加えることができる。'},
- x08:{name:'宵闇の森の魔女モルガ',type:'monster',lv:4,attr:'闇',race:'魔法使い族',atk:1100,def:1200,art:'🌲',fx:{toGY:'def1500'},text:'このカードがフィールドから墓地へ送られた時（生贄を含む）、自分のデッキから守備力1500以下のモンスター1体を選んで手札に加えることができる。'},
- x09:{name:'熟れ実の妖精ベリィ',type:'monster',lv:4,attr:'闇',race:'植物族',atk:1400,def:1100,art:'🍅',fx:{recruit:'闇'},text:'このカードが戦闘で破壊され墓地へ送られた時、自分のデッキから攻撃力1500以下の闇属性モンスター1体を攻撃表示で特殊召喚できる。'},
- x10:{name:'光の巫女ルミエ',type:'monster',lv:4,attr:'光',race:'天使族',atk:1400,def:800,art:'🎐',fx:{recruit:'光'},text:'このカードが戦闘で破壊され墓地へ送られた時、自分のデッキから攻撃力1500以下の光属性モンスター1体を攻撃表示で特殊召喚できる。'},
- x11:{name:'祈祷の魔術師メルル',type:'monster',lv:1,attr:'光',race:'魔法使い族',atk:300,def:400,art:'📿',fx:{flip:'gySpell'},text:'【リバース】このカードが裏側表示から表側表示になった時、自分の墓地の魔法カード1枚を選んで手札に加えることができる。'},
- x12:{name:'気まぐれの大壺',type:'monster',lv:2,attr:'地',race:'岩石族',atk:700,def:600,art:'🏺',fx:{flip:'jar'},text:'【リバース】お互いに手札を全て捨て、デッキから5枚ドローする。'},
- x13:{name:'翼聖騎士アルヴィス',type:'monster',lv:5,attr:'光',race:'天使族',atk:1900,def:1400,art:'🦢',fx:{pierce:true,dmgDraw:true},text:'このカードが守備表示モンスターを攻撃した時、攻撃力が守備力を超えた分だけ戦闘ダメージを与える（貫通）。このカードが相手に戦闘ダメージを与えた時、自分はデッキから1枚ドローする。'},
- x14:{name:'捨て身の遊撃隊',type:'monster',lv:4,attr:'地',race:'戦士族',atk:1000,def:1000,art:'🎖️',fx:{ign:'selfTribDestroy'},text:'【起動効果】このカードを生贄にして発動できる。相手フィールドのモンスター1体を選んで破壊する。'},
+ t16:{name:'弱体の烙印',type:'trap',effect:'summonWeaken',trig:'summon',art:'🔻',text:'相手が攻撃力1000以上のモンスターを呼び出し・特別呼び出した時に発動できる。そのモンスターの攻撃力は1000ダウンする。'},
+ x01:{name:'混沌の魔術師ノクティス',type:'monster',lv:6,attr:'闇',race:'魔導士',atk:2300,def:2000,art:'🧿',fx:{chaos:true,ign:'banishOne'},text:'このカードは通常呼び出せない。自分のすてばの光属性と闇属性のモンスターを1体ずつ除外した場合のみ、手札から特別呼び出せる。【起動効果】1ターンに1度、相手フィールドのモンスター1体を除外できる。この効果を発動したターン、このカードは攻撃できない。'},
+ x02:{name:'黎明の双極剣士エクリプス',type:'monster',lv:8,attr:'光',race:'戦士族',atk:3000,def:2500,art:'☯️',fx:{chaos:true,ign:'banishOne',ign2:'dblAtk'},text:'このカードは通常呼び出せない。自分のすてばの光属性と闇属性のモンスターを1体ずつ除外した場合のみ、手札から特別呼び出せる。【起動効果】1ターンに1度、次のどちらかを発動できる。●相手フィールドのモンスター1体を除外する（このターンこのカードは攻撃できない）。●このターン、このカードは2回攻撃できる。'},
+ x03:{name:'紫電の魔剣士ヴォルト',type:'monster',lv:4,attr:'闇',race:'魔導士',atk:1600,def:1000,art:'🎇',fx:{sum:'counter',ign:'counterST'},text:'このカードがおもて向きで呼び出し・特別呼び出しに成功した時、魔力カウンターを1つ置く。このカードの攻撃力はカウンター1つにつき300アップする。【起動効果】このカードの魔力カウンターを1つ取り除いて発動できる。相手フィールドのじゅもん・しかけカード1枚を破壊する。'},
+ x04:{name:'不死の小蛇ウロボ',type:'monster',lv:1,attr:'水',race:'爬虫類族',atk:300,def:250,art:'🐛',fx:{gyReturn:true},text:'このカードが自分のすてばに存在する場合、自分のターンのひく時間の後に、このカードを手札に戻す（1ターンに1枚まで）。'},
+ x05:{name:'疫病の魔獣ペスティ',type:'monster',lv:4,attr:'水',race:'水族',atk:1600,def:1000,art:'🦠',fx:{ign:'virus'},text:'【起動効果】1ターンに1度、手札を1枚捨て、種族を1つ宣言して発動できる。フィールドのおもて向きのその種族のモンスターを全て破壊する。'},
+ x06:{name:'機巧の魔人ギアゾ',type:'monster',lv:6,attr:'闇',race:'機械族',atk:2400,def:1500,art:'🦾',fx:{trapLock:true},text:'このカードがおもて向きで存在する限り、お互いにしかけカードを発動できず、フィールドの永続しかけの効果も無効になる。'},
+ x07:{name:'骸骨の案内人スカラ',type:'monster',lv:3,attr:'闇',race:'悪魔族',atk:1000,def:600,art:'🦴',fx:{toGY:'atk1500'},text:'このカードがフィールドからすてばへ送られた時（ささげものを含む）、自分のデッキから攻撃力1500以下のモンスター1体を選んで手札に加えることができる。'},
+ x08:{name:'宵闇の森の魔女モルガ',type:'monster',lv:4,attr:'闇',race:'魔導士',atk:1100,def:1200,art:'🌲',fx:{toGY:'def1500'},text:'このカードがフィールドからすてばへ送られた時（ささげものを含む）、自分のデッキから守備力1500以下のモンスター1体を選んで手札に加えることができる。'},
+ x09:{name:'熟れ実の妖精ベリィ',type:'monster',lv:4,attr:'闇',race:'植物族',atk:1400,def:1100,art:'🍅',fx:{recruit:'闇'},text:'このカードが戦闘で破壊されすてばへ送られた時、自分のデッキから攻撃力1500以下の闇属性モンスター1体をこうげき形態で特別呼び出せる。'},
+ x10:{name:'光の巫女ルミエ',type:'monster',lv:4,attr:'光',race:'天使族',atk:1400,def:800,art:'🎐',fx:{recruit:'光'},text:'このカードが戦闘で破壊されすてばへ送られた時、自分のデッキから攻撃力1500以下の光属性モンスター1体をこうげき形態で特別呼び出せる。'},
+ x11:{name:'祈祷の魔術師メルル',type:'monster',lv:1,attr:'光',race:'魔導士',atk:300,def:400,art:'📿',fx:{flip:'gySpell'},text:'【リバース】このカードがうら向きからおもて向きになった時、自分のすてばのじゅもんカード1枚を選んで手札に加えることができる。'},
+ x12:{name:'気まぐれの大壺',type:'monster',lv:2,attr:'地',race:'岩石族',atk:700,def:600,art:'🏺',fx:{flip:'jar'},text:'【リバース】お互いに手札を全て捨て、デッキから5枚引く。'},
+ x13:{name:'翼聖騎士アルヴィス',type:'monster',lv:5,attr:'光',race:'天使族',atk:1900,def:1400,art:'🦢',fx:{pierce:true,dmgDraw:true},text:'このカードがまもり形態モンスターを攻撃した時、攻撃力が守備力を超えた分だけ戦闘ダメージを与える（貫通）。このカードが相手に戦闘ダメージを与えた時、自分はデッキから1枚引く。'},
+ x14:{name:'捨て身の遊撃隊',type:'monster',lv:4,attr:'地',race:'戦士族',atk:1000,def:1000,art:'🎖️',fx:{ign:'selfTribDestroy'},text:'【起動効果】このカードをささげものにして発動できる。相手フィールドのモンスター1体を選んで破壊する。'},
  x15:{name:'狭間の女剣士リーネ',type:'monster',lv:4,attr:'光',race:'戦士族',atk:1500,def:1600,art:'🌗',fx:{ddLady:true},text:'このカードが戦闘を行ったダメージ計算後、戦闘した相手モンスターがフィールドに残っている場合、そのモンスターとこのカードを除外する。'},
  x16:{name:'冥使の大鎌ヴェイル',type:'monster',lv:3,attr:'闇',race:'アンデット族',atk:300,def:200,art:'👤',fx:{noBattleDes:true,dmgDiscard:true},text:'このカードは戦闘では破壊されない。このカードが相手に直接攻撃で戦闘ダメージを与えた時、相手の手札をランダムに1枚捨てる。'},
- x17:{name:'月影の巫女ヨミカ',type:'monster',lv:4,attr:'闇',race:'魔法使い族',atk:1100,def:1400,art:'🌙',fx:{sum:'setDown',flip:'setDown'},text:'このカードが召喚に成功した時、またはリバースした時、相手フィールドの表側表示モンスター1体（神を除く）を選んで裏側守備表示にできる。'},
- x18:{name:'行商の小鬼ポッケ',type:'monster',lv:1,attr:'光',race:'悪魔族',atk:200,def:700,art:'🎒',fx:{flip:'mill'},text:'【リバース】自分のデッキの上から魔法・罠カードが出るまでめくり、そのカードを手札に加える。残りのめくったカードは墓地へ送る。'},
+ x17:{name:'月影の巫女ヨミカ',type:'monster',lv:4,attr:'闇',race:'魔導士',atk:1100,def:1400,art:'🌙',fx:{sum:'setDown',flip:'setDown'},text:'このカードが呼び出しに成功した時、またはリバースした時、相手フィールドのおもて向きモンスター1体（神を除く）を選んで裏側まもり形態にできる。'},
+ x18:{name:'行商の小鬼ポッケ',type:'monster',lv:1,attr:'光',race:'悪魔族',atk:200,def:700,art:'🎒',fx:{flip:'mill'},text:'【リバース】自分のデッキの上からじゅもん・しかけカードが出るまでめくり、そのカードを手札に加える。残りのめくったカードはすてばへ送る。'},
  x19:{name:'六臂の武僧ガンダラ',type:'monster',lv:4,attr:'光',race:'戦士族',atk:1700,def:1200,art:'🙏',fx:{dbl:true},text:'このカードは1ターンに2回攻撃できる。'},
- x20:{name:'雷鳴の幼竜',type:'monster',lv:5,attr:'光',race:'雷族',atk:1600,def:1500,art:'🦕',fx:{handIgn:'thunder'},text:'【手札で発動】自分メインフェイズにこのカードを手札から捨てて発動できる。デッキから「雷鳴の幼竜」を2枚まで手札に加える。'},
- x21:{name:'虚空の狩人ヴォイド',type:'monster',lv:4,attr:'闇',race:'悪魔族',atk:1700,def:1600,art:'🌌',fx:{banishBattle:true},text:'このカードと戦闘を行い破壊されたモンスターは墓地へ送られず除外される。'},
- x22:{name:'霊魂狩りのキオ',type:'monster',lv:4,attr:'闇',race:'魔法使い族',atk:1800,def:700,art:'🏹',fx:{dmgBanishGY:true},text:'このカードが相手に戦闘ダメージを与えた時、相手の墓地のモンスターを2体まで除外する。'},
+ x20:{name:'雷鳴の幼竜',type:'monster',lv:5,attr:'光',race:'雷族',atk:1600,def:1500,art:'🦕',fx:{handIgn:'thunder'},text:'【手札で発動】自分じゅんびの時間にこのカードを手札から捨てて発動できる。デッキから「雷鳴の幼竜」を2枚まで手札に加える。'},
+ x21:{name:'虚空の狩人ヴォイド',type:'monster',lv:4,attr:'闇',race:'悪魔族',atk:1700,def:1600,art:'🌌',fx:{banishBattle:true},text:'このカードと戦闘を行い破壊されたモンスターはすてばへ送られず除外される。'},
+ x22:{name:'霊魂狩りのキオ',type:'monster',lv:4,attr:'闇',race:'魔導士',atk:1800,def:700,art:'🏹',fx:{dmgBanishGY:true},text:'このカードが相手に戦闘ダメージを与えた時、相手のすてばのモンスターを2体まで除外する。'},
  x23:{name:'破砕の機械壺',type:'monster',lv:3,attr:'闇',race:'機械族',atk:900,def:900,art:'⚙️',fx:{flip:'wipeAllFlip'},text:'【リバース】フィールドのモンスター（神を除く）を全て破壊する。'},
- x24:{name:'覇道の虎王',type:'monster',lv:4,attr:'地',race:'獣族',atk:1700,def:1000,art:'🐅',fx:{tigerKill:true},text:'このカードが表側表示で存在する限り、元々の攻撃力1400以下のモンスターが表側表示で召喚・特殊召喚された時、そのモンスターを破壊する。'},
- y01:{name:'慈悲深き天啓',type:'spell',effect:'charity',art:'🙌',text:'自分のデッキから3枚ドローし、その後手札を2枚選んで捨てる。'},
- y02:{name:'悪童の二人組',type:'spell',effect:'duo',art:'👯',text:'1000LPを払って発動できる。相手は手札をランダムに1枚捨て、さらに自分で選んだ手札1枚を捨てる。'},
- y03:{name:'略奪の呪印',type:'spell',effect:'snatch',art:'🎭',text:'装備魔法：相手フィールドの表側表示モンスター1体（神を除く）のコントロールを得て、このカードを装備する。このカードがフィールドを離れた時、コントロールは元に戻る。相手のターンの開始時ごとに、相手は1000LP回復する。'},
- y04:{name:'旋風の短剣',type:'spell',effect:'quickST',quick:true,trig:['attack','summon','spell'],art:'🍂',text:'速攻魔法：相手フィールドの魔法・罠カード1枚を破壊する。セットした次のターン以降は、相手ターンの攻撃宣言時・召喚時・魔法発動時にも発動できる（その場合は伏せカードを優先して自動で選ぶ）。'},
- y05:{name:'黄泉帰りの契約',type:'spell',effect:'premature',art:'🩸',text:'800LPを払って発動できる。自分の墓地のモンスター1体（神・融合を除く）を攻撃表示で特殊召喚する。'},
- y06:{name:'朧月の頁',type:'spell',effect:'quickMoon',quick:true,trig:['attack','summon'],art:'📘',text:'速攻魔法：相手フィールドの表側表示モンスター1体（神を除く）を裏側守備表示にする。セットした次のターン以降は、相手の攻撃宣言時（攻撃モンスターを裏側にして攻撃を止める）・召喚時にも発動できる。'},
- y07:{name:'貴人の追放令',type:'spell',effect:'nobleman',art:'👑',text:'相手フィールドの裏側表示モンスター1体を選んで破壊し、除外する。'},
- y08:{name:'大地割りの鉄槌',type:'spell',effect:'smashing',art:'🔨',text:'相手フィールドの表側表示モンスターのうち、守備力が最も高いモンスター1体を破壊する。'},
- y09:{name:'傀儡の邪眼',type:'spell',effect:'brain',art:'🧠',text:'800LPを払って発動できる。相手フィールドの表側表示モンスター1体（神を除く）のコントロールをエンドフェイズまで得る。'},
- y10:{name:'輪廻の秘儀',type:'spell',effect:'reborn',art:'☸️',text:'お互いの墓地のモンスター1体（神・融合を除く）を選び、自分フィールドに攻撃表示で特殊召喚する。'},
+ x24:{name:'覇道の虎王',type:'monster',lv:4,attr:'地',race:'獣族',atk:1700,def:1000,art:'🐅',fx:{tigerKill:true},text:'このカードがおもて向きで存在する限り、元々の攻撃力1400以下のモンスターがおもて向きで呼び出し・特別呼び出された時、そのモンスターを破壊する。'},
+ y01:{name:'慈悲深き天啓',type:'spell',effect:'charity',art:'🙌',text:'自分のデッキから3枚引くし、その後手札を2枚選んで捨てる。'},
+ y02:{name:'悪童の二人組',type:'spell',effect:'duo',art:'👯',text:'1000ライフを払って発動できる。相手は手札をランダムに1枚捨て、さらに自分で選んだ手札1枚を捨てる。'},
+ y03:{name:'略奪の呪印',type:'spell',effect:'snatch',art:'🎭',text:'装備じゅもん：相手フィールドのおもて向きモンスター1体（神を除く）のコントロールを得て、このカードを装備する。このカードがフィールドを離れた時、コントロールは元に戻る。相手のターンの開始時ごとに、相手は1000ライフ回復する。'},
+ y04:{name:'旋風の短剣',type:'spell',effect:'quickST',quick:true,trig:['attack','summon','spell'],art:'🍂',text:'速攻じゅもん：相手フィールドのじゅもん・しかけカード1枚を破壊する。セットした次のターン以降は、相手ターンの攻撃宣言時・呼び出し時・じゅもん発動時にも発動できる（その場合は伏せカードを優先して自動で選ぶ）。'},
+ y05:{name:'黄泉帰りの契約',type:'spell',effect:'premature',art:'🩸',text:'800ライフを払って発動できる。自分のすてばのモンスター1体（神・合体を除く）をこうげき形態で特別呼び出す。'},
+ y06:{name:'朧月の頁',type:'spell',effect:'quickMoon',quick:true,trig:['attack','summon'],art:'📘',text:'速攻じゅもん：相手フィールドのおもて向きモンスター1体（神を除く）を裏側まもり形態にする。セットした次のターン以降は、相手の攻撃宣言時（攻撃モンスターを裏側にして攻撃を止める）・呼び出し時にも発動できる。'},
+ y07:{name:'貴人の追放令',type:'spell',effect:'nobleman',art:'👑',text:'相手フィールドのうら向きモンスター1体を選んで破壊し、除外する。'},
+ y08:{name:'大地割りの鉄槌',type:'spell',effect:'smashing',art:'🔨',text:'相手フィールドのおもて向きモンスターのうち、守備力が最も高いモンスター1体を破壊する。'},
+ y09:{name:'傀儡の邪眼',type:'spell',effect:'brain',art:'🧠',text:'800ライフを払って発動できる。相手フィールドのおもて向きモンスター1体（神を除く）のコントロールをおわりの時間まで得る。'},
+ y10:{name:'輪廻の秘儀',type:'spell',effect:'reborn',art:'☸️',text:'お互いのすてばのモンスター1体（神・合体を除く）を選び、自分フィールドにこうげき形態で特別呼び出す。'},
  y11:{name:'天より降る万雷',type:'spell',effect:'raigeki',art:'🌧️',text:'相手フィールドのモンスターを全て破壊する。'},
- y12:{name:'身代わり綿毛羊',type:'spell',effect:'goat',quick:true,trig:'attack',art:'🐑',text:'速攻魔法：自分フィールドの空いているモンスターゾーンに「綿毛羊トークン」（獣族・地・Lv1・攻0/守0）を守備表示で特殊召喚する（最大3体）。自分のターンに発動した場合、そのターン自分は通常召喚できない（召喚後は発動できない）。相手の攻撃宣言時に発動した場合、その攻撃を無効にする。トークンは生贄召喚の生贄にできない。'},
- y13:{name:'没収の宣告',type:'spell',effect:'confiscate',art:'📋',text:'1000LPを払って発動できる。相手の手札を見て、その中から1枚選んで捨てさせる。'},
+ y12:{name:'身代わり綿毛羊',type:'spell',effect:'goat',quick:true,trig:'attack',art:'🐑',text:'速攻じゅもん：自分フィールドの空いているモンスターゾーンに「綿毛羊トークン」（獣族・地・Lv1・攻0/守0）をまもり形態で特別呼び出す（最大3体）。自分のターンに発動した場合、そのターン自分は通常呼び出せない（呼び出し後は発動できない）。相手の攻撃宣言時に発動した場合、その攻撃を無効にする。トークンはささげ呼び出しのささげものにできない。'},
+ y13:{name:'没収の宣告',type:'spell',effect:'confiscate',art:'📋',text:'1000ライフを払って発動できる。相手の手札を見て、その中から1枚選んで捨てさせる。'},
  y14:{name:'覗き見の衛兵',type:'spell',effect:'sentry',art:'💂',text:'相手の手札を見て、その中から1枚選んで相手のデッキに戻し、シャッフルする。'},
- y15:{name:'渦雷の嵐',type:'spell',effect:'vortex',art:'🎆',text:'手札を1枚捨てて発動できる。相手フィールドの表側表示モンスターを全て破壊する。'},
+ y15:{name:'渦雷の嵐',type:'spell',effect:'vortex',art:'🎆',text:'手札を1枚捨てて発動できる。相手フィールドのおもて向きモンスターを全て破壊する。'},
  y16:{name:'魂の交換',type:'spell',effect:'swap',art:'🔄',text:'自分と相手のモンスターを1体ずつ選び（神を除く）、そのコントロールを入れ替える。'},
- z01:{name:'奔流の生贄',type:'trap',effect:'torrential',trig:'summon',art:'💦',text:'相手がモンスターを召喚・特殊召喚した時に発動できる。フィールドのモンスター（神を除く）を全て破壊する。'},
- z02:{name:'破滅の首輪',type:'trap',effect:'ring',trig:['attack','summon'],art:'⭕',text:'相手の攻撃宣言時（攻撃モンスター）または召喚時（召喚したモンスター）に、その表側表示モンスターを破壊し、お互いにその攻撃力分のダメージを受ける（神には発動できない）。'},
+ z01:{name:'奔流のささげもの',type:'trap',effect:'torrential',trig:'summon',art:'💦',text:'相手がモンスターを呼び出し・特別呼び出した時に発動できる。フィールドのモンスター（神を除く）を全て破壊する。'},
+ z02:{name:'破滅の首輪',type:'trap',effect:'ring',trig:['attack','summon'],art:'⭕',text:'相手の攻撃宣言時（攻撃モンスター）または呼び出し時（呼び出したモンスター）に、そのおもて向きモンスターを破壊し、お互いにその攻撃力分のダメージを受ける（神には発動できない）。'},
  z03:{name:'反転の魔鏡筒',type:'trap',effect:'cylinder',trig:'attack',art:'🎩',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、攻撃モンスターの攻撃力分のダメージを相手に与える。'},
- z04:{name:'底なしの虚穴',type:'trap',effect:'bottomless',trig:'summon',art:'⚫',text:'相手が攻撃力1500以上のモンスターを召喚・特殊召喚した時に発動できる。そのモンスターを破壊し、除外する。'},
- z05:{name:'亡霊の招来',type:'trap',effect:'callDead',trig:['attack','summon','spell'],art:'🔔',text:'相手の攻撃宣言時・召喚時・魔法発動時に発動できる。自分の墓地の攻撃力が最も高いモンスター1体（神・融合を除く）を攻撃表示で特殊召喚する。'},
- z06:{name:'雷撃の報い',type:'trap',effect:'rBreak',trig:['attack','summon'],art:'💢',text:'手札を1枚捨てて発動できる。相手の攻撃モンスター、または召喚したモンスターを破壊する。'},
- z07:{name:'神聖なる裁定',type:'trap',effect:'solemn',trig:['summon','spell'],art:'⚖️',text:'LPを半分払って発動できる。相手のモンスターの召喚（そのモンスターを破壊）または魔法カードの発動を無効にする。'},
- z08:{name:'魔力の封鎖',type:'trap',effect:'jammer',trig:'spell',art:'🧯',text:'手札を1枚捨てて発動できる。相手の魔法カードの発動を無効にし破壊する。'},
- z09:{name:'欲深き賭博',type:'trap',effect:'greed',trig:['attack','summon','spell'],art:'🎲',text:'自分はデッキから2枚ドローする。その後、自分は次のドローフェイズを2回スキップする。'},
- z10:{name:'重力の檻',type:'trap',effect:'gravity',cont:true,trig:['attack','summon'],art:'🧲',text:'永続罠：このカードが表側表示で存在する限り、レベル4以上のモンスター（神を除く）は攻撃宣言できない（お互い）。攻撃宣言時に発動した場合、その攻撃モンスターがレベル4以上なら攻撃は無効になる。'},
- k01:{name:'綿毛羊トークン',type:'monster',token:true,lv:1,attr:'地',race:'獣族',atk:0,def:0,art:'🐑',text:'「身代わり綿毛羊」の効果で特殊召喚されるトークン。フィールドを離れると消滅する。生贄召喚の生贄にはできない。'},
+ z04:{name:'底なしの虚穴',type:'trap',effect:'bottomless',trig:'summon',art:'⚫',text:'相手が攻撃力1500以上のモンスターを呼び出し・特別呼び出した時に発動できる。そのモンスターを破壊し、除外する。'},
+ z05:{name:'亡霊の招来',type:'trap',effect:'callDead',trig:['attack','summon','spell'],art:'🔔',text:'相手の攻撃宣言時・呼び出し時・じゅもん発動時に発動できる。自分のすてばの攻撃力が最も高いモンスター1体（神・合体を除く）をこうげき形態で特別呼び出す。'},
+ z06:{name:'雷撃の報い',type:'trap',effect:'rBreak',trig:['attack','summon'],art:'💢',text:'手札を1枚捨てて発動できる。相手の攻撃モンスター、または呼び出したモンスターを破壊する。'},
+ z07:{name:'神聖なる裁定',type:'trap',effect:'solemn',trig:['summon','spell'],art:'⚖️',text:'ライフを半分払って発動できる。相手のモンスターの呼び出し（そのモンスターを破壊）またはじゅもんカードの発動を無効にする。'},
+ z08:{name:'魔力の封鎖',type:'trap',effect:'jammer',trig:'spell',art:'🧯',text:'手札を1枚捨てて発動できる。相手のじゅもんカードの発動を無効にし破壊する。'},
+ z09:{name:'欲深き賭博',type:'trap',effect:'greed',trig:['attack','summon','spell'],art:'🎲',text:'自分はデッキから2枚引く。その後、自分は次のひく時間を2回スキップする。'},
+ z10:{name:'重力の檻',type:'trap',effect:'gravity',cont:true,trig:['attack','summon'],art:'🧲',text:'永続しかけ：このカードがおもて向きで存在する限り、レベル4以上のモンスター（神を除く）は攻撃宣言できない（お互い）。攻撃宣言時に発動した場合、その攻撃モンスターがレベル4以上なら攻撃は無効になる。'},
+ k01:{name:'綿毛羊トークン',type:'monster',token:true,lv:1,attr:'地',race:'獣族',atk:0,def:0,art:'🐑',text:'「身代わり綿毛羊」の効果で特別呼び出されるトークン。フィールドを離れると消滅する。ささげ呼び出しのささげものにはできない。'},
  w01:{name:'混沌の儀礼騎士ルクス',type:'monster',ritual:true,lv:8,attr:'光',race:'戦士族',atk:3000,def:2500,art:'🛡️',text:'「暁闇の降臨儀式」により降臨する儀式モンスター。光と闇の境界を斬り拓く伝説の騎士。'},
- w02:{name:'千眼の呪縛像',type:'monster',ritual:true,lv:1,attr:'闇',race:'魔法使い族',atk:0,def:0,art:'👁️',fx:{ign:'absorb'},text:'「千眼の偶像儀式」により降臨する儀式モンスター。【起動効果】1ターンに1度、相手フィールドのモンスター1体（神を除く）を選び、このカードに吸収できる（このカードが既に吸収している場合は発動できない）。このカードの攻撃力・守備力は吸収したモンスターの元々の数値になる。このカードがフィールドを離れた時、吸収したモンスターは持ち主の墓地へ送られる。'},
- w03:{name:'黒衣の大魔導士ゼノン',type:'monster',lv:7,attr:'闇',race:'魔法使い族',atk:2500,def:2100,art:'🧙',text:'黒き衣をまとう最強の魔導士。その魔力は数多の秘術の源となる。'},
- w04:{name:'竜殺しの大剣士',type:'monster',lv:7,attr:'地',race:'戦士族',atk:2600,def:2300,art:'🗡️',fx:{dragonSlayer:true},text:'このカードの攻撃力は、相手のフィールドの表側表示モンスターと墓地のモンスターのうち、ドラゴン族1体につき500アップする。'},
- w05:{name:'吸血公爵ドラクル',type:'monster',lv:5,attr:'闇',race:'アンデット族',atk:2000,def:1500,art:'🧛',fx:{dmgMill:2},text:'このカードが相手に戦闘ダメージを与えた時、相手はデッキの上からカードを2枚墓地へ送る。'},
- w06:{name:'怨霊の女王ネクロア',type:'monster',lv:8,attr:'闇',race:'悪魔族',atk:2200,def:2800,art:'👸',fx:{ss3:'闇'},text:'このカードは通常召喚できない。自分の墓地の闇属性モンスター3体を除外した場合のみ、手札から特殊召喚できる。'},
- w07:{name:'注射天使リリィ',type:'monster',lv:3,attr:'光',race:'天使族',atk:400,def:1500,art:'💉',fx:{lily:true},text:'このカードが戦闘を行うダメージ計算前に1度、2000LPを払って発動できる。このカードの攻撃力はターン終了時まで3000アップする。'},
- w08:{name:'雷鳴の君主ザボル',type:'monster',lv:5,attr:'光',race:'雷族',atk:2400,def:1000,art:'⚡',fx:{tribSum:'destroy'},text:'このカードが生贄召喚に成功した時、相手フィールドのモンスター1体を選んで破壊できる。'},
- w09:{name:'焦熱の君主テスタロ',type:'monster',lv:5,attr:'炎',race:'炎族',atk:2400,def:1000,art:'🌋',fx:{tribSum:'handBurn'},text:'このカードが生贄召喚に成功した時、相手の手札をランダムに1枚捨てる。それがモンスターカードだった場合、そのレベル×100ダメージを相手に与える。'},
- w10:{name:'氷結の君主メビウ',type:'monster',lv:5,attr:'水',race:'水族',atk:2400,def:1000,art:'❄️',fx:{tribSum:'st2'},text:'このカードが生贄召喚に成功した時、相手フィールドの魔法・罠カードを2枚まで選んで破壊できる。'},
- w11:{name:'霊峰の君主グラマ',type:'monster',lv:5,attr:'地',race:'岩石族',atk:2400,def:1000,art:'⛰️',fx:{tribSum:'setCard'},text:'このカードが生贄召喚に成功した時、相手フィールドにセットされた魔法・罠カード1枚（存在しない場合は裏側表示モンスター1体）を選んで破壊できる。'},
- w12:{name:'大地の大鼠',type:'monster',lv:4,attr:'地',race:'獣族',atk:1400,def:1450,art:'🐀',fx:{recruit:'地'},text:'このカードが戦闘で破壊され墓地へ送られた時、自分のデッキから攻撃力1500以下の地属性モンスター1体を攻撃表示で特殊召喚できる。'},
- w13:{name:'炎甲の円盤亀',type:'monster',lv:4,attr:'炎',race:'機械族',atk:1400,def:1200,art:'🐢',fx:{recruit:'炎'},text:'このカードが戦闘で破壊され墓地へ送られた時、自分のデッキから攻撃力1500以下の炎属性モンスター1体を攻撃表示で特殊召喚できる。'},
- w14:{name:'森の母熊グリズ',type:'monster',lv:4,attr:'水',race:'獣戦士族',atk:1400,def:1000,art:'🐻',fx:{recruit:'水'},text:'このカードが戦闘で破壊され墓地へ送られた時、自分のデッキから攻撃力1500以下の水属性モンスター1体を攻撃表示で特殊召喚できる。'},
- w15:{name:'疾風の大蟷螂',type:'monster',lv:4,attr:'風',race:'昆虫族',atk:1400,def:900,art:'🦗',fx:{recruit:'風'},text:'このカードが戦闘で破壊され墓地へ送られた時、自分のデッキから攻撃力1500以下の風属性モンスター1体を攻撃表示で特殊召喚できる。'},
- w16:{name:'不壊の綿雪スライム',type:'monster',lv:3,attr:'光',race:'天使族',atk:300,def:500,art:'☁️',fx:{noBattleDes:true,marsh:true},text:'このカードは戦闘では破壊されない。裏側表示のこのカードを攻撃したモンスターのコントローラーは、ダメージ計算後に1000ダメージを受ける。'},
- w17:{name:'大盾の守衛ガルド',type:'monster',lv:4,attr:'地',race:'戦士族',atk:100,def:2600,art:'🛡',fx:{toAtkAfter:true},text:'守備表示のこのカードが攻撃された場合、ダメージ計算後にこのカードは攻撃表示になる。'},
+ w02:{name:'千眼の呪縛像',type:'monster',ritual:true,lv:1,attr:'闇',race:'魔導士',atk:0,def:0,art:'👁️',fx:{ign:'absorb'},text:'「千眼の偶像儀式」により降臨する儀式モンスター。【起動効果】1ターンに1度、相手フィールドのモンスター1体（神を除く）を選び、このカードに吸収できる（このカードが既に吸収している場合は発動できない）。このカードの攻撃力・守備力は吸収したモンスターの元々の数値になる。このカードがフィールドを離れた時、吸収したモンスターは持ち主のすてばへ送られる。'},
+ w03:{name:'黒衣の大魔導士ゼノン',type:'monster',lv:7,attr:'闇',race:'魔導士',atk:2500,def:2100,art:'🧙',text:'黒き衣をまとう最強の魔導士。その魔力は数多の秘術の源となる。'},
+ w04:{name:'竜殺しの大剣士',type:'monster',lv:7,attr:'地',race:'戦士族',atk:2600,def:2300,art:'🗡️',fx:{dragonSlayer:true},text:'このカードの攻撃力は、相手のフィールドのおもて向きモンスターとすてばのモンスターのうち、竜族1体につき500アップする。'},
+ w05:{name:'吸血公爵ドラクル',type:'monster',lv:5,attr:'闇',race:'アンデット族',atk:2000,def:1500,art:'🧛',fx:{dmgMill:2},text:'このカードが相手に戦闘ダメージを与えた時、相手はデッキの上からカードを2枚すてばへ送る。'},
+ w06:{name:'怨霊の女王ネクロア',type:'monster',lv:8,attr:'闇',race:'悪魔族',atk:2200,def:2800,art:'👸',fx:{ss3:'闇'},text:'このカードは通常呼び出せない。自分のすてばの闇属性モンスター3体を除外した場合のみ、手札から特別呼び出せる。'},
+ w07:{name:'注射天使リリィ',type:'monster',lv:3,attr:'光',race:'天使族',atk:400,def:1500,art:'💉',fx:{lily:true},text:'このカードが戦闘を行うダメージ計算前に1度、2000ライフを払って発動できる。このカードの攻撃力はターン終了時まで3000アップする。'},
+ w08:{name:'雷鳴の君主ザボル',type:'monster',lv:5,attr:'光',race:'雷族',atk:2400,def:1000,art:'⚡',fx:{tribSum:'destroy'},text:'このカードがささげ呼び出しに成功した時、相手フィールドのモンスター1体を選んで破壊できる。'},
+ w09:{name:'焦熱の君主テスタロ',type:'monster',lv:5,attr:'炎',race:'炎族',atk:2400,def:1000,art:'🌋',fx:{tribSum:'handBurn'},text:'このカードがささげ呼び出しに成功した時、相手の手札をランダムに1枚捨てる。それがモンスターカードだった場合、そのレベル×100ダメージを相手に与える。'},
+ w10:{name:'氷結の君主メビウ',type:'monster',lv:5,attr:'水',race:'水族',atk:2400,def:1000,art:'❄️',fx:{tribSum:'st2'},text:'このカードがささげ呼び出しに成功した時、相手フィールドのじゅもん・しかけカードを2枚まで選んで破壊できる。'},
+ w11:{name:'霊峰の君主グラマ',type:'monster',lv:5,attr:'地',race:'岩石族',atk:2400,def:1000,art:'⛰️',fx:{tribSum:'setCard'},text:'このカードがささげ呼び出しに成功した時、相手フィールドにセットされたじゅもん・しかけカード1枚（存在しない場合はうら向きモンスター1体）を選んで破壊できる。'},
+ w12:{name:'大地の大鼠',type:'monster',lv:4,attr:'地',race:'獣族',atk:1400,def:1450,art:'🐀',fx:{recruit:'地'},text:'このカードが戦闘で破壊されすてばへ送られた時、自分のデッキから攻撃力1500以下の地属性モンスター1体をこうげき形態で特別呼び出せる。'},
+ w13:{name:'炎甲の円盤亀',type:'monster',lv:4,attr:'炎',race:'機械族',atk:1400,def:1200,art:'🐢',fx:{recruit:'炎'},text:'このカードが戦闘で破壊されすてばへ送られた時、自分のデッキから攻撃力1500以下の炎属性モンスター1体をこうげき形態で特別呼び出せる。'},
+ w14:{name:'森の母熊グリズ',type:'monster',lv:4,attr:'水',race:'獣戦士族',atk:1400,def:1000,art:'🐻',fx:{recruit:'水'},text:'このカードが戦闘で破壊されすてばへ送られた時、自分のデッキから攻撃力1500以下の水属性モンスター1体をこうげき形態で特別呼び出せる。'},
+ w15:{name:'疾風の大蟷螂',type:'monster',lv:4,attr:'風',race:'昆虫族',atk:1400,def:900,art:'🦗',fx:{recruit:'風'},text:'このカードが戦闘で破壊されすてばへ送られた時、自分のデッキから攻撃力1500以下の風属性モンスター1体をこうげき形態で特別呼び出せる。'},
+ w16:{name:'不壊の綿雪スライム',type:'monster',lv:3,attr:'光',race:'天使族',atk:300,def:500,art:'☁️',fx:{noBattleDes:true,marsh:true},text:'このカードは戦闘では破壊されない。うら向きのこのカードを攻撃したモンスターのコントローラーは、ダメージ計算後に1000ダメージを受ける。'},
+ w17:{name:'大盾の守衛ガルド',type:'monster',lv:4,attr:'地',race:'戦士族',atk:100,def:2600,art:'🛡',fx:{toAtkAfter:true},text:'まもり形態のこのカードが攻撃された場合、ダメージ計算後にこのカードはこうげき形態になる。'},
  w18:{name:'深淵の海兵',type:'monster',lv:4,attr:'水',race:'水族',atk:1800,def:1300,art:'🔱',fx:{ign:'abyss'},text:'【起動効果】1ターンに1度、手札の水属性モンスター1体を捨てて発動できる。相手フィールドのモンスター1体を持ち主の手札に戻す。'},
  w19:{name:'渡り海鳥の兵',type:'monster',lv:2,attr:'水',race:'水族',atk:750,def:500,art:'🐧',fx:{flip:'bounce2'},text:'【リバース】相手フィールドのモンスターを2体まで選んで持ち主の手札に戻すことができる。'},
- w20:{name:'繊維の大壺',type:'monster',lv:3,attr:'地',race:'植物族',atk:500,def:500,art:'🏺',fx:{flip:'reset'},text:'【リバース】お互いの手札・フィールド・墓地のカードを全て持ち主のデッキに戻してシャッフルする。その後、お互いはデッキから5枚ドローする（除外されたカードはそのまま）。'},
- w21:{name:'盗賊頭ザロック',type:'monster',lv:4,attr:'闇',race:'戦士族',atk:1400,def:1500,art:'🏴‍☠️',fx:{zaloog:true},text:'このカードが相手に戦闘ダメージを与えた時、相手の手札をランダムに1枚捨てる。相手の手札がない場合、相手のデッキの上から2枚を墓地へ送る。'},
- w22:{name:'闇の仮面',type:'monster',lv:2,attr:'闇',race:'悪魔族',atk:900,def:400,art:'🎭',fx:{flip:'gyTrap'},text:'【リバース】自分の墓地の罠カード1枚を選んで手札に加える。'},
+ w20:{name:'繊維の大壺',type:'monster',lv:3,attr:'地',race:'植物族',atk:500,def:500,art:'🏺',fx:{flip:'reset'},text:'【リバース】お互いの手札・フィールド・すてばのカードを全て持ち主のデッキに戻してシャッフルする。その後、お互いはデッキから5枚引く（除外されたカードはそのまま）。'},
+ w21:{name:'盗賊頭ザロック',type:'monster',lv:4,attr:'闇',race:'戦士族',atk:1400,def:1500,art:'🏴‍☠️',fx:{zaloog:true},text:'このカードが相手に戦闘ダメージを与えた時、相手の手札をランダムに1枚捨てる。相手の手札がない場合、相手のデッキの上から2枚をすてばへ送る。'},
+ w22:{name:'闇の仮面',type:'monster',lv:2,attr:'闇',race:'悪魔族',atk:900,def:400,art:'🎭',fx:{flip:'gyTrap'},text:'【リバース】自分のすてばのしかけカード1枚を選んで手札に加える。'},
  w23:{name:'砲身の機獣バレル',type:'monster',lv:7,attr:'闇',race:'機械族',atk:2600,def:2200,art:'🔫',fx:{ign:'coin3'},text:'【起動効果】1ターンに1度、相手フィールドのモンスター1体を選んで発動できる。コインを3回投げ、2回以上表が出た場合、そのモンスターを破壊する。'},
- w24:{name:'反射の跳躍兵',type:'monster',lv:4,attr:'光',race:'機械族',atk:1700,def:1000,art:'🪞',fx:{reflectB:true},text:'表側攻撃表示のこのカードが相手モンスターに攻撃された場合、ダメージ計算前に攻撃モンスターの攻撃力分のダメージを相手に与える。その後、ダメージ計算後にこのカードを破壊する。'},
+ w24:{name:'反射の跳躍兵',type:'monster',lv:4,attr:'光',race:'機械族',atk:1700,def:1000,art:'🪞',fx:{reflectB:true},text:'表側こうげき形態のこのカードが相手モンスターに攻撃された場合、ダメージ計算前に攻撃モンスターの攻撃力分のダメージを相手に与える。その後、ダメージ計算後にこのカードを破壊する。'},
  w25:{name:'賭博侍ヨシツグ',type:'monster',lv:4,attr:'地',race:'戦士族',atk:1200,def:1200,art:'🪙',fx:{coinKill:true},text:'このカードが相手モンスターと戦闘を行うダメージ計算前にコインを1回投げる。表が出た場合、その相手モンスターを破壊する（その戦闘のダメージ計算は行わない）。'},
- v01:{name:'暁闇の降臨儀式',type:'spell',effect:'ritual',ritualFor:'w01',art:'🌗',text:'儀式魔法：「混沌の儀礼騎士ルクス」の降臨に必要。自分の手札・フィールドから、レベルの合計が8以上になるようにモンスターを生贄にし、手札から「混沌の儀礼騎士ルクス」を特殊召喚する。'},
- v02:{name:'千眼の偶像儀式',type:'spell',effect:'ritual',ritualFor:'w02',art:'🔯',text:'儀式魔法：「千眼の呪縛像」の降臨に必要。自分の手札・フィールドから、レベルの合計が1以上になるようにモンスターを生贄にし、手札から「千眼の呪縛像」を特殊召喚する。'},
- v03:{name:'黒魔導の閃撃',type:'spell',effect:'dmAttack',art:'🌌',text:'自分フィールドに「黒衣の大魔導士ゼノン」が表側表示で存在する場合に発動できる。相手フィールドの魔法・罠カードを全て破壊する。'},
- v04:{name:'千刃の魔導',type:'spell',effect:'dmKnives',art:'🔪',text:'自分フィールドに「黒衣の大魔導士ゼノン」が表側表示で存在する場合に発動できる。相手フィールドのモンスター1体を選んで破壊する。'},
- v05:{name:'手札抹殺の嵐',type:'spell',effect:'cardDest',art:'🌪️',text:'お互いは手札を全て捨てる。その後、それぞれ捨てた枚数分だけデッキからドローする。'},
- v06:{name:'悪夢の蜃気楼',type:'spell',effect:'mirage',cont:true,art:'🌫️',text:'永続魔法：相手のスタンバイフェイズに、自分は手札が4枚になるまでドローする。次の自分のスタンバイフェイズに、その効果でドローした枚数分だけ手札をランダムに捨てる。'},
- v07:{name:'成金の小鬼',type:'spell',effect:'upstart',art:'💰',text:'自分はデッキから1枚ドローする。その後、相手は1000LP回復する。'},
+ v01:{name:'暁闇の降臨儀式',type:'spell',effect:'ritual',ritualFor:'w01',art:'🌗',text:'儀式じゅもん：「混沌の儀礼騎士ルクス」の降臨に必要。自分の手札・フィールドから、レベルの合計が8以上になるようにモンスターをささげものにし、手札から「混沌の儀礼騎士ルクス」を特別呼び出す。'},
+ v02:{name:'千眼の偶像儀式',type:'spell',effect:'ritual',ritualFor:'w02',art:'🔯',text:'儀式じゅもん：「千眼の呪縛像」の降臨に必要。自分の手札・フィールドから、レベルの合計が1以上になるようにモンスターをささげものにし、手札から「千眼の呪縛像」を特別呼び出す。'},
+ v03:{name:'黒魔導の閃撃',type:'spell',effect:'dmAttack',art:'🌌',text:'自分フィールドに「黒衣の大魔導士ゼノン」がおもて向きで存在する場合に発動できる。相手フィールドのじゅもん・しかけカードを全て破壊する。'},
+ v04:{name:'千刃の魔導',type:'spell',effect:'dmKnives',art:'🔪',text:'自分フィールドに「黒衣の大魔導士ゼノン」がおもて向きで存在する場合に発動できる。相手フィールドのモンスター1体を選んで破壊する。'},
+ v05:{name:'手札抹殺の嵐',type:'spell',effect:'cardDest',art:'🌪️',text:'お互いは手札を全て捨てる。その後、それぞれ捨てた枚数分だけデッキから引く。'},
+ v06:{name:'悪夢の蜃気楼',type:'spell',effect:'mirage',cont:true,art:'🌫️',text:'永続じゅもん：相手のまちの時間に、自分は手札が4枚になるまで引く。次の自分のまちの時間に、その効果で引いた枚数分だけ手札をランダムに捨てる。'},
+ v07:{name:'成金の小鬼',type:'spell',effect:'upstart',art:'💰',text:'自分はデッキから1枚引く。その後、相手は1000ライフ回復する。'},
  v08:{name:'戦士の招集令',type:'spell',effect:'reinforce',art:'📯',text:'自分のデッキからレベル4以下の戦士族モンスター1体を選んで手札に加える。'},
- v09:{name:'魔法の中華鍋',type:'spell',effect:'wok',art:'🥘',text:'自分フィールドのモンスター1体を生贄にして発動できる。そのモンスターの攻撃力分だけ自分のLPを回復する。'},
- v10:{name:'敵将の指揮棒',type:'spell',effect:'enemyCtrl',quick:true,trig:['attack'],art:'🪄',text:'速攻魔法：相手フィールドの表側表示モンスター1体の表示形式を変更する。セットした次のターン以降は、相手の攻撃宣言時に発動でき、攻撃モンスターを守備表示にして攻撃を無効にする。'},
- v11:{name:'縮小の秘薬',type:'spell',effect:'shrink',quick:true,trig:['attack'],art:'🧪',text:'速攻魔法：相手フィールドの表側表示モンスター1体の攻撃力は、ターン終了時まで元々の攻撃力の半分ダウンする。セットした次のターン以降は、相手の攻撃宣言時に攻撃モンスターを対象に発動できる。'},
- v12:{name:'光の剣の牢獄',type:'spell',effect:'swords',cont:true,art:'⚔️',text:'永続魔法：相手フィールドの裏側表示モンスターを全て表側表示にする。このカードは相手のターンで数えて3ターン後のエンドフェイズに破壊される。このカードが存在する限り、相手は攻撃宣言できない。'},
- v13:{name:'平和の使者',type:'spell',effect:'messenger',cont:true,art:'🕊️',text:'永続魔法：攻撃力1500以上のモンスターは攻撃宣言できない（お互い）。自分のスタンバイフェイズに100LP払う。払えない場合このカードを破壊する。'},
- v14:{name:'魔力の増幅',type:'spell',effect:'equip',eqKind:'mage',val:0,art:'🔮',text:'装備魔法：装備モンスターの攻撃力は、自分フィールドの魔法・罠カード1枚につき500アップする（このカードを含む）。'},
- v15:{name:'結束の力',type:'spell',effect:'equip',eqKind:'united',val:0,art:'🤝',text:'装備魔法：装備モンスターの攻撃力は、自分フィールドの表側表示モンスター1体につき800アップする。'},
- v16:{name:'大地の亀裂',type:'spell',effect:'fissure',art:'🕳️',text:'相手フィールドの表側表示モンスターのうち、攻撃力が一番低いモンスター1体を破壊する。'},
- v17:{name:'撃鉄の一撃',type:'spell',effect:'hammer',art:'🔨',text:'フィールドの表側攻撃表示モンスターのうち、攻撃力が一番高いモンスター1体を破壊する（神を除く・お互い）。'},
- v18:{name:'遺言の託宣',type:'spell',effect:'lastWill',art:'📜',text:'このターン、自分フィールドのモンスターが墓地へ送られていた場合に発動できる。自分のデッキから攻撃力1500以下のモンスター1体を特殊召喚する。'},
- v19:{name:'苦渋の選択肢',type:'spell',effect:'painful',art:'🖐️',text:'自分のデッキからカードを5枚選んで相手に見せる。相手はその中から1枚を選び、そのカードを自分の手札に加える。残りのカードは墓地へ送る。'},
+ v09:{name:'じゅもんの中華鍋',type:'spell',effect:'wok',art:'🥘',text:'自分フィールドのモンスター1体をささげものにして発動できる。そのモンスターの攻撃力分だけ自分のライフを回復する。'},
+ v10:{name:'敵将の指揮棒',type:'spell',effect:'enemyCtrl',quick:true,trig:['attack'],art:'🪄',text:'速攻じゅもん：相手フィールドのおもて向きモンスター1体の表示形式を変更する。セットした次のターン以降は、相手の攻撃宣言時に発動でき、攻撃モンスターをまもり形態にして攻撃を無効にする。'},
+ v11:{name:'縮小の秘薬',type:'spell',effect:'shrink',quick:true,trig:['attack'],art:'🧪',text:'速攻じゅもん：相手フィールドのおもて向きモンスター1体の攻撃力は、ターン終了時まで元々の攻撃力の半分ダウンする。セットした次のターン以降は、相手の攻撃宣言時に攻撃モンスターを対象に発動できる。'},
+ v12:{name:'光の剣の牢獄',type:'spell',effect:'swords',cont:true,art:'⚔️',text:'永続じゅもん：相手フィールドのうら向きモンスターを全ておもて向きにする。このカードは相手のターンで数えて3ターン後のおわりの時間に破壊される。このカードが存在する限り、相手は攻撃宣言できない。'},
+ v13:{name:'平和の使者',type:'spell',effect:'messenger',cont:true,art:'🕊️',text:'永続じゅもん：攻撃力1500以上のモンスターは攻撃宣言できない（お互い）。自分のまちの時間に100ライフ払う。払えない場合このカードを破壊する。'},
+ v14:{name:'魔力の増幅',type:'spell',effect:'equip',eqKind:'mage',val:0,art:'🔮',text:'装備じゅもん：装備モンスターの攻撃力は、自分フィールドのじゅもん・しかけカード1枚につき500アップする（このカードを含む）。'},
+ v15:{name:'結束の力',type:'spell',effect:'equip',eqKind:'united',val:0,art:'🤝',text:'装備じゅもん：装備モンスターの攻撃力は、自分フィールドのおもて向きモンスター1体につき800アップする。'},
+ v16:{name:'大地の亀裂',type:'spell',effect:'fissure',art:'🕳️',text:'相手フィールドのおもて向きモンスターのうち、攻撃力が一番低いモンスター1体を破壊する。'},
+ v17:{name:'撃鉄の一撃',type:'spell',effect:'hammer',art:'🔨',text:'フィールドの表側こうげき形態モンスターのうち、攻撃力が一番高いモンスター1体を破壊する（神を除く・お互い）。'},
+ v18:{name:'遺言の託宣',type:'spell',effect:'lastWill',art:'📜',text:'このターン、自分フィールドのモンスターがすてばへ送られていた場合に発動できる。自分のデッキから攻撃力1500以下のモンスター1体を特別呼び出す。'},
+ v19:{name:'苦渋の選択肢',type:'spell',effect:'painful',art:'🖐️',text:'自分のデッキからカードを5枚選んで相手に見せる。相手はその中から1枚を選び、そのカードを自分の手札に加える。残りのカードはすてばへ送る。'},
  u01:{name:'次元の牢獄',type:'trap',effect:'dimPrison',trig:'attack',art:'🌀',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃モンスターを除外する（神を除く）。'},
- u02:{name:'広範の崩壊',type:'trap',effect:'ruin',trig:'attack',art:'💣',text:'相手モンスターの攻撃宣言時に発動できる。相手フィールドの攻撃表示モンスターのうち、攻撃力が一番高いモンスター1体を破壊する（神を除く）。'},
+ u02:{name:'広範の崩壊',type:'trap',effect:'ruin',trig:'attack',art:'💣',text:'相手モンスターの攻撃宣言時に発動できる。相手フィールドのこうげき形態モンスターのうち、攻撃力が一番高いモンスター1体を破壊する（神を除く）。'},
  u03:{name:'和睦の祈り',type:'trap',effect:'waboku',trig:'attack',art:'🙏',text:'相手モンスターの攻撃宣言時に発動できる。このターン、自分のモンスターは戦闘では破壊されず、自分が受ける戦闘ダメージは0になる。'},
- u04:{name:'邪魔者の三兄弟',type:'trap',effect:'ojama',trig:['attack','summon','spell'],art:'🤡',text:'相手フィールドに「邪魔者トークン」（光・獣族・星2・攻0/守1000）を可能な限り（最大3体）守備表示で特殊召喚する。このトークンは生贄召喚の生贄にできず、破壊された時、そのコントローラーは300ダメージを受ける。'},
- u05:{name:'強制退避装置',type:'trap',effect:'evac',trig:['attack','summon'],art:'🚨',text:'相手の攻撃宣言時、またはモンスター召喚時に発動できる。そのモンスターを持ち主の手札に戻す（神を除く）。'},
- u06:{name:'罠の落とし扉',type:'trap',effect:'dustshoot',trig:['attack','summon','spell'],art:'🚪',text:'相手の手札が4枚以上の場合に発動できる。相手の手札を確認し、その中のモンスターカード1枚を選んで持ち主のデッキに戻す。'},
- u07:{name:'王宮の勅令',type:'trap',effect:'decree',cont:true,trig:['attack','summon','spell'],art:'📃',text:'永続罠：このカードが表側表示で存在する限り、このカード以外のフィールドの罠カードの効果は無効になり、罠カードを発動できない（お互い）。'},
- u08:{name:'道連れの呪詛',type:'trap',effect:'michizure',trig:'lost',art:'⛓️',text:'自分のモンスターが戦闘で破壊され墓地へ送られた時に発動できる。相手フィールドのモンスター1体を選んで破壊する。'},
- u09:{name:'盗賊小鬼の手癖',type:'trap',effect:'robbin',cont:true,trig:['attack','summon'],art:'👺',text:'永続罠：自分のモンスターが相手に戦闘ダメージを与えるたびに、相手の手札をランダムに1枚捨てる。'},
- u10:{name:'毒杯の宴',type:'trap',effect:'simochi',cont:true,trig:['attack','summon','spell'],art:'🍷',text:'永続罠：このカードが表側表示で存在する限り、相手のLPを回復する効果は、相手にダメージを与える効果になる。'},
- u11:{name:'呪縛の魔法陣',type:'trap',effect:'spellbind',cont:true,trig:'attack',art:'🔯',text:'永続罠：相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、そのモンスターは攻撃宣言・表示形式の変更ができなくなる。そのモンスターがフィールドを離れた時、このカードを破壊する。'},
- u12:{name:'鎖付き苦無',type:'trap',effect:'kunai',trig:'attack',art:'🪝',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃モンスターを守備表示にして攻撃を無効にし、自分の表側表示モンスター1体の攻撃力をターン終了時まで500アップする。'},
- k02:{name:'邪魔者トークン',type:'monster',token:true,lv:2,attr:'光',race:'獣族',atk:0,def:1000,art:'🤪',fx:{ojama:true},text:'「邪魔者の三兄弟」の効果で特殊召喚されるトークン。生贄召喚の生贄にできない。破壊された時、このトークンのコントローラーは300ダメージを受ける。'},
- t17:{name:'緊急防御陣',type:'trap',effect:'allDefTrap',trig:'attack',art:'🧱',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、相手フィールドの攻撃表示モンスターを全て守備表示にする（神は受けない）。'},
+ u04:{name:'邪魔者の三兄弟',type:'trap',effect:'ojama',trig:['attack','summon','spell'],art:'🤡',text:'相手フィールドに「邪魔者トークン」（光・獣族・星2・攻0/守1000）を可能な限り（最大3体）まもり形態で特別呼び出す。このトークンはささげ呼び出しのささげものにできず、破壊された時、そのコントローラーは300ダメージを受ける。'},
+ u05:{name:'強制退避装置',type:'trap',effect:'evac',trig:['attack','summon'],art:'🚨',text:'相手の攻撃宣言時、またはモンスター呼び出し時に発動できる。そのモンスターを持ち主の手札に戻す（神を除く）。'},
+ u06:{name:'しかけの落とし扉',type:'trap',effect:'dustshoot',trig:['attack','summon','spell'],art:'🚪',text:'相手の手札が4枚以上の場合に発動できる。相手の手札を確認し、その中のモンスターカード1枚を選んで持ち主のデッキに戻す。'},
+ u07:{name:'王宮の勅令',type:'trap',effect:'decree',cont:true,trig:['attack','summon','spell'],art:'📃',text:'永続しかけ：このカードがおもて向きで存在する限り、このカード以外のフィールドのしかけカードの効果は無効になり、しかけカードを発動できない（お互い）。'},
+ u08:{name:'道連れの呪詛',type:'trap',effect:'michizure',trig:'lost',art:'⛓️',text:'自分のモンスターが戦闘で破壊されすてばへ送られた時に発動できる。相手フィールドのモンスター1体を選んで破壊する。'},
+ u09:{name:'盗賊小鬼の手癖',type:'trap',effect:'robbin',cont:true,trig:['attack','summon'],art:'👺',text:'永続しかけ：自分のモンスターが相手に戦闘ダメージを与えるたびに、相手の手札をランダムに1枚捨てる。'},
+ u10:{name:'毒杯の宴',type:'trap',effect:'simochi',cont:true,trig:['attack','summon','spell'],art:'🍷',text:'永続しかけ：このカードがおもて向きで存在する限り、相手のライフを回復する効果は、相手にダメージを与える効果になる。'},
+ u11:{name:'呪縛のじゅもん陣',type:'trap',effect:'spellbind',cont:true,trig:'attack',art:'🔯',text:'永続しかけ：相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、そのモンスターは攻撃宣言・表示形式の変更ができなくなる。そのモンスターがフィールドを離れた時、このカードを破壊する。'},
+ u12:{name:'鎖付き苦無',type:'trap',effect:'kunai',trig:'attack',art:'🪝',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃モンスターをまもり形態にして攻撃を無効にし、自分のおもて向きモンスター1体の攻撃力をターン終了時まで500アップする。'},
+ k02:{name:'邪魔者トークン',type:'monster',token:true,lv:2,attr:'光',race:'獣族',atk:0,def:1000,art:'🤪',fx:{ojama:true},text:'「邪魔者の三兄弟」の効果で特別呼び出されるトークン。ささげ呼び出しのささげものにできない。破壊された時、このトークンのコントローラーは300ダメージを受ける。'},
+ t17:{name:'緊急防御陣',type:'trap',effect:'allDefTrap',trig:'attack',art:'🧱',text:'相手モンスターの攻撃宣言時に発動できる。その攻撃を無効にし、相手フィールドのこうげき形態モンスターを全てまもり形態にする（神は受けない）。'},
 };
 function fxText(c){const f=c.fx,t=[];
-  if(f.sum==='draw1')t.push('このカードが召喚・特殊召喚に成功した時、自分はデッキから1枚ドローする。');
-  if(f.sum==='burn500')t.push('このカードが召喚・特殊召喚に成功した時、相手に500ダメージを与える。');
-  if(f.sum==='destroyST')t.push('このカードが召喚・特殊召喚に成功した時、相手フィールドの魔法・罠カード1枚を選んで破壊できる。');
-  if(f.boostAttr)t.push(`このカードが表側表示で存在する限り、自分フィールドの${c.attr}属性モンスターの攻撃力は300アップする。`);
-  if(f.onDes==='draw1')t.push('このカードが破壊され墓地へ送られた時、自分はデッキから1枚ドローする。');
-  if(f.onDes==='burn800')t.push('このカードが破壊され墓地へ送られた時、相手に800ダメージを与える。');
-  if(f.pierce)t.push('このカードが守備表示モンスターを攻撃した時、攻撃力が守備力を超えた分だけ相手に戦闘ダメージを与える（貫通）。');
+  if(f.sum==='draw1')t.push('このカードが呼び出し・特別呼び出しに成功した時、自分はデッキから1枚引く。');
+  if(f.sum==='burn500')t.push('このカードが呼び出し・特別呼び出しに成功した時、相手に500ダメージを与える。');
+  if(f.sum==='destroyST')t.push('このカードが呼び出し・特別呼び出しに成功した時、相手フィールドのじゅもん・しかけカード1枚を選んで破壊できる。');
+  if(f.boostAttr)t.push(`このカードがおもて向きで存在する限り、自分フィールドの${c.attr}属性モンスターの攻撃力は300アップする。`);
+  if(f.onDes==='draw1')t.push('このカードが破壊されすてばへ送られた時、自分はデッキから1枚引く。');
+  if(f.onDes==='burn800')t.push('このカードが破壊されすてばへ送られた時、相手に800ダメージを与える。');
+  if(f.pierce)t.push('このカードがまもり形態モンスターを攻撃した時、攻撃力が守備力を超えた分だけ相手に戦闘ダメージを与える（貫通）。');
   if(f.direct)t.push('このカードは相手フィールドにモンスターがいても直接攻撃できる。');
   if(f.guard)t.push('このカードは1ターンに1度だけ、戦闘では破壊されない。');
-  if(f.ign==='destroyLower')t.push('【起動効果】1ターンに1度、自分メインフェイズに発動できる。このカードより攻撃力が低い相手フィールドの表側表示モンスター1体（神を除く）を破壊する。この効果を発動したターン、このカードは攻撃できない。');
-  if(f.ign==='gainLp')t.push('【起動効果】1ターンに1度、自分メインフェイズに発動できる。自分は800LP回復する。');
-  if(f.ign==='ssLv4')t.push('【起動効果】1ターンに1度、自分メインフェイズに発動できる。手札からレベル4以下のモンスター1体を攻撃表示で特殊召喚する。');
-  if(f.ign==='discardBoost')t.push('【起動効果】1ターンに1度、自分メインフェイズに手札を1枚捨てて発動できる。このカードの攻撃力はターン終了時まで1000アップする。');
-  if(f.flip==='destroy')t.push('【リバース】このカードが裏側表示から表側表示になった時に発動する。相手フィールドのモンスター1体を選んで破壊できる。');
-  if(f.flip==='draw2')t.push('【リバース】このカードが裏側表示から表側表示になった時に発動する。自分はデッキから2枚ドローする。');
-  if(f.dblTrib)t.push('生贄召喚のために生贄にする場合、このカード1体で2体分の生贄にできる。');
-  if(f.negAtk)t.push('このカードが表側表示で攻撃対象に選ばれた時、1ターンに1度だけその攻撃を無効にする。');
-  if(f.lord)t.push(`自分フィールドの他の${c.attr}属性モンスターの攻撃力は500アップする。このカードの攻撃力は、自分の墓地の${c.attr}属性モンスター1体につき100アップする。`);
+  if(f.ign==='destroyLower')t.push('【起動効果】1ターンに1度、自分じゅんびの時間に発動できる。このカードより攻撃力が低い相手フィールドのおもて向きモンスター1体（神を除く）を破壊する。この効果を発動したターン、このカードは攻撃できない。');
+  if(f.ign==='gainLp')t.push('【起動効果】1ターンに1度、自分じゅんびの時間に発動できる。自分は800ライフ回復する。');
+  if(f.ign==='ssLv4')t.push('【起動効果】1ターンに1度、自分じゅんびの時間に発動できる。手札からレベル4以下のモンスター1体をこうげき形態で特別呼び出す。');
+  if(f.ign==='discardBoost')t.push('【起動効果】1ターンに1度、自分じゅんびの時間に手札を1枚捨てて発動できる。このカードの攻撃力はターン終了時まで1000アップする。');
+  if(f.flip==='destroy')t.push('【リバース】このカードがうら向きからおもて向きになった時に発動する。相手フィールドのモンスター1体を選んで破壊できる。');
+  if(f.flip==='draw2')t.push('【リバース】このカードがうら向きからおもて向きになった時に発動する。自分はデッキから2枚引く。');
+  if(f.dblTrib)t.push('ささげ呼び出しのためにささげものにする場合、このカード1体で2体分のささげものにできる。');
+  if(f.negAtk)t.push('このカードがおもて向きで攻撃対象に選ばれた時、1ターンに1度だけその攻撃を無効にする。');
+  if(f.lord)t.push(`自分フィールドの他の${c.attr}属性モンスターの攻撃力は500アップする。このカードの攻撃力は、自分のすてばの${c.attr}属性モンスター1体につき100アップする。`);
   return t.join('');}
 for(const k in CARDS){const c=CARDS[k];c.id=k;if(/^[xyzuvw]/.test(k))c.era='04';if(c.type==='trap'&&!c.trig)c.trig='attack';if(c.fx&&!c.text)c.text=fxText(c);}
-CARDS.s03.val=700;CARDS.s03.text='装備魔法：自分の表側表示モンスター1体に装備する。装備モンスターの攻撃力は700アップする。装備モンスターがフィールドを離れた時、このカードを墓地へ送る。';
+CARDS.s03.val=700;CARDS.s03.text='装備じゅもん：自分のおもて向きモンスター1体に装備する。装備モンスターの攻撃力は700アップする。装備モンスターがフィールドを離れた時、このカードをすてばへ送る。';
 
 const SEMI=new Set(['w05','w18','v07','v08','z10','y07','y16','u03','u05']);
 const LIMITED=new Set(['w20','v05','v06','v12','v18','v19','s04','s07','s08','s23','s24','t04','x02','x03','x04','x05','x07','x08','x12','x23','y01','y02','y03','y05','y10','y11','y13','y14','z01','z02']);
@@ -584,11 +585,11 @@ function trapLocked(){for(const s of [0,1]){for(const m of G.p[s].mz)if(m&&m.fac
 function spellOn(eff,side){for(const s of side==null?[0,1]:[side])for(const st of G.p[s].sz)if(st&&st.faceUp&&st.card&&st.card.effect===eff)return st;return null;}
 function trapOn(eff,side){if(trapLocked())return null;return spellOn(eff,side);}
 const isContSpell=c=>c.type==='spell'&&(c.effect==='equip'||c.effect==='field'||c.effect==='snatch'||!!c.cont);
-function releaseAbsorb(m){if(!m||!m.absorb)return;const a=m.absorb;m.absorb=null;const c=CARDS[a.id];if(c&&!c.token){G.p[a.from].gy.push(c);log(`吸収されていた「${c.name}」は墓地へ送られた。`,'p'+a.from);}}
+function releaseAbsorb(m){if(!m||!m.absorb)return;const a=m.absorb;m.absorb=null;const c=CARDS[a.id];if(c&&!c.token){G.p[a.from].gy.push(c);log(`吸収されていた「${c.name}」はすてばへ送られた。`,'p'+a.from);}}
 async function coins(n,who){const r=[];for(let k=0;k<n;k++)r.push(Math.random()<.5);const t=r.map(x=>x?'表':'裏').join('・');log(`${N(who)}のコイントス：${t}`,'p'+who);await banner('🪙 '+t,who===1);return r.filter(Boolean).length;}
 const ritualMats=(side,c)=>{const P=G.p[side];const r=[];let skip=true;P.hand.forEach((x,i)=>{if(x.type!=='monster'||x.god||x.token)return;if(x.id===c.ritualFor&&skip){skip=false;return;}r.push({card:x,from:'h',i});});P.mz.forEach((m,i)=>{if(m&&!m.card.token&&!m.card.god)r.push({card:m.card,from:'m',i,m});});return r;};
 function ritualOK(side,c){const P=G.p[side];const rc=CARDS[c.ritualFor];if(!P.hand.some(x=>x.id===c.ritualFor))return `手札に「${rc.name}」が必要です`;
-  const mats=ritualMats(side,c);const sum=mats.reduce((a,x)=>a+x.card.lv,0);if(sum<rc.lv)return `生贄にするモンスターのレベル合計が${rc.lv}以上必要です（現在${sum}）`;
+  const mats=ritualMats(side,c);const sum=mats.reduce((a,x)=>a+x.card.lv,0);if(sum<rc.lv)return `ささげものにするモンスターのレベル合計が${rc.lv}以上必要です（現在${sum}）`;
   if(freeIdx(P.mz)<0&&!mats.some(x=>x.from==='m'))return 'モンスターゾーンが空いていません';return true;}
 const lwList=s=>{const seen=new Set(),l=[];for(const c of G.p[s].deck){if(c.type==='monster'&&c.atk<=1500&&!c.god&&!c.fusion&&!c.ritual&&!c.token&&!(c.fx&&(c.fx.chaos||c.fx.ss3))&&!seen.has(c.id)){seen.add(c.id);l.push(c);}}return l;};
 const reinfList=s=>G.p[s].deck.map((c,i)=>({c,i})).filter(x=>x.c.type==='monster'&&x.c.lv<=4&&x.c.race==='戦士族'&&!x.c.ritual);
@@ -601,7 +602,7 @@ function addTmp(m,v){if(!m.tmp||m.tmp.turn!==G.turn)m.tmp={turn:G.turn,val:0};m.
 const tribCap=s=>G.p[s].mz.reduce((a,m)=>a+(m?tribW(m):0),0);
 function ownerOf(m){return G.p[1].mz.includes(m)?1:0;}
 function atkOf(m){
-  const sd=ownerOf(m),P=G.p[sd];let a=(m.card.effect==='handAtk'?P.hand.length*1000:m.absorb?(CARDS[m.absorb.id].atk||0):m.card.atk)+(m.boost||0);
+  const sd=ownerOf(m),P=G.p[sd];let a=(m.card.effect==='handBoost'?m.card.atk+Math.min(1500,300*P.hand.length):m.absorb?(CARDS[m.absorb.id].atk||0):m.card.atk)+(m.boost||0);
   if(m.tmp&&m.tmp.turn===G.turn)a+=m.tmp.val;
   if(!m.faceUp)return Math.max(0,a);
   for(const q of [0,1])for(const st of G.p[q].sz){if(!st||!st.faceUp||!st.card)continue;const c=st.card;
@@ -611,7 +612,7 @@ function atkOf(m){
   a+=300*(m.counters||0);
   for(const o of P.mz)if(o&&o.faceUp&&o.card&&o.card.fx){if(o.card.fx.boostAttr&&o.card.attr===m.card.attr)a+=300;if(o.card.fx.lord&&o!==m&&o.card.attr===m.card.attr)a+=500;}
   if(m.card.fx&&m.card.fx.lord)a+=100*P.gy.filter(c=>c.type==='monster'&&c.attr===m.card.attr).length;
-  if(m.card.fx&&m.card.fx.dragonSlayer){const O=G.p[1-sd];a+=500*(O.mz.filter(x=>x&&x.faceUp&&x.card.race==='ドラゴン族').length+O.gy.filter(c=>c.type==='monster'&&c.race==='ドラゴン族').length);}
+  if(m.card.fx&&m.card.fx.dragonSlayer){const O=G.p[1-sd];a+=500*(O.mz.filter(x=>x&&x.faceUp&&x.card.race==='竜族').length+O.gy.filter(c=>c.type==='monster'&&c.race==='竜族').length);}
   return Math.max(0,a);
 }
 function defOf(m){return m.card.effect==='handAtk'?G.p[ownerOf(m)].hand.length*1000:m.absorb?(CARDS[m.absorb.id].def||0):m.card.def;}
@@ -631,13 +632,13 @@ function artBg(c){
 }
 function cardHTML(c,o={}){
   if(o.back||!c)return `<div class="card back${o.def?' def':''}"><div class="backin"><span>◉</span></div></div>`;
-  const cls=(c.type==='monster'?(c.god?'god':c.fusion?'fusion':c.ritual?'ritual':c.fx?'eff':'mon'):c.type)+(c.cls?' '+c.cls:'');
+  const cls=(c.type==='monster'?(c.god?'god':c.spirit?'spirit':c.fusion?'fusion':c.ritual?'ritual':c.fx?'eff':'mon'):c.type)+(c.cls?' '+c.cls:'');
   let h=`<div class="card ${cls}${o.def?' def':''}${o.set?' setown':''}${o.big?' big':''}">`;
   h+=`<div class="cname">${c.name}</div>`;
   if(c.type==='monster')h+=`<div class="attr" style="background:${ATTR[c.attr][1]}">${c.attr}</div><div class="stars">${'★'.repeat(c.lv)}</div>`;
-  else h+=`<div class="stype">${c.type==='spell'?(c.effect==='field'?'【フィールド魔法】':c.effect==='equip'?'【装備魔法】':c.quick?'【速攻魔法】':c.effect==='ritual'?'【儀式魔法】':c.cont?'【永続魔法】':'【魔法カード】'):c.cont?'【永続罠】':'【罠カード】'}</div>`;
+  else h+=`<div class="stype">${c.type==='spell'?(c.effect==='field'?'【フィールドじゅもん】':c.effect==='equip'?'【装備じゅもん】':c.quick?'【速攻じゅもん】':c.effect==='ritual'?'【儀式じゅもん】':c.cont?'【永続じゅもん】':'【じゅもんカード】'):c.cont?'【永続しかけ】':'【しかけカード】'}</div>`;
   h+=`<div class="art" style="background:${c.bg||artBg(c)}">${c.svg?c.svg:`<span${c.artFilter?` style="filter:${c.artFilter} drop-shadow(0 .08em .1em #0009)"`:''}>${c.art}</span>`}</div>`;
-  if(o.big)h+=`<div class="ctext">${c.type==='monster'?`<b>【${c.race}${c.god?'／神':c.fusion?'／融合':c.ritual?'／儀式'+(c.fx?'・効果':''):c.token?'／トークン':c.fx?'／効果':''}】</b><br>`:''}${c.text.replace(/\n/g,'<br>')}</div>`;
+  if(o.big)h+=`<div class="ctext">${c.type==='monster'?`<b>【${c.race}${c.god?'／神':c.spirit?'／効果':c.fusion?'／合体':c.ritual?'／儀式'+(c.fx?'・効果':''):c.token?'／トークン':c.fx?'／効果':''}】</b><br>`:''}${c.text.replace(/\n/g,'<br>')}</div>`;
   if(c.type==='monster'){const hx=c.effect==='handAtk';const a=o.atk!=null?o.atk:(hx?'?':c.atk);h+=`<div class="stats"><span class="${o.atk!=null&&!hx&&o.atk>c.atk?'up':''}">ATK/${a}</span> DEF/${hx?(o.dfn!=null?o.dfn:'?'):c.def}</div>`;}
   if(o.set)h+=`<div class="setbadge">セット</div>`;
   return h+'</div>';
@@ -667,7 +668,7 @@ function zoneHTML(side,zone,i){
       if(inst.faceUp&&inst.card.effect==='field')inner+=`<div class="chip f">フィールド</div>`;
       if(inst.faceUp&&inst.card.cont)inner+=`<div class="chip t">${inst.card.effect==='swords'&&inst.cnt?'残'+inst.cnt:'永続'}</div>`;
     }
-  }else inner=`<div class="empty">${zone==='m'?'MONSTER':'魔法・罠'}</div>`;
+  }else inner=`<div class="empty">${zone==='m'?'MONSTER':'じゅもん・しかけ'}</div>`;
   return `<div class="${cls}" data-side="${side}" data-zone="${zone}" data-i="${i}"><div class="inner"${inst?` data-uid="${inst.uid}"`:''}>${inner}</div></div>`;
 }
 function pileHTML(side,kind){
@@ -675,7 +676,7 @@ function pileHTML(side,kind){
   if(kind==='deck')return `<div class="zone pile" data-side="${side}" data-zone="deck" data-i="0"><div class="inner">${P.deck.length?cardHTML(null,{back:true}):'<div class="empty">なし</div>'}</div><div class="pilelbl">デッキ ${P.deck.length}</div></div>`;
   const top=P.gy[P.gy.length-1];
   const bn=(P.ban||[]).length;
-  return `<div class="zone pile" data-side="${side}" data-zone="gy" data-i="0"><div class="inner" style="opacity:.8">${top?cardHTML(top):'<div class="empty">墓地</div>'}</div>${bn?`<div class="banlbl">除外 ${bn}</div>`:''}<div class="pilelbl">墓地 ${P.gy.length}</div></div>`;
+  return `<div class="zone pile" data-side="${side}" data-zone="gy" data-i="0"><div class="inner" style="opacity:.8">${top?cardHTML(top):'<div class="empty">すてば</div>'}</div>${bn?`<div class="banlbl">除外 ${bn}</div>`:''}<div class="pilelbl">すてば ${P.gy.length}</div></div>`;
 }
 const posKey=side=>side===G.view?'B':'T';
 function setLP(side){
@@ -797,7 +798,7 @@ function startGame(){
 async function standby(p){
   const P=G.p[p];
   const k=P.gy.findIndex(c=>c.fx&&c.fx.gyReturn);
-  if(k>=0){const c=P.gy.splice(k,1)[0];P.hand.push(c);log(`「${c.name}」の効果で墓地から${N(p)}の手札に戻った。`,'p'+p);render();await sleep(300);}
+  if(k>=0){const c=P.gy.splice(k,1)[0];P.hand.push(c);log(`「${c.name}」の効果ですてばから${N(p)}の手札に戻った。`,'p'+p);render();await sleep(300);}
   for(const st of G.p[1-p].sz)if(st&&st.faceUp&&st.card.effect==='snatch'&&!G.over){log(`「${st.card.name}」の効果。`,'p'+(1-p));await heal(p,1000);}
   const O=G.p[1-p];
   for(const st of O.sz)if(st&&st.faceUp&&st.card.effect==='mirage'&&!G.over){const n=Math.max(0,4-O.hand.length);if(n>0&&O.deck.length>=n){log(`「${st.card.name}」の効果。`,'p'+(1-p));drawCards(1-p,n);st.mirN=(st.mirN||0)+n;}}
@@ -812,8 +813,8 @@ async function startTurn(p){
   log(`── ターン${G.turn}：${N(p)}のターン ──`);
   render();
   await banner(`${N(p)}のターン`,G.mode==='cpu'?p===1:p===1);
-  if(G.turn>1){if(G.skipDraw&&G.skipDraw[p]>0){G.skipDraw[p]--;log(`${N(p)}は効果によりこのドローフェイズにドローできない！`,'p'+p);}else if(!drawCards(p,1))return;}
-  else log(`先攻1ターン目はドローできません。`);
+  if(G.turn>1){if(G.skipDraw&&G.skipDraw[p]>0){G.skipDraw[p]--;log(`${N(p)}は効果によりこのひく時間に引くできない！`,'p'+p);}else if(!drawCards(p,1))return;}
+  else log(`先攻1ターン目は引くできません。`);
   if(G.noAtk&&G.noAtk.turn===G.turn&&G.noAtk.side===p)log(`「光の封陣」の効果で${N(p)}はこのターン攻撃できない。`,'p'+p);
   await standby(p);if(G.over)return;
   await sleep(250);
@@ -823,10 +824,10 @@ async function startTurn(p){
 function drawCards(p,n){
   const P=G.p[p];
   for(let k=0;k<n;k++){
-    if(!P.deck.length){log(`${N(p)}はデッキからドローできない！`);gameOver(1-p,`${N(p)}のデッキが尽きました。`);return false;}
+    if(!P.deck.length){log(`${N(p)}はデッキから引くできない！`);gameOver(1-p,`${N(p)}のデッキが尽きました。`);return false;}
     P.hand.push(P.deck.pop());
   }
-  log(`${N(p)}は${n}枚ドローした。`,'p'+p);render();return true;
+  log(`${N(p)}は${n}枚引いた。`,'p'+p);render();return true;
 }
 async function endTurn(){
   if(G.over)return;
@@ -847,10 +848,10 @@ async function damage(side,amt,battle){
   if(battle&&G.waboku&&G.waboku.side===side&&G.waboku.turn===G.turn){log(`「和睦の祈り」の効果で${N(side)}への戦闘ダメージは0になった！`,'p'+side);return;}
   if(amt<=0)return;
   const P=G.p[side];P.lp=Math.max(0,P.lp-amt);
-  log(`${N(side)}に${amt}ダメージ！（LP ${P.lp}）`,'p'+side);
+  log(`${N(side)}に${amt}ダメージ！（ライフ ${P.lp}）`,'p'+side);
   floatLP(side,amt,false);
   await tweenLP(side);
-  if(P.lp<=0)gameOver(1-side,`${N(side)}のライフポイントが0になりました。`);
+  if(P.lp<=0)gameOver(1-side,`${N(side)}のライフが0になりました。`);
 }
 function floatLP(side,amt,isHeal){
   netFx({fx:isHeal?'heal':'dmg',side,amt});
@@ -861,7 +862,7 @@ function floatLP(side,amt,isHeal){
 }
 async function heal(side,amt){
   if(trapOn('simochi',1-side)){log(`「毒杯の宴」の効果で回復はダメージに変わった！`,'p'+(1-side));return damage(side,amt,false);}
-  const P=G.p[side];P.lp+=amt;log(`${N(side)}のLPが${amt}回復！（LP ${P.lp}）`,'p'+side);
+  const P=G.p[side];P.lp+=amt;log(`${N(side)}のライフが${amt}回復！（ライフ ${P.lp}）`,'p'+side);
   floatLP(side,amt,true);
   await tweenLP(side);
 }
@@ -871,11 +872,11 @@ function returnStolen(){
 function giveBack(s,i){
   const m=G.p[s].mz[i];const o=m.stolen.from;G.p[s].mz[i]=null;m.stolen=null;const z=freeIdx(G.p[o].mz);
   if(z>=0){G.p[o].mz[z]=m;log(`「${m.card.name}」のコントロールは${N(o)}に戻った。`,'p'+o);}
-  else{toGY(o,m.card);releaseAbsorb(m);detachEquips(m.uid);log(`「${m.card.name}」は戻る場所がなく墓地へ送られた。`,'p'+o);}
+  else{toGY(o,m.card);releaseAbsorb(m);detachEquips(m.uid);log(`「${m.card.name}」は戻る場所がなくすてばへ送られた。`,'p'+o);}
 }
 function releaseSnatch(uid){for(const s of [0,1]){const i=G.p[s].mz.findIndex(m=>m&&m.uid===uid);if(i>=0&&G.p[s].mz[i].stolen&&G.p[s].mz[i].stolen.perm){giveBack(s,i);render();}}}
 function detachEquips(uid){
-  for(const s of [0,1]){const P=G.p[s];P.sz.forEach((st,k)=>{if(st&&st.faceUp&&st.equipTo===uid){P.sz[k]=null;P.gy.push(st.card);log(`装備魔法「${st.card.name}」は墓地へ送られた。`,'p'+s);}});}
+  for(const s of [0,1]){const P=G.p[s];P.sz.forEach((st,k)=>{if(st&&st.faceUp&&st.equipTo===uid){P.sz[k]=null;P.gy.push(st.card);log(`装備じゅもん「${st.card.name}」はすてばへ送られた。`,'p'+s);}});}
 }
 async function animOut(el,ms){if(el)await el.animate([{opacity:1,filter:'brightness(1)',transform:'scale(1)'},{opacity:.9,filter:'brightness(3)',transform:'scale(1.15)',offset:.3},{opacity:0,filter:'brightness(4) blur(3px)',transform:'scale(.4) rotate(25deg)'}],{duration:dur(ms),fill:'forwards'}).finished;}
 async function destroyMon(side,i,opt={}){
@@ -900,6 +901,7 @@ async function destroyMon(side,i,opt={}){
     else await damage(1-gs,800,false);
   }
 }
+async function killHeal(a,A,d,ti,tgt){if(G.over||A.card.effect!=='killHeal'||G.p[d].mz[ti]===tgt||!G.p[a].mz.includes(A))return;log(`「${A.card.name}」の効果！`,'p'+a);await heal(a,500);}
 async function battleKill(side,i,opt={}){
   const m=G.p[side].mz[i];if(!m)return;
   if(m.card.fx&&m.card.fx.noBattleDes){log(`「${m.card.name}」は戦闘では破壊されない！`,'p'+side);shake(zoneInner(side,'m',i),7);await sleep(400);return;}
@@ -929,12 +931,12 @@ async function recruit(side,card){
   const seen=new Set(),l=[];for(const c of P.deck){if(c.type==='monster'&&c.attr===a&&c.atk<=1500&&!c.god&&!c.fusion&&!c.ritual&&!c.fx?.chaos&&!c.fx?.ss3&&!seen.has(c.id)){seen.add(c.id);l.push(c);}}
   if(!l.length)return;
   log(`「${card.name}」の効果発動！`,'p'+side);
-  const r=await humanPick(side,`「${card.name}」の効果：特殊召喚するモンスターを選んでください`,l,{cancel:true,cpu:cs=>cpuHighIdx(cs)});
+  const r=await humanPick(side,`「${card.name}」の効果：特別呼び出すモンスターを選んでください`,l,{cancel:true,cpu:cs=>cpuHighIdx(cs)});
   if(r==null||G.over)return;const ix=P.deck.indexOf(l[r]);const z2=freeIdx(P.mz);if(ix<0||z2<0)return;
   const c=P.deck.splice(ix,1)[0];shuffle(P.deck);P.mz[z2]=newInst(c,'atk',true);G.fx.summon=P.mz[z2].uid;
-  log(`${N(side)}はデッキから「${c.name}」を特殊召喚！`,'p'+side);render();await sleep(400);await afterSummon(side,z2);
+  log(`${N(side)}はデッキから「${c.name}」を特別呼び出し！`,'p'+side);render();await sleep(400);await afterSummon(side,z2);
 }
-function setDown(m){m.faceUp=false;m.pos='def';m.counters=0;G.fx.summon=m.uid;log(`「${m.card.name}」は裏側守備表示になった。`);}
+function setDown(m){m.faceUp=false;m.pos='def';m.counters=0;G.fx.summon=m.uid;log(`「${m.card.name}」は裏側まもり形態になった。`);}
 async function discardFrom(side,idx,why){const P=G.p[side];const c=P.hand.splice(idx,1)[0];if(!c)return;P.gy.push(c);log(`${N(side)}は${why||''}「${c.name}」を捨てた。`,'p'+side);render();}
 async function returnToHand(side,i){
   const P=G.p[side];const m=P.mz[i];if(!m)return;
@@ -942,7 +944,7 @@ async function returnToHand(side,i){
   if(el)await el.animate([{transform:'translateY(0)',opacity:1},{transform:`translateY(${side===G.view?120:-120}px) scale(.5)`,opacity:0}],{duration:dur(450),fill:'forwards'}).finished;
   P.mz[i]=null;releaseAbsorb(m);detachEquips(m.uid);const os=m.stolen?m.stolen.from:side;m.stolen=null;
   if(m.card.token){log(`「${m.card.name}」は消滅した。`,'p'+os);}
-  else if(m.card.fusion){G.p[os].gy.push(m.card);log(`「${m.card.name}」は融合デッキへ戻った（墓地へ）。`,'p'+os);}
+  else if(m.card.fusion){G.p[os].gy.push(m.card);log(`「${m.card.name}」は合体デッキへ戻った（すてばへ）。`,'p'+os);}
   else{G.p[os].hand.push(m.card);log(`「${m.card.name}」は${N(os)}の手札に戻った。`,'p'+os);}
   render();
 }
@@ -970,7 +972,7 @@ function showResult(winner,reason){
   const cls=mode==='pvp'||mine?'win':'lose';
   const msg=mode==='pvp'?`おめでとう、${N(winner)}！`:mode==='online'?(mine?`${N(winner)}（あなた）の勝利です！`:`${N(winner)}の勝利…次こそ勝利を掴もう！`):(mine?'おめでとう！あなたの勝利です！':'残念…次こそ勝利を掴もう！');
   r.innerHTML=`<div class="restitle ${cls}${mode==='pvp'?' pvp':''}">${title}</div>
-    <div class="resmsg">${reason}<br>${msg}<br><span style="font-size:13px;color:#99a">ターン数：${G.turn}　${N(0)}のLP：${G.p[0].lp}　${N(1)}のLP：${G.p[1].lp}</span></div>
+    <div class="resmsg">${reason}<br>${msg}<br><span style="font-size:13px;color:#99a">ターン数：${G.turn}　${N(0)}のライフ：${G.p[0].lp}　${N(1)}のライフ：${G.p[1].lp}</span></div>
     ${mode==='online'?`<button class="bigbtn" id="btnRetry"${NET.connected?'':' disabled'}>もう一度（再戦）</button><div id="rematchMsg" class="hint"></div>`:`<button class="bigbtn" id="btnRetry">もう一度デュエル</button>`}<button class="subbtn" id="btnToTitle">タイトルへ</button>`;
   r.classList.remove('hidden');
   $('#btnRetry').onclick=mode==='online'?requestRematch:startGame;
@@ -981,68 +983,68 @@ function showResult(winner,reason){
 /* ================= ルール判定 ================= */
 function canAct(){return G&&!G.over&&!G.busy&&!G.sel&&G.cur===G.view&&!isCPU(G.cur)&&(G.phase==='main'||G.phase==='battle');}
 function canSummon(side,c){
-  if(G.phase!=='main')return 'メインフェイズにのみ召喚できます';
-  if(c.token)return 'トークンは召喚できません';
-  if(c.fx&&c.fx.chaos)return 'このカードは通常召喚できません（墓地の光・闇を除外して特殊召喚）';
-  if(c.fx&&c.fx.ss3)return 'このカードは通常召喚できません（墓地の闇属性3体を除外して特殊召喚）';
-  if(c.ritual)return 'このカードは通常召喚できません（儀式魔法で降臨させます）';
-  if(G.noNS&&G.noNS.turn===G.turn&&G.noNS.side===side)return 'このターンは通常召喚できません（身代わり綿毛羊）';
-  if(G.normalSummoned&&!(G.extraNS>0))return 'このターンはすでに召喚・セットしました';
+  if(G.phase!=='main')return 'じゅんびの時間にのみ呼び出しできます';
+  if(c.token)return 'トークンは呼び出しできません';
+  if(c.fx&&c.fx.chaos)return 'このカードは通常呼び出しできません（すてばの光・闇を除外して特別呼び出し）';
+  if(c.fx&&c.fx.ss3)return 'このカードは通常呼び出しできません（すてばの闇属性3体を除外して特別呼び出し）';
+  if(c.ritual)return 'このカードは通常呼び出しできません（儀式じゅもんで降臨させます）';
+  if(G.noNS&&G.noNS.turn===G.turn&&G.noNS.side===side)return 'このターンは通常呼び出しできません（身代わり綿毛羊）';
+  if(G.normalSummoned&&!(G.extraNS>0))return 'このターンはすでに呼び出し・セットしました';
   const t=tribNeed(c);
-  if(tribCap(side)<t)return `この召喚には生贄が${t}体必要です`;
+  if(tribCap(side)<t)return `この呼び出しにはささげものが${t}体必要です`;
   if(t===0&&freeIdx(G.p[side].mz)<0)return 'モンスターゾーンが空いていません';
   return true;
 }
 function canSpell(side,c,fromSz){
   const me=G.p[side],op=G.p[1-side];
-  if(G.phase!=='main')return 'メインフェイズにのみ発動できます';
+  if(G.phase!=='main')return 'じゅんびの時間にのみ発動できます';
   const cont=isContSpell(c);
-  if(cont&&!fromSz&&freeIdx(me.sz)<0)return '魔法・罠ゾーンが空いていません';
+  if(cont&&!fromSz&&freeIdx(me.sz)<0)return 'じゅもん・しかけゾーンが空いていません';
   switch(c.effect){
     case 'destroy':case 'bounce':if(!op.mz.some(Boolean))return '相手フィールドにモンスターがいません';break;
-    case 'equip':if(!me.mz.some(m=>m&&m.faceUp))return '表側表示のモンスターがいません';break;
+    case 'equip':if(!me.mz.some(m=>m&&m.faceUp))return 'おもて向きのモンスターがいません';break;
     case 'draw2':if(me.deck.length<2)return 'デッキが足りません';break;
     case 'wipeAll':if(!me.mz.some(Boolean)&&!op.mz.some(Boolean))return 'フィールドにモンスターがいません';break;
-    case 'revive':if(!reviveList(side).length)return '墓地に特殊召喚できるモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';break;
+    case 'revive':if(!reviveList(side).length)return 'すてばに特別呼び出せるモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';break;
     case 'search':if(!searchList(side).length)return 'デッキにレベル4以下のモンスターがいません';break;
-    case 'destroyST':if(!op.sz.some(Boolean))return '相手フィールドに魔法・罠カードがありません';break;
+    case 'destroyST':if(!op.sz.some(Boolean))return '相手フィールドにじゅもん・しかけカードがありません';break;
     case 'charity':if(me.deck.length<3)return 'デッキが足りません';break;
-    case 'duo':if(me.lp<=1000)return 'LPが足りません';if(!op.hand.length)return '相手の手札がありません';break;
-    case 'snatch':case 'brain':if(!op.mz.some(m=>m&&m.faceUp&&!m.card.god))return '相手フィールドに表側表示のモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';if(c.effect==='brain'&&me.lp<=800)return 'LPが足りません';
-      if(c.effect==='snatch'&&!fromSz&&freeIdx(me.sz)<0)return '魔法・罠ゾーンが空いていません';break;
-    case 'quickST':if(!op.sz.some(Boolean))return '相手フィールドに魔法・罠カードがありません';break;
-    case 'premature':if(me.lp<=800)return 'LPが足りません';if(!reviveList(side).length)return '墓地に特殊召喚できるモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';break;
-    case 'quickMoon':if(!op.mz.some(m=>m&&m.faceUp&&!m.card.god))return '相手フィールドに表側表示のモンスターがいません';break;
-    case 'nobleman':if(!op.mz.some(m=>m&&!m.faceUp))return '相手フィールドに裏側表示のモンスターがいません';break;
-    case 'smashing':if(!op.mz.some(m=>m&&m.faceUp))return '相手フィールドに表側表示のモンスターがいません';break;
-    case 'reborn':if(!rebornList(side).length)return 'お互いの墓地に特殊召喚できるモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';break;
+    case 'duo':if(me.lp<=1000)return 'ライフが足りません';if(!op.hand.length)return '相手の手札がありません';break;
+    case 'snatch':case 'brain':if(!op.mz.some(m=>m&&m.faceUp&&!m.card.god))return '相手フィールドにおもて向きのモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';if(c.effect==='brain'&&me.lp<=800)return 'ライフが足りません';
+      if(c.effect==='snatch'&&!fromSz&&freeIdx(me.sz)<0)return 'じゅもん・しかけゾーンが空いていません';break;
+    case 'quickST':if(!op.sz.some(Boolean))return '相手フィールドにじゅもん・しかけカードがありません';break;
+    case 'premature':if(me.lp<=800)return 'ライフが足りません';if(!reviveList(side).length)return 'すてばに特別呼び出せるモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';break;
+    case 'quickMoon':if(!op.mz.some(m=>m&&m.faceUp&&!m.card.god))return '相手フィールドにおもて向きのモンスターがいません';break;
+    case 'nobleman':if(!op.mz.some(m=>m&&!m.faceUp))return '相手フィールドにうら向きのモンスターがいません';break;
+    case 'smashing':if(!op.mz.some(m=>m&&m.faceUp))return '相手フィールドにおもて向きのモンスターがいません';break;
+    case 'reborn':if(!rebornList(side).length)return 'お互いのすてばに特別呼び出せるモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';break;
     case 'raigeki':if(!op.mz.some(Boolean))return '相手フィールドにモンスターがいません';break;
-    case 'goat':if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';if(G.cur===side&&G.normalSummoned)return 'このターンはすでに通常召喚しています';break;
-    case 'confiscate':if(me.lp<=1000)return 'LPが足りません';if(!op.hand.length)return '相手の手札がありません';break;
+    case 'goat':if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';if(G.cur===side&&G.normalSummoned)return 'このターンはすでに通常呼び出しています';break;
+    case 'confiscate':if(me.lp<=1000)return 'ライフが足りません';if(!op.hand.length)return '相手の手札がありません';break;
     case 'sentry':if(!op.hand.length)return '相手の手札がありません';break;
-    case 'vortex':if(me.hand.length-(fromSz?0:1)<1)return '捨てる手札がありません';if(!op.mz.some(m=>m&&m.faceUp))return '相手フィールドに表側表示のモンスターがいません';break;
+    case 'vortex':if(me.hand.length-(fromSz?0:1)<1)return '捨てる手札がありません';if(!op.mz.some(m=>m&&m.faceUp))return '相手フィールドにおもて向きのモンスターがいません';break;
     case 'swap':if(!me.mz.some(m=>m&&!(m.faceUp&&m.card.god)))return '入れ替える自分のモンスターがいません';if(!op.mz.some(m=>m&&!(m.faceUp&&m.card.god)))return '入れ替える相手のモンスターがいません';break;
     case 'ritual':{const r=ritualOK(side,c);if(r!==true)return r;break;}
-    case 'dmAttack':if(!hasXenon(side))return '「黒衣の大魔導士ゼノン」が表側表示で必要です';if(!op.sz.some(Boolean))return '相手フィールドに魔法・罠カードがありません';break;
-    case 'dmKnives':if(!hasXenon(side))return '「黒衣の大魔導士ゼノン」が表側表示で必要です';if(!op.mz.some(Boolean))return '相手フィールドにモンスターがいません';break;
+    case 'dmAttack':if(!hasXenon(side))return '「黒衣の大魔導士ゼノン」がおもて向きで必要です';if(!op.sz.some(Boolean))return '相手フィールドにじゅもん・しかけカードがありません';break;
+    case 'dmKnives':if(!hasXenon(side))return '「黒衣の大魔導士ゼノン」がおもて向きで必要です';if(!op.mz.some(Boolean))return '相手フィールドにモンスターがいません';break;
     case 'upstart':if(me.deck.length<1)return 'デッキがありません';break;
     case 'reinforce':if(!reinfList(side).length)return 'デッキにレベル4以下の戦士族モンスターがいません';break;
-    case 'wok':if(!me.mz.some(Boolean))return '生贄にするモンスターがいません';break;
-    case 'enemyCtrl':case 'shrink':if(!op.mz.some(m=>m&&m.faceUp&&!m.card.god))return '相手フィールドに表側表示のモンスターがいません';break;
+    case 'wok':if(!me.mz.some(Boolean))return 'ささげものにするモンスターがいません';break;
+    case 'enemyCtrl':case 'shrink':if(!op.mz.some(m=>m&&m.faceUp&&!m.card.god))return '相手フィールドにおもて向きのモンスターがいません';break;
     case 'swords':case 'messenger':case 'mirage':if(me.sz.some(x=>x&&x.faceUp&&x.card.effect===c.effect))return 'すでに適用中です';break;
-    case 'fissure':if(!op.mz.some(m=>m&&m.faceUp))return '相手フィールドに表側表示のモンスターがいません';break;
-    case 'hammer':if(![0,1].some(q=>G.p[q].mz.some(m=>m&&m.faceUp&&m.pos==='atk'&&!m.card.god)))return 'フィールドに表側攻撃表示のモンスターがいません';break;
-    case 'lastWill':if(!(G.lostT&&G.lostT[side]===G.turn))return 'このターン、自分のモンスターが墓地へ送られていません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';if(!lwList(side).length)return 'デッキに攻撃力1500以下のモンスターがいません';break;
+    case 'fissure':if(!op.mz.some(m=>m&&m.faceUp))return '相手フィールドにおもて向きのモンスターがいません';break;
+    case 'hammer':if(![0,1].some(q=>G.p[q].mz.some(m=>m&&m.faceUp&&m.pos==='atk'&&!m.card.god)))return 'フィールドに表側こうげき形態のモンスターがいません';break;
+    case 'lastWill':if(!(G.lostT&&G.lostT[side]===G.turn))return 'このターン、自分のモンスターがすてばへ送られていません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';if(!lwList(side).length)return 'デッキに攻撃力1500以下のモンスターがいません';break;
     case 'painful':if(me.deck.length<5)return 'デッキが5枚以上必要です';break;
     case 'doubleSummon':if(G.extraNS>0)return 'このターンはすでに発動しています';break;
     case 'discardDraw':if(me.hand.length-(fromSz?0:1)<1)return '捨てる手札がありません';if(me.deck.length<2)return 'デッキが足りません';break;
-    case 'allDef':if(!op.mz.some(m=>m&&m.faceUp&&m.pos==='atk'))return '相手フィールドに表側攻撃表示のモンスターがいません';break;
+    case 'allDef':if(!op.mz.some(m=>m&&m.faceUp&&m.pos==='atk'))return '相手フィールドに表側こうげき形態のモンスターがいません';break;
     case 'steal':if(!op.mz.some(m=>m&&!(m.faceUp&&m.card.god)))return 'コントロールを得られるモンスターがいません';if(freeIdx(me.mz)<0)return 'モンスターゾーンが空いていません';break;
-    case 'wipeST':if(!op.sz.some(Boolean))return '相手フィールドに魔法・罠カードがありません';break;
-    case 'allAtkUp':case 'quickPump':if(!me.mz.some(m=>m&&m.faceUp))return '表側表示のモンスターがいません';break;
+    case 'wipeST':if(!op.sz.some(Boolean))return '相手フィールドにじゅもん・しかけカードがありません';break;
+    case 'allAtkUp':case 'quickPump':if(!me.mz.some(m=>m&&m.faceUp))return 'おもて向きのモンスターがいません';break;
     case 'noAttack':if(G.noAtk&&G.noAtk.side===1-side&&G.noAtk.turn>G.turn)return 'すでに効果が適用されています';break;
-    case 'gyRecycle':if(!me.gy.some(c=>c.type==='monster'&&!c.fusion))return '墓地にモンスターがいません';break;
-    case 'fusion':{const n=me.hand.filter(x=>x.id==='m13').length+me.mz.filter(m=>m&&m.card.id==='m13').length;if(n<3)return '手札・フィールドに「蒼眼の白竜」が3体必要です（現在'+n+'体）';if(!me.mz.some(m=>!m||m.card.id==='m13'))return 'モンスターゾーンが空いていません';break;}
+    case 'gyRecycle':if(!me.gy.some(c=>c.type==='monster'&&!c.fusion))return 'すてばにモンスターがいません';break;
+    case 'fusion':{const fm=fusionMats(side);if(!fm)return '手札・フィールドに「琥珀角の雷竜ヴォルテクス」と光属性モンスターが1体ずつ必要です';if(!me.mz.some(m=>!m)&&!fm.some(x=>x.from==='m'))return 'モンスターゾーンが空いていません';break;}
   }
   return true;
 }
@@ -1050,45 +1052,46 @@ function canChangePos(m){return G.phase==='main'&&!bound(m)&&m.summonTurn!==G.tu
 function canAttack(m){return canAttack0(m)&&!bound(m)&&!(atkOf(m)>=1500&&spellOn('messenger'))&&!spellOn('swords',1-ownerOf(m));}
 function canAttack0(m){return G.phase==='battle'&&G.turn>1&&!G.battleOver&&m.pos==='atk'&&m.faceUp&&(m.attackedTurn!==G.turn||((m.card.fx&&m.card.fx.dbl||m.dblAtkTurn===G.turn)&&m.atk2Turn!==G.turn))&&!(m.card.lv>=4&&!m.card.god&&contOn('gravity'))&&!(G.noAtk&&G.noAtk.turn===G.turn&&G.noAtk.side===ownerOf(m));}
 function canGodEff(side,m){
-  if(G.phase!=='main')return 'メインフェイズにのみ効果を発動できます';
-  if(!m.faceUp)return '表側表示のときのみ発動できます';
+  if(G.phase!=='main')return 'じゅんびの時間にのみ効果を発動できます';
+  if(!m.faceUp)return 'おもて向きのときのみ発動できます';
   if(m.effTurn===G.turn)return 'このターンはすでに効果を発動しました';
   const P=G.p[side];
-  if(m.card.effect==='wipe'){if(P.mz.filter(x=>x&&x!==m).length<2)return '生贄にする自分のモンスターが2体必要です';if(!G.p[1-side].mz.some(Boolean))return '相手フィールドにモンスターがいません';}
-  if(m.card.effect==='payLp'&&P.lp<=1000)return 'LPが足りません（1000より多く必要）';
+  if(m.card.effect==='wipe'){if(P.mz.filter(x=>x&&x!==m).length<2)return 'ささげものにする自分のモンスターが2体必要です';if(!G.p[1-side].mz.some(Boolean))return '相手フィールドにモンスターがいません';}
+  if(m.card.effect==='defSwitch'&&!G.p[1-side].mz.some(x=>x&&x.faceUp&&x.pos==='atk'))return '相手フィールドに表側こうげき形態のモンスターがいません';
+  if(m.card.effect==='payLp'&&P.lp<=1000)return 'ライフが足りません（1000より多く必要）';
   return true;
 }
-const trigLabel={lost:'自分のモンスターが戦闘で破壊された時',attack:'相手モンスターの攻撃宣言時',summon:'相手のモンスター召喚時',spell:'相手の魔法カード発動時',effect:'相手のモンスター効果発動時'};
+const trigLabel={lost:'自分のモンスターが戦闘で破壊された時',attack:'相手モンスターの攻撃宣言時',summon:'相手のモンスター呼び出し時',spell:'相手のじゅもんカード発動時',effect:'相手のモンスター効果発動時'};
 const trigText=c=>trigsOf(c).map(t=>trigLabel[t]).join('・');
 const ignTargets=(side,m)=>G.p[1-side].mz.map((x,i)=>x&&x.faceUp&&x.card&&!x.card.god&&atkOf(x)<atkOf(m)?{side:1-side,zone:'m',i}:null).filter(Boolean);
 const ssList=s=>G.p[s].hand.map((c,i)=>({c,i})).filter(x=>x.c&&x.c.type==='monster'&&!x.c.god&&!x.c.fusion&&x.c.lv<=4);
 function canChaosSS(side,c){
-  if(G.phase!=='main')return 'メインフェイズにのみ特殊召喚できます';
+  if(G.phase!=='main')return 'じゅんびの時間にのみ特別呼び出しできます';
   if(freeIdx(G.p[side].mz)<0)return 'モンスターゾーンが空いていません';
-  if(c.fx&&c.fx.ss3){if(!ss3OK(side,c.fx.ss3))return `墓地に${c.fx.ss3}属性モンスターが3体必要です`;}
-  else if(!chaosOK(side))return '墓地に光属性と闇属性のモンスターが1体ずつ必要です';
+  if(c.fx&&c.fx.ss3){if(!ss3OK(side,c.fx.ss3))return `すてばに${c.fx.ss3}属性モンスターが3体必要です`;}
+  else if(!chaosOK(side))return 'すてばに光属性と闇属性のモンスターが1体ずつ必要です';
   return true;
 }
 function canHandIgn(side,c){
-  if(G.phase!=='main')return 'メインフェイズにのみ発動できます';
+  if(G.phase!=='main')return 'じゅんびの時間にのみ発動できます';
   if(!G.p[side].deck.some(x=>x.id===c.id))return 'デッキに同名カードがありません';
   return true;
 }
-const IGN_LBL={absorb:'効果：吸収',abyss:'効果：手札に戻す',coin3:'効果：コイントス破壊',banishOne:'効果：除外',dblAtk:'効果：2回攻撃',counterST:'効果：魔法・罠破壊',virus:'効果：種族を破壊',selfTribDestroy:'効果：生贄にして破壊'};
+const IGN_LBL={absorb:'効果：吸収',abyss:'効果：手札に戻す',coin3:'効果：コイントス破壊',banishOne:'効果：除外',dblAtk:'効果：2回攻撃',counterST:'効果：じゅもん・しかけ破壊',virus:'効果：種族を破壊',selfTribDestroy:'効果：ささげものにして破壊'};
 const raceList=()=>{const r=new Set();for(const s of [0,1])for(const m of G.p[s].mz)if(m&&m.faceUp&&m.card)r.add(m.card.race);return [...r];};
 function canIgnEff(side,m,k){
-  if(G.phase!=='main')return 'メインフェイズにのみ発動できます';
-  if(!m.faceUp)return '表側表示のときのみ発動できます';
+  if(G.phase!=='main')return 'じゅんびの時間にのみ発動できます';
+  if(!m.faceUp)return 'おもて向きのときのみ発動できます';
   k=k||m.card.fx.ign;
   if(m.effTurn===G.turn)return 'この効果は1ターンに1度だけです';
   const P=G.p[side];
   switch(k){
     case 'banishOne':if(m.attackedTurn===G.turn)return 'このターン攻撃したため発動できません';if(!G.p[1-side].mz.some(Boolean))return '相手フィールドにモンスターがいません';break;
-    case 'dblAtk':if(G.turn===1)return '最初のターンは攻撃できません';if(m.pos!=='atk')return '攻撃表示のときのみ発動できます';break;
-    case 'counterST':if(!(m.counters>0))return '魔力カウンターがありません';if(!G.p[1-side].sz.some(Boolean))return '相手フィールドに魔法・罠カードがありません';break;
-    case 'virus':if(!P.hand.length)return '捨てる手札がありません';if(!raceList().length)return '表側表示のモンスターがいません';break;
+    case 'dblAtk':if(G.turn===1)return '最初のターンは攻撃できません';if(m.pos!=='atk')return 'こうげき形態のときのみ発動できます';break;
+    case 'counterST':if(!(m.counters>0))return '魔力カウンターがありません';if(!G.p[1-side].sz.some(Boolean))return '相手フィールドにじゅもん・しかけカードがありません';break;
+    case 'virus':if(!P.hand.length)return '捨てる手札がありません';if(!raceList().length)return 'おもて向きのモンスターがいません';break;
     case 'selfTribDestroy':if(!G.p[1-side].mz.some(Boolean))return '相手フィールドにモンスターがいません';break;
-    case 'destroyLower':if(m.attackedTurn===G.turn)return 'このターン攻撃したため発動できません';if(!ignTargets(side,m).length)return '攻撃力がこのカードより低い表側表示の相手モンスターがいません';break;
+    case 'destroyLower':if(m.attackedTurn===G.turn)return 'このターン攻撃したため発動できません';if(!ignTargets(side,m).length)return '攻撃力がこのカードより低いおもて向きの相手モンスターがいません';break;
     case 'ssLv4':if(freeIdx(P.mz)<0)return 'モンスターゾーンが空いていません';if(!ssList(side).length)return '手札にレベル4以下のモンスターがいません';break;
     case 'discardBoost':if(!P.hand.length)return '捨てる手札がありません';break;
     case 'absorb':if(m.absorb)return 'すでにモンスターを吸収しています';if(!G.p[1-side].mz.some(x=>x&&!(x.faceUp&&x.card.god)))return '吸収できる相手モンスターがいません';break;
@@ -1097,7 +1100,7 @@ function canIgnEff(side,m,k){
   }
   return true;
 }
-const posLabel=m=>m.pos==='atk'?'【攻撃表示】':m.faceUp?'【守備表示】':'【裏側守備表示】';
+const posLabel=m=>m.pos==='atk'?'【こうげき形態】':m.faceUp?'【まもり形態】':'【裏側まもり形態】';
 
 /* ================= モーダル ================= */
 function showModal(html,onBackdrop){
@@ -1117,10 +1120,10 @@ function openDetail(side,zone,i){
     if(zone==='h'){
       if(c.type==='monster'){
         const r=my?canSummon(side,c):notMy;const ok=r===true;const t=tribNeed(c);
-        acts.push({l:t?`生贄召喚（${t}体）`:'召喚',ok,fn:()=>pSummon(i,false)});
+        acts.push({l:t?`ささげ呼び出し（${t}体）`:'呼び出し',ok,fn:()=>pSummon(i,false)});
         acts.push({l:'セット',cls:'blue',ok:ok&&!c.god,fn:()=>pSummon(i,true)});
-        if(c.ritual)hints.push('儀式モンスター：対応する儀式魔法で特殊召喚します。');
-        if(c.fx&&(c.fx.chaos||c.fx.ss3)){const r2=my?canChaosSS(side,c):notMy;acts.unshift({l:c.fx.ss3?'特殊召喚（墓地の闇3体を除外）':'特殊召喚（墓地の光・闇を除外）',cls:'red',ok:r2===true,fn:()=>pSS(i)});if(r2!==true&&my)hints.push(r2);}
+        if(c.ritual)hints.push('儀式モンスター：対応する儀式じゅもんで特別呼び出します。');
+        if(c.fx&&(c.fx.chaos||c.fx.ss3)){const r2=my?canChaosSS(side,c):notMy;acts.unshift({l:c.fx.ss3?'特別呼び出し（すてばの闇3体を除外）':'特別呼び出し（すてばの光・闇を除外）',cls:'red',ok:r2===true,fn:()=>pSS(i)});if(r2!==true&&my)hints.push(r2);}
         if(c.fx&&c.fx.handIgn){const r2=my?canHandIgn(side,c):notMy;acts.push({l:'手札で効果発動',ok:r2===true,fn:()=>pHandIgn(i)});if(r2!==true&&my)hints.push(r2);}
         if(!ok)hints.push(r);if(c.god)hints.push('神のカードはセットできません。');
       }else{
@@ -1128,33 +1131,33 @@ function openDetail(side,zone,i){
         const okSet=my&&G.phase==='main'&&freeIdx(P.sz)>=0;
         acts.push({l:'セット',cls:'blue',ok:okSet,fn:()=>pSetST(i)});
         if(c.type==='trap'||c.quick)hints.push(`セットした次のターン以降、${trigText(c)}に発動の確認が表示されます。`);
-        else if(freeIdx(P.sz)<0)hints.push('魔法・罠ゾーンが空いていません');
+        else if(freeIdx(P.sz)<0)hints.push('じゅもん・しかけゾーンが空いていません');
       }
     }else if(zone==='m'){
       hints.push(posLabel(inst));
       acts.push({l:'攻撃',cls:'red',ok:my&&canAttack(inst),fn:()=>pAttack(i,false)});
       if(c.fx&&c.fx.direct)acts.push({l:'ダイレクトアタック',cls:'red',ok:my&&canAttack(inst),fn:()=>pAttack(i,true)});
-      acts.push({l:inst.faceUp?'表示形式変更':'反転召喚',cls:'blue',ok:my&&canChangePos(inst),fn:()=>pChangePos(i)});
+      acts.push({l:inst.faceUp?'表示形式変更':'反転呼び出し',cls:'blue',ok:my&&canChangePos(inst),fn:()=>pChangePos(i)});
       for(const kk of ['ign','ign2'])if(c.fx&&c.fx[kk]){const r=my?canIgnEff(side,inst,c.fx[kk]):notMy;acts.push({l:IGN_LBL[c.fx[kk]]||'効果発動',ok:r===true,fn:()=>pIgn(i,kk)});if(r!==true&&my)hints.push(r);}
       if(inst.counters)hints.push(`魔力カウンター：${inst.counters}`);
       if(inst.absorb)hints.push(`吸収中：「${CARDS[inst.absorb.id].name}」`);
-      if(bound(inst))hints.push('「呪縛の魔法陣」により攻撃・表示形式変更ができません。');
+      if(bound(inst))hints.push('「呪縛のじゅもん陣」により攻撃・表示形式変更ができません。');
       if(inst.dblAtkTurn===G.turn||(c.fx&&c.fx.dbl))hints.push('このターン2回攻撃できます');
       if(G.noAtk&&G.noAtk.turn===G.turn&&G.noAtk.side===side)hints.push('「光の封陣」の効果でこのターンは攻撃できません。');
-      if(c.effect==='wipe'||c.effect==='payLp'){const r=my?canGodEff(side,inst):notMy;acts.push({l:c.effect==='wipe'?'効果：全体破壊':'効果：LP1000払う',ok:r===true,fn:()=>pGodEff(i)});if(r!==true&&my)hints.push(r);}
-      if(my&&G.phase==='main')hints.push(G.turn===1?'最初のターンは攻撃できません。':'攻撃は「バトル⚔」でバトルフェイズに入ってから行えます。');
-      if(my&&G.phase==='battle'&&!canAttack(inst))hints.push(inst.pos!=='atk'?'守備表示のモンスターは攻撃できません。':inst.attackedTurn===G.turn?'このターンはすでに攻撃しました。':'');
+      if(c.effect==='wipe'||c.effect==='payLp'||c.effect==='defSwitch'){const r=my?canGodEff(side,inst):notMy;acts.push({l:c.effect==='wipe'?'効果：全体破壊':c.effect==='defSwitch'?'効果：まもり形態にする':'効果：ライフ1000払う',ok:r===true,fn:()=>pGodEff(i)});if(r!==true&&my)hints.push(r);}
+      if(my&&G.phase==='main')hints.push(G.turn===1?'最初のターンは攻撃できません。':'攻撃は「バトル⚔」でたたかいの時間に入ってから行えます。');
+      if(my&&G.phase==='battle'&&!canAttack(inst))hints.push(inst.pos!=='atk'?'まもり形態のモンスターは攻撃できません。':inst.attackedTurn===G.turn?'このターンはすでに攻撃しました。':'');
     }else{
       if(!inst.faceUp&&c.type==='spell'){const r=my?canSpell(side,c,true):notMy;acts.push({l:'発動',ok:r===true,fn:()=>pSpell('s',i)});if(r!==true)hints.push(r);}
       if(!inst.faceUp&&(c.type==='trap'||c.quick))hints.push(inst.setTurn<G.turn?`相手ターンの${trigText(c)}に発動の確認が表示されます。`:'セットしたターンは相手ターンに発動できません。');
-      if(inst.faceUp&&c.cont)hints.push(c.type==='spell'?'永続魔法として適用中'+(c.effect==='swords'&&inst.cnt?`（残り${inst.cnt}ターン）`:''):'永続罠として適用中');
+      if(inst.faceUp&&c.cont)hints.push(c.type==='spell'?'永続じゅもんとして適用中'+(c.effect==='swords'&&inst.cnt?`（残り${inst.cnt}ターン）`:''):'永続しかけとして適用中');
     }
   }else if(inst)hints.push(hidden?'裏側のカードです。中身はわかりません。':zone==='m'?posLabel(inst):'');
   if(inst&&!hidden){
-    if(zone==='m'&&inst.stolen)hints.push('コントロールを奪われているモンスター（エンドフェイズに持ち主へ戻る）');
+    if(zone==='m'&&inst.stolen)hints.push('コントロールを奪われているモンスター（おわりの時間に持ち主へ戻る）');
     if(zone==='m'&&inst.faceUp){const eq=G.p[side].sz.filter(s=>s&&s.equipTo===inst.uid).map(s=>`「${s.card.name}」`);if(eq.length)hints.push('装備：'+eq.join(''));}
     if(zone==='s'&&inst.faceUp&&c.effect==='equip'){const t=findMon(inst.equipTo);if(t)hints.push(`「${t.card.name}」に装備中`);}
-    if(zone==='s'&&inst.faceUp&&c.effect==='field')hints.push('フィールド魔法として適用中');
+    if(zone==='s'&&inst.faceUp&&c.effect==='field')hints.push('フィールドじゅもんとして適用中');
   }
   const ov=inst&&zone==='m'&&!hidden?{atk:atkOf(inst),dfn:defOf(inst)}:{};
   let html=`<div style="--w:min(62vw,230px)">${hidden?cardHTML(null,{back:true}):cardHTML(c,{big:true,...ov})}</div>`;
@@ -1175,7 +1178,7 @@ function pickFromList(title,cards,cancel=true){
 }
 function openGY(side){
   const P=G.p[side];const ban=P.ban||[];
-  let h=cardListModal(`${N(side)}の墓地（${P.gy.length}枚）`,P.gy.slice().reverse(),null);
+  let h=cardListModal(`${N(side)}のすてば（${P.gy.length}枚）`,P.gy.slice().reverse(),null);
   h+=`<h3 style="margin-top:8px">除外（${ban.length}枚）</h3><div class="gylist">${ban.length?ban.slice().reverse().map(c=>`<div>${cardHTML(c)}</div>`).join(''):'<p>カードはありません</p>'}</div><div class="acts"><button class="abtn gray" data-x="1">閉じる</button></div>`;
   const b=showModal(h,closeModal);b.querySelector('[data-x]').onclick=closeModal;
 }
@@ -1185,27 +1188,27 @@ function openLog(){
 }
 function openRules(){
   const html=`<h3>あそびかた</h3><div class="rules"><ul>
-  <li>お互いLP8000でスタート。相手のLPを0にするか、相手がドローできなくなれば勝ち！デッキは40枚。</li>
-  <li>先攻は1ターン目のドローなし・攻撃なし。</li>
+  <li>お互いライフ8000でスタート。相手のライフを0にするか、相手が引くできなくなれば勝ち！デッキは40枚。</li>
+  <li>先攻は1ターン目の引くなし・攻撃なし。</li>
   <li>カードを<b>タップ</b>すると詳細と操作ボタンが出ます。</li>
-  <li>モンスターの召喚・セットは1ターンに1回。レベル5・6は生贄1体、7以上は生贄2体、神は生贄3体。</li>
-  <li>「バトル⚔」でバトルフェイズへ。攻撃表示のモンスターをタップして「攻撃」。</li>
-  <li>攻撃表示同士：攻撃力の高い方が勝ち、差分がダメージ。守備表示：攻撃力が守備力を上回れば破壊（ダメージなし）、下回れば差分を攻撃側が受ける。</li>
-  <li><b>効果モンスター</b>（オレンジ枠）：召喚時効果・永続効果・破壊時効果・貫通・直接攻撃・戦闘破壊耐性など。</li>
-  <li><b>装備魔法</b>と<b>フィールド魔法</b>は魔法・罠ゾーンに残り続けます。装備先がいなくなると装備魔法は墓地へ。</li>
-  <li>罠カードはセットした次のターン以降、条件（攻撃宣言時・召喚時・魔法発動時）を満たすと発動の確認が出ます。</li>
-  <li><b>神のカード</b>は罠カードの効果を受けず、セットもできません。</li>
+  <li>モンスターの呼び出し・セットは1ターンに1回。レベル5・6はささげもの1体、7以上はささげもの2体。</li>
+  <li>「バトル⚔」でたたかいの時間へ。こうげき形態のモンスターをタップして「攻撃」。</li>
+  <li>こうげき形態同士：攻撃力の高い方が勝ち、差分がダメージ。まもり形態：攻撃力が守備力を上回れば破壊（ダメージなし）、下回れば差分を攻撃側が受ける。</li>
+  <li><b>効果モンスター</b>（オレンジ枠）：呼び出し時効果・永続効果・破壊時効果・貫通・直接攻撃・戦闘破壊耐性など。</li>
+  <li><b>装備じゅもん</b>と<b>フィールドじゅもん</b>はじゅもん・しかけゾーンに残り続けます。装備先がいなくなると装備じゅもんはすてばへ。</li>
+  <li>しかけカードはセットした次のターン以降、条件（攻撃宣言時・呼び出し時・じゅもん発動時）を満たすと発動の確認が出ます。</li>
+  <li><b>精霊獣</b>（ヒノトリ・ゴウボク・ルナリス）はレベル10。呼び出すには2体ささげます。</li>
   <li><b>起動効果</b>のモンスターはタップ→「効果発動」（1ターンに1度）。<b>リバース</b>効果は裏側から表になった時に発動。</li>
-  <li><b>速攻魔法</b>は自分のターンに使えるほか、セットしておけば次の相手ターン（攻撃宣言時など）にも発動できます。<b>永続罠</b>は発動後も場に残ります。</li>
-  <li>「蒼眼の白竜」3体で「白竜三位融合」→ 究極竜（ATK4500）！</li>
-  <li><b>2人対戦</b>：1台を交代で使います。交代画面が出たら相手に渡してください。罠を発動できるときは防御側に一時的に渡します。</li>
-  <li><b>除外</b>：除外されたカードは墓地とは別に保管されます（墓地をタップで確認）。</li>
-  <li><b>混沌召喚</b>：一部のモンスターは、墓地の光属性・闇属性モンスターを1体ずつ除外して手札から特殊召喚します。</li>
-  <li><b>トークン</b>：「綿毛羊トークン」はフィールドを離れると消滅し、生贄召喚には使えません。</li>
+  <li><b>速攻じゅもん</b>は自分のターンに使えるほか、セットしておけば次の相手ターン（攻撃宣言時など）にも発動できます。<b>永続しかけ</b>は発動後も場に残ります。</li>
+  <li>「琥珀角の雷竜ヴォルテクス」と光属性モンスターで「雷鳴の合一」→ 雷皇竜（ATK4000）！</li>
+  <li><b>2人対戦</b>：1台を交代で使います。交代画面が出たら相手に渡してください。しかけを発動できるときは防御側に一時的に渡します。</li>
+  <li><b>除外</b>：除外されたカードはすてばとは別に保管されます（すてばをタップで確認）。</li>
+  <li><b>混沌呼び出し</b>：一部のモンスターは、すてばの光属性・闇属性モンスターを1体ずつ除外して手札から特別呼び出します。</li>
+  <li><b>トークン</b>：「綿毛羊トークン」はフィールドを離れると消滅し、ささげ呼び出しには使えません。</li>
   <li><b>制限リスト</b>：強力なカード（図鑑の「制限」タブ）はデッキに1枚まで、「準制限」は2枚まで。プリセットデッキはすべて準拠しています。</li>
-  <li><b>儀式召喚</b>：儀式魔法を発動し、手札・フィールドのモンスターをレベル合計が儀式モンスターのレベル以上になるよう生贄にして、手札の儀式モンスターを特殊召喚します。</li>
+  <li><b>儀式呼び出し</b>：儀式じゅもんを発動し、手札・フィールドのモンスターをレベル合計が儀式モンスターのレベル以上になるようささげものにして、手札の儀式モンスターを特別呼び出します。</li>
   <li><b>コイントス</b>：一部の効果はコインを投げて表・裏で結果が決まります。</li>
-  <li><b>永続魔法</b>：「光の剣の牢獄」などはフィールドに残って効果を発揮し続けます（牢獄は相手ターンで3ターン後に破壊）。</li>
+  <li><b>永続じゅもん</b>：「光の剣の牢獄」などはフィールドに残って効果を発揮し続けます（牢獄は相手ターンで3ターン後に破壊）。</li>
   <li>チェーンは簡略化されており、1つの行動に対して応答できるのは1枚までです。</li>
   <li>カードの名前・イラストはすべてオリジナルです（「04環境」タブは2004年頃の環境の役割をモチーフにしています）。</li></ul></div><div class="acts"><button class="abtn gray">閉じる</button></div>`;
   const b=showModal(html,closeModal);b.querySelector('button').onclick=closeModal;
@@ -1237,7 +1240,7 @@ function submit(a){
 async function pSummon(hi,set){
   const me=G.cur,P=G.p[me];const c=P.hand[hi];if(!c||!canAct()||canSummon(me,c)!==true||(set&&c.god))return;
   const t=tribNeed(c);let tribs=[];
-  if(t>0){tribs=await selectTargets(`生贄にするモンスターを${t}体分選んでください`,monCands(me).map(x=>Object.assign(x,{w:tribW(P.mz[x.i])})).filter(x=>x.w>0),t);if(!tribs)return;}
+  if(t>0){tribs=await selectTargets(`ささげものにするモンスターを${t}体分選んでください`,monCands(me).map(x=>Object.assign(x,{w:tribW(P.mz[x.i])})).filter(x=>x.w>0),t);if(!tribs)return;}
   submit({t:'summon',hi,cid:c.id,set:!!set,tribs});
 }
 function pSetST(hi){const P=G.p[G.cur];const c=P.hand[hi];if(!c||!canAct()||G.phase!=='main'||freeIdx(P.sz)<0)return;submit({t:'setST',hi,cid:c.id});}
@@ -1251,11 +1254,11 @@ async function pSpell(from,idx){
 async function chooseSpellTarget(me,c,skipIdx){
   const o=1-me;let r;const P=G.p[me];
   switch(c.effect){
-    case 'snatch':case 'brain':case 'quickMoon':r=await selectTargets('対象にする相手の表側表示モンスターを選んでください',monCands(o).filter(x=>G.p[o].mz[x.i].faceUp&&!G.p[o].mz[x.i].card.god),1);return r?r[0]:undefined;
-    case 'quickST':r=await selectTargets('破壊する相手の魔法・罠カードを選んでください',stCands(o),1);return r?r[0]:undefined;
+    case 'snatch':case 'brain':case 'quickMoon':r=await selectTargets('対象にする相手のおもて向きモンスターを選んでください',monCands(o).filter(x=>G.p[o].mz[x.i].faceUp&&!G.p[o].mz[x.i].card.god),1);return r?r[0]:undefined;
+    case 'quickST':r=await selectTargets('破壊する相手のじゅもん・しかけカードを選んでください',stCands(o),1);return r?r[0]:undefined;
     case 'nobleman':r=await selectTargets('破壊・除外する裏側モンスターを選んでください',monCands(o).filter(x=>!G.p[o].mz[x.i].faceUp),1);return r?r[0]:undefined;
-    case 'premature':{const l=reviveList(me);r=await pickFromList('特殊召喚するモンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].i;}
-    case 'reborn':{const l=rebornList(me);r=await pickFromList('特殊召喚するモンスターを選んでください（お互いの墓地）',l.map(x=>x.c));return r==null?undefined:l[r].t;}
+    case 'premature':{const l=reviveList(me);r=await pickFromList('特別呼び出すモンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].i;}
+    case 'reborn':{const l=rebornList(me);r=await pickFromList('特別呼び出すモンスターを選んでください（お互いのすてば）',l.map(x=>x.c));return r==null?undefined:l[r].t;}
     case 'vortex':{const l=P.hand.map((c,i)=>({c,i})).filter(x=>x.i!==skipIdx);r=await pickFromList('コストとして捨てるカードを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].c.id;}
     case 'swap':{const a=await selectTargets('相手に渡す自分のモンスターを選んでください',monCands(me).filter(x=>!(P.mz[x.i].faceUp&&P.mz[x.i].card.god)),1);if(!a)return undefined;
       const b=await selectTargets('受け取る相手のモンスターを選んでください',monCands(o).filter(x=>!(G.p[o].mz[x.i].faceUp&&G.p[o].mz[x.i].card.god)),1);if(!b)return undefined;return a[0]*10+b[0];}
@@ -1264,13 +1267,13 @@ async function chooseSpellTarget(me,c,skipIdx){
     case 'discardDraw':{const l=P.hand.map((c,i)=>({c,i})).filter(x=>x.i!==skipIdx);r=await pickFromList('捨てるカードを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].c.id;}
     case 'gyRecycle':{const l=P.gy.map((c,i)=>({c,i})).filter(x=>x.c.type==='monster'&&!x.c.fusion);r=await pickFromList('手札に加えるモンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].i;}
     case 'destroy':case 'dmKnives':r=await selectTargets('破壊する相手モンスターを選んでください',monCands(o),1);return r?r[0]:undefined;
-    case 'wok':r=await selectTargets('生贄にする自分のモンスターを選んでください',monCands(me),1);return r?r[0]:undefined;
+    case 'wok':r=await selectTargets('ささげものにする自分のモンスターを選んでください',monCands(me),1);return r?r[0]:undefined;
     case 'enemyCtrl':case 'shrink':r=await selectTargets(c.effect==='shrink'?'攻撃力を半減する相手モンスターを選んでください':'表示形式を変更する相手モンスターを選んでください',monCands(o).filter(x=>G.p[o].mz[x.i].faceUp&&!G.p[o].mz[x.i].card.god),1);return r?r[0]:undefined;
     case 'reinforce':{const seen=new Set();const l=reinfList(me).filter(x=>!seen.has(x.c.id)&&seen.add(x.c.id));r=await pickFromList('手札に加える戦士族モンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].c.id;}
     case 'bounce':r=await selectTargets('手札に戻す相手モンスターを選んでください',monCands(o),1);return r?r[0]:undefined;
     case 'equip':r=await selectTargets('装備する自分のモンスターを選んでください',monCands(me).filter(x=>G.p[me].mz[x.i].faceUp),1);return r?r[0]:undefined;
-    case 'destroyST':r=await selectTargets('破壊する相手の魔法・罠カードを選んでください',stCands(o),1);return r?r[0]:undefined;
-    case 'revive':{const l=reviveList(me);r=await pickFromList('特殊召喚するモンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].i;}
+    case 'destroyST':r=await selectTargets('破壊する相手のじゅもん・しかけカードを選んでください',stCands(o),1);return r?r[0]:undefined;
+    case 'revive':{const l=reviveList(me);r=await pickFromList('特別呼び出すモンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].i;}
     case 'search':{const l=searchList(me);r=await pickFromList('手札に加えるモンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].c.id;}
   }
   return null;
@@ -1294,7 +1297,7 @@ async function chooseIgnTarget(me,m,k){
   const P=G.p[me],o=1-me;let r;
   switch(k||m.card.fx.ign){
     case 'banishOne':case 'selfTribDestroy':r=await selectTargets(k==='banishOne'?'除外する相手モンスターを選んでください':'破壊する相手モンスターを選んでください',monCands(o),1);return r?r[0]:undefined;
-    case 'counterST':r=await selectTargets('破壊する相手の魔法・罠カードを選んでください',stCands(o),1);return r?r[0]:undefined;
+    case 'counterST':r=await selectTargets('破壊する相手のじゅもん・しかけカードを選んでください',stCands(o),1);return r?r[0]:undefined;
     case 'virus':{r=await pickFromList('コストとして捨てるカードを選んでください',P.hand);if(r==null)return undefined;const d=P.hand[r].id;
       const race=await pickOption('種族を宣言してください',raceList());if(race==null)return undefined;return {d,r:race};}
     case 'dblAtk':return null;
@@ -1303,7 +1306,7 @@ async function chooseIgnTarget(me,m,k){
     case 'abyss':{const l=P.hand.filter(c=>c.type==='monster'&&c.attr==='水');r=await pickFromList('コストとして捨てる水属性モンスターを選んでください',l);if(r==null)return undefined;const d=l[r].id;
       const b=await selectTargets('手札に戻す相手モンスターを選んでください',monCands(o),1);if(!b)return undefined;return {d,t:b[0]};}
     case 'destroyLower':r=await selectTargets('破壊する相手モンスターを選んでください',ignTargets(me,m),1);return r?r[0]:undefined;
-    case 'ssLv4':{const l=ssList(me);r=await pickFromList('特殊召喚するモンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].c.id;}
+    case 'ssLv4':{const l=ssList(me);r=await pickFromList('特別呼び出すモンスターを選んでください',l.map(x=>x.c));return r==null?undefined:l[r].c.id;}
     case 'discardBoost':r=await pickFromList('捨てるカードを選んでください（コスト）',P.hand);return r==null?undefined:P.hand[r].id;
   }
   return null;
@@ -1325,24 +1328,25 @@ function validIgnTarget(side,m,t,k){
 async function pGodEff(i){
   const me=G.cur,P=G.p[me];const m=P.mz[i];if(!m||!canAct()||canGodEff(me,m)!==true)return;
   let tribs=[];
-  if(m.card.effect==='wipe'){tribs=await selectTargets('生贄にするモンスターを2体選んでください',monCands(me).filter(x=>x.i!==i),2);if(!tribs)return;}
+  if(m.card.effect==='wipe'){tribs=await selectTargets('ささげものにするモンスターを2体選んでください',monCands(me).filter(x=>x.i!==i),2);if(!tribs)return;}
+  if(m.card.effect==='defSwitch'){const o=1-me;tribs=await selectTargets('まもり形態にする相手モンスターを選んでください',monCands(o).filter(x=>G.p[o].mz[x.i].faceUp&&G.p[o].mz[x.i].pos==='atk'),1);if(!tribs)return;}
   submit({t:'godEff',i,tribs});
 }
 async function doNormalSummon(me,c,set,tribs){
   const P=G.p[me];
-  if(tribs.length){log(`${N(me)}は${tribs.map(i=>'「'+P.mz[i].card.name+'」').join('')}を生贄に捧げた。`,'p'+me);await Promise.all(tribs.map(i=>destroyMon(me,i,{tribute:true})));}
+  if(tribs.length){log(`${N(me)}は${tribs.map(i=>'「'+P.mz[i].card.name+'」').join('')}をささげものにた。`,'p'+me);await Promise.all(tribs.map(i=>destroyMon(me,i,{tribute:true})));}
   P.hand.splice(P.hand.indexOf(c),1);
   const z=freeIdx(P.mz);P.mz[z]=newInst(c,set?'def':'atk',!set);
   if(G.normalSummoned)G.extraNS=Math.max(0,(G.extraNS||0)-1);
   G.normalSummoned=true;G.fx.summon=P.mz[z].uid;
-  log(set?`${N(me)}はモンスターを裏側守備表示でセットした。`:`${N(me)}は「${c.name}」を攻撃表示で召喚！`,'p'+me);
-  render();if(c.god)await godFx(c,'神 降 臨');await sleep(isCPU(me)?600:400);
+  log(set?`${N(me)}はモンスターを裏側まもり形態でセットした。`:`${N(me)}は「${c.name}」をこうげき形態で呼び出し！`,'p'+me);
+  render();if(c.god)await godFx(c,'神 降 臨');else if(c.spirit)await godFx(c,'精 霊 降 臨');await sleep(isCPU(me)?600:400);
   if(tribs.length&&!set)P.mz[z].tribSummoned=true;
   if(!set)await afterSummon(me,z);
 }
 async function changePos(me,i){
   const m=G.p[me].mz[i];m.posChangedTurn=G.turn;
-  if(!m.faceUp){m.faceUp=true;m.pos='atk';log(`${N(me)}は「${m.card.name}」を反転召喚！`,'p'+me);G.fx.summon=m.uid;render();await sleep(400);await afterSummon(me,i);if(G.p[me].mz[i]===m)await flipEffect(me,i);}
+  if(!m.faceUp){m.faceUp=true;m.pos='atk';log(`${N(me)}は「${m.card.name}」を反転呼び出し！`,'p'+me);G.fx.summon=m.uid;render();await sleep(400);await afterSummon(me,i);if(G.p[me].mz[i]===m)await flipEffect(me,i);}
   else{m.pos=m.pos==='atk'?'def':'atk';log(`${N(me)}は「${m.card.name}」を${m.pos==='atk'?'攻撃':'守備'}表示に変更。`,'p'+me);G.fx.summon=m.uid;render();}
 }
 function canActSide(side){return G&&!G.over&&!G.busy&&G.cur===side&&!isCPU(side)&&(G.phase==='main'||G.phase==='battle');}
@@ -1386,7 +1390,7 @@ async function execIntent(side,a){
         G.busy=true;await doNormalSummon(side,c,!!a.set,tr);break;}
       case 'setST':{const c=P.hand[a.hi];const z=freeIdx(P.sz);if(!c||c.id!==a.cid||c.type==='monster'||z<0||G.phase!=='main')return bad();
         P.hand.splice(a.hi,1);P.sz[z]={uid:++uidc,card:c,faceUp:false,setTurn:G.turn};G.fx.summon=P.sz[z].uid;
-        log(`${N(side)}は魔法・罠カードを1枚セットした。`,'p'+side);break;}
+        log(`${N(side)}はじゅもん・しかけカードを1枚セットした。`,'p'+side);break;}
       case 'pos':{const m=P.mz[a.i];if(!m||!canChangePos(m))return bad();G.busy=true;await changePos(side,a.i);break;}
       case 'spell':{const fromSz=a.from==='s';const st=fromSz?P.sz[a.idx]:null;const c=fromSz?(st&&!st.faceUp?st.card:null):P.hand[a.idx];
         if(!c||c.type!=='spell'||c.id!==a.cid||canSpell(side,c,fromSz)!==true||!validSpellTarget(side,c,a.target,fromSz))return bad();
@@ -1396,13 +1400,14 @@ async function execIntent(side,a){
         else if(!Number.isInteger(a.ti)||!G.p[o].mz[a.ti])return bad();
         await doAttack(side,a.i,a.ti);break;}
       case 'battle':{if(G.phase!=='main'||G.turn===1)return bad();
-        G.phase='battle';log(`${N(side)}はバトルフェイズに入った。`,'p'+side);render();G.busy=true;await banner('バトルフェイズ',side===1);break;}
+        G.phase='battle';log(`${N(side)}はたたかいの時間に入った。`,'p'+side);render();G.busy=true;await banner('たたかいの時間',side===1);break;}
       case 'end':endTurn();return;
       case 'ign':{const m=P.mz[a.i];const kk=a.k==='ign2'?'ign2':'ign';const k=m&&m.card.fx&&m.card.fx[kk];if(!k||canIgnEff(side,m,k)!==true||!validIgnTarget(side,m,a.target,k))return bad();
         G.busy=true;await ignEffect(side,a.i,a.target,k);break;}
       case 'ssHand':{const c=P.hand[a.hi];if(!c||c.id!==a.cid||!c.fx||!(c.fx.chaos||c.fx.ss3)||canChaosSS(side,c)!==true)return bad();G.busy=true;await doChaosSS(side,a.hi);break;}
       case 'handIgn':{const c=P.hand[a.hi];if(!c||c.id!==a.cid||!c.fx||!c.fx.handIgn||canHandIgn(side,c)!==true)return bad();G.busy=true;await doHandIgn(side,a.hi);break;}
       case 'godEff':{const m=P.mz[a.i];if(!m||canGodEff(side,m)!==true)return bad();const tr=Array.isArray(a.tribs)?a.tribs:[];
+        if(m.card.effect==='defSwitch'&&(tr.length!==1||!G.p[1-side].mz[tr[0]]||!G.p[1-side].mz[tr[0]].faceUp||G.p[1-side].mz[tr[0]].pos!=='atk'))return bad();
         if(m.card.effect==='wipe'&&(tr.length!==2||new Set(tr).size!==2||tr.some(i=>i===a.i||!P.mz[i])))return bad();
         G.busy=true;await godEffect(side,a.i,tr);break;}
       default:return bad();
@@ -1458,7 +1463,7 @@ async function humanSelect(side,prompt,cands,count){
 async function afterSummon(side,i){
   const m=G.p[side].mz[i];if(!m||!m.faceUp||G.over)return;
   const o=1-side;const ctx={m,side,i};
-  const t=await askTrap(o,'summon',ctx,`${N(side)}が「${m.card.name}」（ATK ${atkOf(m)}）を召喚した！`);
+  const t=await askTrap(o,'summon',ctx,`${N(side)}が「${m.card.name}」（ATK ${atkOf(m)}）を呼び出した！`);
   if(t!=null){await activateTrap(o,t,ctx);if(G.p[side].mz[i]!==m||!m.faceUp||G.over)return;}
   if(m.card.atk<=1400&&!m.card.god){let tg=null;for(const s2 of [0,1])for(const x of G.p[s2].mz)if(x&&x!==m&&x.faceUp&&x.card.fx&&x.card.fx.tigerKill)tg=x;
     if(tg){log(`「${tg.card.name}」の効果！`,'p'+ownerOf(tg));await destroyMon(side,i);return;}}
@@ -1474,10 +1479,10 @@ async function afterSummon(side,i){
   else if(f.sum==='draw1')drawCards(side,1);
   else if(f.sum==='burn500')await damage(o,500,false);
   else if(f.sum==='destroyST'){
-    if(!G.p[o].sz.some(Boolean)){log('破壊できる魔法・罠カードがない。');return;}
+    if(!G.p[o].sz.some(Boolean)){log('破壊できるじゅもん・しかけカードがない。');return;}
     let k;
     if(isCPU(side))k=cpuPickST(o);
-    else{const r=await humanSelect(side,'破壊する相手の魔法・罠カードを選んでください（キャンセルで発動しない）',stCands(o),1);k=r?r[0]:-1;}
+    else{const r=await humanSelect(side,'破壊する相手のじゅもん・しかけカードを選んでください（キャンセルで発動しない）',stCands(o),1);k=r?r[0]:-1;}
     if(k>=0)await destroyST(o,k);
   }
 }
@@ -1504,7 +1509,7 @@ async function setDownEff(side,m){
   if(!cands.length){log('対象となるモンスターがいない。');return;}
   let k;
   if(isCPU(side)){let b=-1,bs=-1;for(const x of cands){const v=atkOf(G.p[o].mz[x.i]);if(v>bs){bs=v;b=x.i;}}k=b;}
-  else{const r=await humanSelect(side,`「${m.card.name}」の効果で裏側守備表示にする相手モンスターを選んでください（キャンセルで発動しない）`,cands,1);k=r?r[0]:-1;}
+  else{const r=await humanSelect(side,`「${m.card.name}」の効果で裏側まもり形態にする相手モンスターを選んでください（キャンセルで発動しない）`,cands,1);k=r?r[0]:-1;}
   if(k>=0&&G.p[o].mz[k])setDown(G.p[o].mz[k]);render();
 }
 async function effNegated(side,m){
@@ -1532,22 +1537,22 @@ async function flipEffect(side,i){
     else{const r=await humanSelect(side,`「${m.card.name}」の効果で手札に戻すモンスターを${n}体選んでください（キャンセルで戻さない）`,cands,n);ks=r||[];}
     for(const k of ks)if(G.p[o].mz[k])await returnToHand(o,k);}
   else if(m.card.fx.flip==='gyTrap'){const P=G.p[side];const l=P.gy.filter(c=>c.type==='trap');
-    if(!l.length)log('墓地に罠カードがない。');
-    else{const r=await humanPick(side,`「${m.card.name}」の効果：手札に加える罠カードを選んでください`,l,{cancel:true,cpu:cs=>cpuHighIdx(cs)});
-      if(r!=null){P.gy.splice(P.gy.indexOf(l[r]),1);P.hand.push(l[r]);log(`${N(side)}は墓地の「${l[r].name}」を手札に加えた。`,'p'+side);}}}
-  else if(m.card.fx.flip==='reset'){log('お互いの手札・フィールド・墓地のカードが全てデッキに戻る！','p'+side);
+    if(!l.length)log('すてばにしかけカードがない。');
+    else{const r=await humanPick(side,`「${m.card.name}」の効果：手札に加えるしかけカードを選んでください`,l,{cancel:true,cpu:cs=>cpuHighIdx(cs)});
+      if(r!=null){P.gy.splice(P.gy.indexOf(l[r]),1);P.hand.push(l[r]);log(`${N(side)}はすてばの「${l[r].name}」を手札に加えた。`,'p'+side);}}}
+  else if(m.card.fx.flip==='reset'){log('お互いの手札・フィールド・すてばのカードが全てデッキに戻る！','p'+side);
     for(const s2 of [0,1])G.p[s2].mz.forEach((x,j)=>{if(x){G.p[s2].mz[j]=null;if(x.absorb){G.p[x.absorb.from].deck.push(CARDS[x.absorb.id]);x.absorb=null;}if(!x.card.token)G.p[x.stolen?x.stolen.from:s2].deck.push(x.card);}});
     for(const s2 of [0,1]){const P=G.p[s2];P.sz.forEach((st,j)=>{if(st){P.sz[j]=null;P.deck.push(st.card);}});P.deck.push(...P.hand.splice(0),...P.gy.splice(0));shuffle(P.deck);}
     render();await sleep(400);if(drawCards(side,5))drawCards(o,5);}
   else if(m.card.fx.flip==='setDown')await setDownEff(side,m);
   else if(m.card.fx.flip==='gySpell'){const P=G.p[side];const l=P.gy.filter(c=>c.type==='spell');
-    if(!l.length)log('墓地に魔法カードがない。');
-    else{const r=await humanPick(side,`「${m.card.name}」の効果：手札に加える魔法カードを選んでください`,l,{cancel:true,cpu:cs=>cpuSpellIdx(cs)});
-      if(r!=null){P.gy.splice(P.gy.indexOf(l[r]),1);P.hand.push(l[r]);log(`${N(side)}は墓地の「${l[r].name}」を手札に加えた。`,'p'+side);}}}
+    if(!l.length)log('すてばにじゅもんカードがない。');
+    else{const r=await humanPick(side,`「${m.card.name}」の効果：手札に加えるじゅもんカードを選んでください`,l,{cancel:true,cpu:cs=>cpuSpellIdx(cs)});
+      if(r!=null){P.gy.splice(P.gy.indexOf(l[r]),1);P.hand.push(l[r]);log(`${N(side)}はすてばの「${l[r].name}」を手札に加えた。`,'p'+side);}}}
   else if(m.card.fx.flip==='jar'){for(const s2 of [0,1]){const P=G.p[s2];const n=P.hand.length;P.gy.push(...P.hand.splice(0));log(`${N(s2)}は手札を${n}枚捨てた。`,'p'+s2);}
     render();await sleep(300);if(drawCards(side,5))drawCards(o,5);}
   else if(m.card.fx.flip==='mill'){const P=G.p[side];let n=0,got=null;while(P.deck.length){const c=P.deck.pop();if(c.type!=='monster'){got=c;break;}P.gy.push(c);n++;}
-    if(got){P.hand.push(got);log(`${N(side)}はデッキをめくり「${got.name}」を手札に加え、${n}枚を墓地へ送った。`,'p'+side);}else log(`${N(side)}はデッキを${n}枚墓地へ送った。`,'p'+side);}
+    if(got){P.hand.push(got);log(`${N(side)}はデッキをめくり「${got.name}」を手札に加え、${n}枚をすてばへ送った。`,'p'+side);}else log(`${N(side)}はデッキを${n}枚すてばへ送った。`,'p'+side);}
   else if(m.card.fx.flip==='wipeAllFlip'){log('フィールドのモンスターを全て破壊する！','p'+side);const js=[];for(const s2 of [0,1])G.p[s2].mz.forEach((x,j)=>{if(x&&!x.card.god)js.push(destroyMon(s2,j));});await Promise.all(js);}
   render();
 }
@@ -1558,8 +1563,8 @@ async function doChaosSS(side,hi){
   else{const li=pickA('光');const L=P.gy.splice(li,1)[0];const di=pickA('闇');const D=P.gy.splice(di,1)[0];used=[L,D];}
   P.ban.push(...used);
   P.hand.splice(hi,1);const z=freeIdx(P.mz);P.mz[z]=newInst(c,'atk',true);G.fx.summon=P.mz[z].uid;
-  log(`${N(side)}は墓地の${used.map(x=>'「'+x.name+'」').join('')}を除外し、「${c.name}」を特殊召喚！`,'p'+side);render();
-  await godFx(c,c.fx.ss3?'降臨！':'混沌召喚！');await afterSummon(side,z);
+  log(`${N(side)}はすてばの${used.map(x=>'「'+x.name+'」').join('')}を除外し、「${c.name}」を特別呼び出し！`,'p'+side);render();
+  await godFx(c,c.fx.ss3?'降臨！':'混沌呼び出し！');await afterSummon(side,z);
 }
 async function doHandIgn(side,hi){
   const P=G.p[side];const c=P.hand.splice(hi,1)[0];P.gy.push(c);log(`${N(side)}は「${c.name}」を手札から捨てて効果を発動！`,'p'+side);
@@ -1572,7 +1577,7 @@ async function ignEffect(side,i,t,k){
   if(k==='destroyLower'||k==='banishOne')m.attackedTurn=G.turn;
   if(k==='counterST')m.counters=Math.max(0,(m.counters||0)-1);
   if(k==='virus'||k==='abyss'){const ix=P.hand.findIndex(c=>c.id===t.d);if(ix>=0)await discardFrom(side,ix,'コストとして');}
-  if(k==='selfTribDestroy'){log(`${N(side)}は「${m.card.name}」を生贄に捧げた。`,'p'+side);await destroyMon(side,i,{tribute:true});}
+  if(k==='selfTribDestroy'){log(`${N(side)}は「${m.card.name}」をささげものにた。`,'p'+side);await destroyMon(side,i,{tribute:true});}
   if(k==='discardBoost'){const ix=P.hand.findIndex(c=>c.id===t);if(ix>=0){const d=P.hand.splice(ix,1)[0];P.gy.push(d);log(`${N(side)}はコストとして「${d.name}」を捨てた。`,'p'+side);}}
   G.fx.summon=m.uid;render();
   await showCardFlash(m.card,'効果発動！');
@@ -1591,7 +1596,7 @@ async function ignEffect(side,i,t,k){
       G.p[o].mz[t]=null;const from=x.stolen?x.stolen.from:o;releaseAbsorb(x);detachEquips(x.uid);
       if(x.card.token){log(`「${x.card.name}」は消滅した。`,'p'+o);}else{m.absorb={id:x.card.id,from};log(`「${m.card.name}」は「${x.card.name}」を吸収した！（ATK ${atkOf(m)} / DEF ${defOf(m)}）`,'p'+side);}G.fx.summon=m.uid;render();break;}
     case 'ssLv4':{const ix=P.hand.findIndex(c=>c.id===t&&c.type==='monster'&&c.lv<=4&&!c.god);const z=freeIdx(P.mz);if(ix<0||z<0)break;
-      const c=P.hand.splice(ix,1)[0];P.mz[z]=newInst(c,'atk',true);G.fx.summon=P.mz[z].uid;log(`${N(side)}は手札から「${c.name}」を特殊召喚！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
+      const c=P.hand.splice(ix,1)[0];P.mz[z]=newInst(c,'atk',true);G.fx.summon=P.mz[z].uid;log(`${N(side)}は手札から「${c.name}」を特別呼び出し！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
     case 'discardBoost':if(P.mz[i]===m){addTmp(m,1000);log(`「${m.card.name}」の攻撃力がターン終了時まで1000アップ！（ATK ${atkOf(m)}）`,'p'+side);}break;
   }
   render();
@@ -1602,10 +1607,10 @@ async function castSpell(side,c,from,idx,target){
   if(from==='h'){P.hand.splice(idx,1);if(cont){zk=freeIdx(P.sz);P.sz[zk]={uid:++uidc,card:c,faceUp:true,setTurn:G.turn};}}
   else{zk=idx;if(cont)P.sz[zk].faceUp=true;else P.sz[zk]=null;}
   render();
-  log(`${N(side)}は${c.effect==='field'?'フィールド魔法':(c.effect==='equip'||c.effect==='snatch')?'装備魔法':c.quick?'速攻魔法':'魔法カード'}「${c.name}」を発動！`,'p'+side);
-  await showCardFlash(c,'魔法カード発動！');
+  log(`${N(side)}は${c.effect==='field'?'フィールドじゅもん':(c.effect==='equip'||c.effect==='snatch')?'装備じゅもん':c.quick?'速攻じゅもん':'じゅもんカード'}「${c.name}」を発動！`,'p'+side);
+  await showCardFlash(c,'じゅもんカード発動！');
   const o=1-side;
-  const t=await askTrap(o,'spell',{c,side},`${N(side)}が魔法カード「${c.name}」を発動した！`);
+  const t=await askTrap(o,'spell',{c,side},`${N(side)}がじゅもんカード「${c.name}」を発動した！`);
   if(t!=null){
     const tr=await activateTrap(o,t,{c,side});
     if(tr==='negated'){
@@ -1634,7 +1639,7 @@ async function resolveSpell(side,c,target,zk){
     case 'destroyST':await destroyST(o,target);break;
     case 'search':{const ix=me.deck.findIndex(c=>c.id===target&&c.type==='monster'&&c.lv<=4);if(ix<0)break;const card=me.deck.splice(ix,1)[0];me.hand.push(card);shuffle(me.deck);log(`${N(side)}はデッキから「${card.name}」を手札に加えた。`,'p'+side);break;}
     case 'revive':{const card=me.gy.splice(target,1)[0];const z=freeIdx(me.mz);if(z<0){me.gy.push(card);break;}
-      me.mz[z]=newInst(card,'atk',true);G.fx.summon=me.mz[z].uid;log(`${N(side)}は墓地から「${card.name}」を特殊召喚！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
+      me.mz[z]=newInst(card,'atk',true);G.fx.summon=me.mz[z].uid;log(`${N(side)}はすてばから「${card.name}」を特別呼び出し！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
     case 'charity':{if(!drawCards(side,3))break;for(let k=0;k<2&&me.hand.length&&!G.over;k++){const r=await humanPick(side,`捨てるカードを選んでください（${k+1}/2）`,me.hand,{cpu:cs=>cpuLowIdx(cs)});await discardFrom(side,r==null?0:r);}break;}
     case 'duo':{await payLP(side,1000);const O=G.p[o];if(O.hand.length){await discardFrom(o,Math.floor(Math.random()*O.hand.length),'ランダムに');}
       if(O.hand.length&&!G.over){const r=await humanPick(o,'「悪童の二人組」：捨てるカードを1枚選んでください',O.hand,{cpu:cs=>cpuLowIdx(cs)});await discardFrom(o,r==null?0:r);}break;}
@@ -1643,16 +1648,16 @@ async function resolveSpell(side,c,target,zk){
       G.p[o].mz[target]=null;me.mz[z]=m;m.stolen={from:o,perm:true};if(st)st.equipTo=m.uid;G.fx.summon=m.uid;log(`${N(side)}は「${m.card.name}」のコントロールを得た！`,'p'+side);break;}
     case 'quickST':if(G.p[o].sz[target])await destroyST(o,target);break;
     case 'premature':{await payLP(side,800);const card=me.gy[target];const z=freeIdx(me.mz);if(!card||z<0)break;me.gy.splice(target,1);
-      me.mz[z]=newInst(card,'atk',true);G.fx.summon=me.mz[z].uid;log(`${N(side)}は墓地から「${card.name}」を特殊召喚！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
+      me.mz[z]=newInst(card,'atk',true);G.fx.summon=me.mz[z].uid;log(`${N(side)}はすてばから「${card.name}」を特別呼び出し！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
     case 'quickMoon':{const m=G.p[o].mz[target];if(m&&m.faceUp&&!m.card.god)setDown(m);break;}
     case 'nobleman':if(G.p[o].mz[target])await destroyMon(o,target,{banish:true});break;
     case 'smashing':{let b=-1,bv=-1;G.p[o].mz.forEach((m,i)=>{if(m&&m.faceUp&&defOf(m)>bv){bv=defOf(m);b=i;}});if(b>=0)await destroyMon(o,b);break;}
     case 'brain':{await payLP(side,800);const m=G.p[o].mz[target];const z=freeIdx(me.mz);if(!m||z<0||!m.faceUp||m.card.god)break;
-      G.p[o].mz[target]=null;me.mz[z]=m;m.stolen=(m.stolen&&m.stolen.from===side)?null:{from:o};G.fx.summon=m.uid;log(`${N(side)}は「${m.card.name}」のコントロールを得た！（エンドフェイズまで）`,'p'+side);break;}
+      G.p[o].mz[target]=null;me.mz[z]=m;m.stolen=(m.stolen&&m.stolen.from===side)?null:{from:o};G.fx.summon=m.uid;log(`${N(side)}は「${m.card.name}」のコントロールを得た！（おわりの時間まで）`,'p'+side);break;}
     case 'reborn':{const q=Math.floor(target/100),gi=target%100;const card=G.p[q].gy[gi];const z=freeIdx(me.mz);if(!card||z<0)break;G.p[q].gy.splice(gi,1);
-      const m=newInst(card,'atk',true);if(q!==side)m.stolen={from:q,perm:true};me.mz[z]=m;G.fx.summon=m.uid;log(`${N(side)}は${q===side?'自分':N(q)}の墓地から「${card.name}」を特殊召喚！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
+      const m=newInst(card,'atk',true);if(q!==side)m.stolen={from:q,perm:true};me.mz[z]=m;G.fx.summon=m.uid;log(`${N(side)}は${q===side?'自分':N(q)}のすてばから「${card.name}」を特別呼び出し！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
     case 'raigeki':{log(`${N(o)}のモンスターを全て破壊！`,'p'+side);const js=[];G.p[o].mz.forEach((m,i)=>{if(m)js.push(destroyMon(o,i));});await Promise.all(js);break;}
-    case 'goat':{const n=summonGoats(side);if(G.cur===side)G.noNS={side,turn:G.turn};log(`${N(side)}は「綿毛羊トークン」を${n}体特殊召喚！`,'p'+side);break;}
+    case 'goat':{const n=summonGoats(side);if(G.cur===side)G.noNS={side,turn:G.turn};log(`${N(side)}は「綿毛羊トークン」を${n}体特別呼び出し！`,'p'+side);break;}
     case 'confiscate':case 'sentry':{if(c.effect==='confiscate')await payLP(side,1000);const O=G.p[o];if(!O.hand.length)break;
       log(`${N(side)}は${N(o)}の手札を確認した。`,'p'+side);
       const r=await humanPick(side,`${N(o)}の手札：${c.effect==='confiscate'?'捨てさせる':'デッキに戻す'}カードを選んでください`,O.hand.slice(),{cpu:cs=>cpuHighIdx(cs)});const ix=r==null?0:r;
@@ -1665,24 +1670,24 @@ async function resolveSpell(side,c,target,zk){
     case 'quickBurn':await damage(o,600,false);break;
     case 'ritual':{const rc=CARDS[c.ritualFor];let sum=0;const used=[];const mats=ritualMats(side,c);
       while(sum<rc.lv&&!G.over){const pool=mats.filter(x=>!used.includes(x)&&(freeIdx(me.mz)>=0||used.some(u=>u.from==='m')||x.from==='m'));if(!pool.length)break;
-        const r=await humanPick(side,`儀式の生贄を選んでください（レベル合計 ${sum}/${rc.lv}）${pool.some(x=>x.from==='m')?'※フィールドのモンスターを含む':''}`,pool.map(x=>x.card),{cpu:cs=>{let b=0;cs.forEach((x,i)=>{const s1=cardVal(x)-(pool[i].from==='m'?400:0)+(x.ritual?5000:0);const s0=cardVal(cs[b])-(pool[b].from==='m'?400:0)+(cs[b].ritual?5000:0);if(s1<s0)b=i;});return b;}});
+        const r=await humanPick(side,`儀式のささげものを選んでください（レベル合計 ${sum}/${rc.lv}）${pool.some(x=>x.from==='m')?'※フィールドのモンスターを含む':''}`,pool.map(x=>x.card),{cpu:cs=>{let b=0;cs.forEach((x,i)=>{const s1=cardVal(x)-(pool[i].from==='m'?400:0)+(x.ritual?5000:0);const s0=cardVal(cs[b])-(pool[b].from==='m'?400:0)+(cs[b].ritual?5000:0);if(s1<s0)b=i;});return b;}});
         const x=pool[r==null?0:r];used.push(x);sum+=x.card.lv;}
       if(sum<rc.lv)break;
       const hs=used.filter(x=>x.from==='h').map(x=>x.card),ms=used.filter(x=>x.from==='m').map(x=>x.m);
       for(const hc of hs){const ix=me.hand.indexOf(hc);if(ix>=0)me.gy.push(me.hand.splice(ix,1)[0]);}
-      log(`${N(side)}は${used.map(x=>'「'+x.card.name+'」').join('')}を生贄に捧げた。`,'p'+side);render();
+      log(`${N(side)}は${used.map(x=>'「'+x.card.name+'」').join('')}をささげものにた。`,'p'+side);render();
       await Promise.all(ms.map(mm=>{const ix=me.mz.indexOf(mm);return ix>=0?destroyMon(side,ix,{tribute:true}):null;}));
       const hi=me.hand.findIndex(x=>x.id===c.ritualFor);const z=freeIdx(me.mz);if(hi<0||z<0)break;
-      const card=me.hand.splice(hi,1)[0];me.mz[z]=newInst(card,'atk',true);G.fx.summon=me.mz[z].uid;log(`${N(side)}は「${card.name}」を儀式召喚！`,'p'+side);render();
-      await godFx(card,'儀式召喚！');await afterSummon(side,z);break;}
-    case 'dmAttack':{const ks=G.p[o].sz.map((x,k)=>x?k:-1).filter(k=>k>=0);log(`${N(o)}の魔法・罠カードを全て破壊！`,'p'+side);await Promise.all(ks.map(k=>destroyST(o,k)));break;}
+      const card=me.hand.splice(hi,1)[0];me.mz[z]=newInst(card,'atk',true);G.fx.summon=me.mz[z].uid;log(`${N(side)}は「${card.name}」を儀式呼び出し！`,'p'+side);render();
+      await godFx(card,'儀式呼び出し！');await afterSummon(side,z);break;}
+    case 'dmAttack':{const ks=G.p[o].sz.map((x,k)=>x?k:-1).filter(k=>k>=0);log(`${N(o)}のじゅもん・しかけカードを全て破壊！`,'p'+side);await Promise.all(ks.map(k=>destroyST(o,k)));break;}
     case 'dmKnives':if(G.p[o].mz[target])await destroyMon(o,target);break;
     case 'cardDest':{const n=[0,0];for(const s2 of [side,o]){const P2=G.p[s2];n[s2]=P2.hand.length;P2.gy.push(...P2.hand.splice(0));log(`${N(s2)}は手札を${n[s2]}枚捨てた。`,'p'+s2);}render();await sleep(300);
       for(const s2 of [side,o])if(n[s2]&&!G.over)drawCards(s2,n[s2]);break;}
-    case 'mirage':log(`相手のスタンバイフェイズごとに、${N(side)}は手札が4枚になるまでドローする。`,'p'+side);break;
+    case 'mirage':log(`相手のまちの時間ごとに、${N(side)}は手札が4枚になるまで引く。`,'p'+side);break;
     case 'upstart':if(drawCards(side,1))await heal(o,1000);break;
     case 'reinforce':{const ix=me.deck.findIndex(x=>x.id===target);if(ix<0)break;const card=me.deck.splice(ix,1)[0];me.hand.push(card);shuffle(me.deck);log(`${N(side)}はデッキから「${card.name}」を手札に加えた。`,'p'+side);break;}
-    case 'wok':{const m=me.mz[target];if(!m)break;const v=atkOf(m);log(`${N(side)}は「${m.card.name}」を生贄に捧げた。`,'p'+side);await destroyMon(side,target,{tribute:true});if(v>0)await heal(side,v);break;}
+    case 'wok':{const m=me.mz[target];if(!m)break;const v=atkOf(m);log(`${N(side)}は「${m.card.name}」をささげものにた。`,'p'+side);await destroyMon(side,target,{tribute:true});if(v>0)await heal(side,v);break;}
     case 'enemyCtrl':{const m=G.p[o].mz[target];if(m&&m.faceUp&&!m.card.god){m.pos=m.pos==='atk'?'def':'atk';G.fx.summon=m.uid;log(`「${m.card.name}」は${m.pos==='atk'?'攻撃':'守備'}表示になった。`,'p'+side);}break;}
     case 'shrink':{const m=G.p[o].mz[target];if(m&&m.faceUp&&!m.card.god){addTmp(m,-Math.floor(m.card.atk/2));log(`「${m.card.name}」の攻撃力はターン終了時まで半分ダウン！（ATK ${atkOf(m)}）`,'p'+side);}break;}
     case 'swords':{const st=me.sz[zk];if(st)st.cnt=3;let n=0;G.p[o].mz.forEach(m=>{if(m&&!m.faceUp){m.faceUp=true;G.fx.summon=m.uid;n++;log(`裏側モンスターは「${m.card.name}」だった！`,'p'+o);}});
@@ -1690,59 +1695,67 @@ async function resolveSpell(side,c,target,zk){
     case 'messenger':log('攻撃力1500以上のモンスターは攻撃宣言できなくなった！','p'+side);break;
     case 'fissure':{let b=-1,bv=1e9;G.p[o].mz.forEach((m,i)=>{if(m&&m.faceUp&&!m.card.god&&atkOf(m)<bv){bv=atkOf(m);b=i;}});if(b>=0)await destroyMon(o,b);break;}
     case 'hammer':{let bs=-1,bi=-1,bv=-1;for(const q of [0,1])G.p[q].mz.forEach((m,i)=>{if(m&&m.faceUp&&m.pos==='atk'&&!m.card.god&&atkOf(m)>bv){bv=atkOf(m);bs=q;bi=i;}});if(bi>=0)await destroyMon(bs,bi);break;}
-    case 'lastWill':{const l=lwList(side);if(!l.length)break;const r=await humanPick(side,'「遺言の託宣」：特殊召喚するモンスターを選んでください',l,{cpu:cs=>cpuHighIdx(cs)});
+    case 'lastWill':{const l=lwList(side);if(!l.length)break;const r=await humanPick(side,'「遺言の託宣」：特別呼び出すモンスターを選んでください',l,{cpu:cs=>cpuHighIdx(cs)});
       const ix=me.deck.indexOf(l[r==null?0:r]);const z=freeIdx(me.mz);if(ix<0||z<0)break;const card=me.deck.splice(ix,1)[0];shuffle(me.deck);
-      me.mz[z]=newInst(card,'atk',true);G.fx.summon=me.mz[z].uid;log(`${N(side)}はデッキから「${card.name}」を特殊召喚！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
+      me.mz[z]=newInst(card,'atk',true);G.fx.summon=me.mz[z].uid;log(`${N(side)}はデッキから「${card.name}」を特別呼び出し！`,'p'+side);render();await sleep(400);await afterSummon(side,z);break;}
     case 'painful':{const picked=[];for(let k=0;k<5&&me.deck.length&&!G.over;k++){const pool=me.deck.filter(x=>!picked.includes(x));
         const r=await humanPick(side,`「苦渋の選択肢」：デッキから選ぶカード（${k+1}/5）`,pool,{cpu:cs=>cpuHighIdx(cs)});picked.push(pool[r==null?0:r]);}
       log(`${N(side)}はデッキから${picked.map(x=>'「'+x.name+'」').join('')}を選んだ。`,'p'+side);
-      const r=await humanPick(o,`「苦渋の選択肢」：${N(side)}の手札に加えるカードを1枚選んでください（残りは墓地へ）`,picked,{cpu:cs=>cpuLowIdx(cs)});const keep=picked[r==null?0:r];
+      const r=await humanPick(o,`「苦渋の選択肢」：${N(side)}の手札に加えるカードを1枚選んでください（残りはすてばへ）`,picked,{cpu:cs=>cpuLowIdx(cs)});const keep=picked[r==null?0:r];
       for(const x of picked){const ix=me.deck.indexOf(x);if(ix<0)continue;me.deck.splice(ix,1);if(x===keep)me.hand.push(x);else me.gy.push(x);}
-      shuffle(me.deck);log(`${N(o)}は「${keep.name}」を選んだ。${N(side)}の手札に加わり、残りは墓地へ送られた。`,'p'+o);break;}
+      shuffle(me.deck);log(`${N(o)}は「${keep.name}」を選んだ。${N(side)}の手札に加わり、残りはすてばへ送られた。`,'p'+o);break;}
     case 'quickPump':{const m=me.mz[target];if(m&&m.faceUp){addTmp(m,800);log(`「${m.card.name}」の攻撃力がターン終了時まで800アップ！（ATK ${atkOf(m)}）`,'p'+side);}break;}
-    case 'doubleSummon':G.extraNS=1;log(`${N(side)}はこのターン、もう1回通常召喚できる！`,'p'+side);break;
+    case 'doubleSummon':G.extraNS=1;log(`${N(side)}はこのターン、もう1回通常呼び出せる！`,'p'+side);break;
     case 'discardDraw':{const ix=me.hand.findIndex(x=>x.id===target);if(ix>=0){const d=me.hand.splice(ix,1)[0];me.gy.push(d);log(`${N(side)}は「${d.name}」を捨てた。`,'p'+side);render();}drawCards(side,2);break;}
-    case 'allDef':{let n=0;G.p[o].mz.forEach(m=>{if(m&&m.faceUp&&m.pos==='atk'){m.pos='def';n++;G.fx.summon=m.uid;}});log(`${N(o)}の攻撃表示モンスター${n}体が守備表示になった！`,'p'+side);break;}
+    case 'allDef':{let n=0;G.p[o].mz.forEach(m=>{if(m&&m.faceUp&&m.pos==='atk'){m.pos='def';n++;G.fx.summon=m.uid;}});log(`${N(o)}のこうげき形態モンスター${n}体がまもり形態になった！`,'p'+side);break;}
     case 'steal':{const m=G.p[o].mz[target];const z=freeIdx(me.mz);if(!m||z<0||(m.faceUp&&m.card.god))break;
       G.p[o].mz[target]=null;me.mz[z]=m;m.stolen=(m.stolen&&m.stolen.from===side)?null:{from:o};G.fx.summon=m.uid;
-      log(`${N(side)}は${m.faceUp?'「'+m.card.name+'」':'裏側モンスター'}のコントロールを得た！（エンドフェイズまで）`,'p'+side);break;}
-    case 'wipeST':{const ks=G.p[o].sz.map((x,k)=>x?k:-1).filter(k=>k>=0);log(`${N(o)}の魔法・罠カードを全て破壊！`,'p'+side);await Promise.all(ks.map(k=>destroyST(o,k)));break;}
+      log(`${N(side)}は${m.faceUp?'「'+m.card.name+'」':'裏側モンスター'}のコントロールを得た！（おわりの時間まで）`,'p'+side);break;}
+    case 'wipeST':{const ks=G.p[o].sz.map((x,k)=>x?k:-1).filter(k=>k>=0);log(`${N(o)}のじゅもん・しかけカードを全て破壊！`,'p'+side);await Promise.all(ks.map(k=>destroyST(o,k)));break;}
     case 'allAtkUp':me.mz.forEach(m=>{if(m&&m.faceUp)addTmp(m,500);});log(`${N(side)}のモンスターの攻撃力がターン終了時まで500アップ！`,'p'+side);break;
     case 'noAttack':G.noAtk={side:o,turn:G.turn+1};log(`${N(o)}は次のターン、攻撃宣言できない！`,'p'+side);break;
-    case 'gyRecycle':{const card=me.gy[target];if(card&&card.type==='monster'&&!card.fusion){me.gy.splice(target,1);me.hand.push(card);log(`${N(side)}は墓地の「${card.name}」を手札に加えた。`,'p'+side);}break;}
-    case 'fusion':{let need=3;
-      for(let k=me.hand.length-1;k>=0&&need;k--)if(me.hand[k].id==='m13'){me.gy.push(me.hand.splice(k,1)[0]);need--;}
-      const fi=[];me.mz.forEach((m,i)=>{if(m&&m.card.id==='m13'&&need){fi.push(i);need--;}});
-      log(`${N(side)}は「蒼眼の白竜」3体を融合！`,'p'+side);render();
+    case 'gyRecycle':{const card=me.gy[target];if(card&&card.type==='monster'&&!card.fusion){me.gy.splice(target,1);me.hand.push(card);log(`${N(side)}はすてばの「${card.name}」を手札に加えた。`,'p'+side);}break;}
+    case 'fusion':{const fm=fusionMats(side);if(!fm)break;
+      const hs=fm.filter(x=>x.from==='h').map(x=>x.i).sort((p,q)=>q-p);hs.forEach(k=>me.gy.push(me.hand.splice(k,1)[0]));
+      const fi=fm.filter(x=>x.from==='m').map(x=>x.i);
+      log(`${N(side)}は「琥珀角の雷竜ヴォルテクス」と光属性モンスターを合体！`,'p'+side);render();
       await Promise.all(fi.map(i=>destroyMon(side,i,{tribute:true})));
       const z=freeIdx(me.mz);if(z<0)break;
       me.mz[z]=newInst(CARDS.f01,'atk',true);G.fx.summon=me.mz[z].uid;
-      log(`${N(side)}は「蒼眼の究極白竜」を融合召喚！`,'p'+side);render();
-      await godFx(CARDS.f01,'融合召喚！');await afterSummon(side,z);break;}
+      me.mz[z].trapImmTurn=G.turn;
+      log(`${N(side)}は「雷皇竜ヴォルテクス・オーバー」を合体呼び出し！`,'p'+side);render();
+      await godFx(CARDS.f01,'合体！');await afterSummon(side,z);break;}
   }
   render();
 }
-async function payLP(side,v){const P=G.p[side];P.lp=Math.max(0,P.lp-v);log(`${N(side)}は${v}LPを払った。（LP ${P.lp}）`,'p'+side);await tweenLP(side);if(P.lp<=0)gameOver(1-side,`${N(side)}のライフポイントが0になりました。`);}
+async function payLP(side,v){const P=G.p[side];P.lp=Math.max(0,P.lp-v);log(`${N(side)}は${v}ライフを払った。（ライフ ${P.lp}）`,'p'+side);await tweenLP(side);if(P.lp<=0)gameOver(1-side,`${N(side)}のライフが0になりました。`);}
 function summonGoats(side){const P=G.p[side];let n=0;for(let z=0;z<3;z++)if(!P.mz[z]){P.mz[z]=newInst(CARDS.k01,'def',true);G.fx.summon=P.mz[z].uid;n++;}render();return n;}
+function fusionMats(side){const P=G.p[side],h=[],f=[];
+  P.hand.forEach((c,i)=>{if(c.type==='monster')h.push({c,from:'h',i});});P.mz.forEach((m,i)=>{if(m&&m.faceUp&&!m.card.token)f.push({c:m.card,from:'m',i});});
+  const all=h.concat(f),v=all.find(x=>x.c.id==='m13');if(!v)return null;
+  const l=all.filter(x=>x!==v&&x.c.attr==='光'&&!x.c.god&&!x.c.fusion&&!x.c.token).sort((a,b)=>(a.from==='h'?0:1)-(b.from==='h'?0:1)||a.c.atk-b.c.atk)[0];
+  return l?[v,l]:null;}
 async function godEffect(side,i,tribs){
   const P=G.p[side];const m=P.mz[i];m.effTurn=G.turn;
   log(`${N(side)}は「${m.card.name}」の効果を発動！`,'p'+side);
-  await godFx(m.card,m.card.effect==='wipe'?'ゴッド・クラッシュ！':'太陽の祝福！');
-  if(m.card.effect==='wipe'){
-    log(`${N(side)}は${tribs.map(t=>'「'+P.mz[t].card.name+'」').join('')}を生贄に捧げた。`,'p'+side);
+  await godFx(m.card,m.card.effect==='wipe'?'ゴッド・クラッシュ！':m.card.effect==='defSwitch'?'大樹の根しばり！':'太陽の祝福！');
+  if(m.card.effect==='defSwitch'){const T=G.p[1-side].mz[tribs[0]];if(T&&T.faceUp&&T.pos==='atk'){T.pos='def';G.fx.summon=T.uid;log(`「${T.card.name}」はまもり形態になった！`,'p'+side);}}
+  else if(m.card.effect==='wipe'){
+    log(`${N(side)}は${tribs.map(t=>'「'+P.mz[t].card.name+'」').join('')}をささげものにた。`,'p'+side);
     await Promise.all(tribs.map(t=>destroyMon(side,t,{tribute:true})));
     const O=G.p[1-side];const idx=O.mz.map((x,k)=>x?k:-1).filter(k=>k>=0);
     log(`${N(1-side)}のフィールドのモンスターを全て破壊！`,'p'+side);
     await Promise.all(idx.map(k=>destroyMon(1-side,k)));
   }else{
-    P.lp-=1000;log(`${N(side)}は1000LPを払った。（LP ${P.lp}）`,'p'+side);await tweenLP(side);
+    P.lp-=1000;log(`${N(side)}は1000ライフを払った。（ライフ ${P.lp}）`,'p'+side);await tweenLP(side);
     m.boost+=1000;G.fx.summon=m.uid;log(`「${m.card.name}」の攻撃力が1000アップ！（ATK ${atkOf(m)}）`,'p'+side);
   }
   render();
 }
 
-/* ================= 罠 ================= */
+/* ================= しかけ ================= */
 function trapUsable(side,c,ctx,trig){
+  {const T=ctx&&(ctx.A||ctx.m);if(T&&T.trapImmTurn===G.turn&&ownerOf(T)!==side)return false;}
   switch(c.effect){
     case 'destroyAttacker':return !ctx.A.card.god;
     case 'wipeAtk':return G.p[1-side].mz.some(m=>m&&m.pos==='atk'&&!m.card.god);
@@ -1802,8 +1815,8 @@ async function askTrap(side,trig,ctx,desc){
     if(!list.length&&!force)return null;
     const swap=G.view!==side;
     if(swap){await handover(side,`${N(side)}に渡してください`,'相手が攻撃・行動を宣言しました');G.view=side;render();}
-    const r=list.length?await trapPrompt(side,list,desc):await infoOk(`${desc}<br><br>今は発動できる罠カードはありません。`);
-    if(swap){await handover(G.cur,`${N(G.cur)}に戻してください`,r!=null?'罠カードが発動されました！':'デュエルを続けます');G.view=G.cur;render();}
+    const r=list.length?await trapPrompt(side,list,desc):await infoOk(`${desc}<br><br>今は発動できるしかけカードはありません。`);
+    if(swap){await handover(G.cur,`${N(G.cur)}に戻してください`,r!=null?'しかけカードが発動されました！':'デュエルを続けます');G.view=G.cur;render();}
     return r;
   }
   if(!list.length)return null;
@@ -1816,9 +1829,9 @@ function infoOk(html){
 function trapPrompt(side,list,desc){
   return new Promise(res=>{
     const P=G.p[side];
-    let html=`<h3>⚠ 罠カード発動のチャンス！</h3><p style="text-align:center">${desc}<br><b>${G.mode==='pvp'?N(side)+'、':''}罠カードを発動しますか？</b></p><div class="gylist" style="--w:96px">`;
+    let html=`<h3>⚠ しかけカード発動のチャンス！</h3><p style="text-align:center">${desc}<br><b>${G.mode==='pvp'?N(side)+'、':''}しかけカードを発動しますか？</b></p><div class="gylist" style="--w:96px">`;
     html+=list.map(i=>`<div data-t="${i}" style="cursor:pointer">${cardHTML(P.sz[i].card)}</div>`).join('')+'</div>';
-    if(list.some(i=>P.sz[i].card.quick))html+=`<div class="hint" style="margin-top:0">※速攻魔法もここから発動できます</div>`;
+    if(list.some(i=>P.sz[i].card.quick))html+=`<div class="hint" style="margin-top:0">※速攻じゅもんもここから発動できます</div>`;
     html+=`<div class="acts">${list.map(i=>`<button class="abtn red" data-t="${i}">「${P.sz[i].card.name}」を発動</button>`).join('')}<button class="abtn gray" data-t="-1">発動しない</button></div>`;
     html+=`<div class="hint">${list.map(i=>`【${P.sz[i].card.name}】${P.sz[i].card.text}`).join('<br>')}</div>`;
     const b=showModal(html,null);
@@ -1829,64 +1842,64 @@ async function activateTrap(side,k,ctx){
   const P=G.p[side];const st=P.sz[k];const c=st.card;
   st.faceUp=true;render();
   const qk=c.type==='spell';
-  log(`${N(side)}は${qk?'速攻魔法':c.cont?'永続罠':'罠カード'}「${c.name}」を発動！`,'p'+side);
-  await showCardFlash(c,qk?'速攻魔法発動！':'罠カード発動！');
+  log(`${N(side)}は${qk?'速攻じゅもん':c.cont?'永続しかけ':'しかけカード'}「${c.name}」を発動！`,'p'+side);
+  await showCardFlash(c,qk?'速攻じゅもん発動！':'しかけカード発動！');
   if(!c.cont){if(P.sz[k]===st)P.sz[k]=null;P.gy.push(c);}render();
   const o=1-side;
   switch(c.effect){
     case 'contWeaken':log(`${N(o)}のモンスターの攻撃力は500ダウンする！`,'p'+side);render();return 'ok';
-    case 'contBurn':log(`${N(o)}はモンスターを召喚するたびに300ダメージを受ける！`,'p'+side);return 'ok';
+    case 'contBurn':log(`${N(o)}はモンスターを呼び出すたびに300ダメージを受ける！`,'p'+side);return 'ok';
     case 'mirrorBurn':{const v=Math.floor((ctx.A.card.atk||0)/2);await destroyMon(ctx.a,ctx.ai);await damage(ctx.a,v,false);return 'destroyed';}
     case 'negateEff':{log(`「${ctx.m.card.name}」の効果は無効になった！`,'p'+side);for(const s2 of [0,1]){const ix=G.p[s2].mz.indexOf(ctx.m);if(ix>=0)await destroyMon(s2,ix);}return 'negated';}
     case 'reviveTrap':{const l=reviveList(side).sort((x,y)=>y.c.atk-x.c.atk);const z=freeIdx(P.mz);log('攻撃は無効になった！','p'+side);
-      if(l.length&&z>=0){const card=P.gy.splice(l[0].i,1)[0];P.mz[z]=newInst(card,'def',true);G.fx.summon=P.mz[z].uid;log(`${N(side)}は墓地から「${card.name}」を守備表示で特殊召喚！`,'p'+side);render();await sleep(400);await afterSummon(side,z);}
+      if(l.length&&z>=0){const card=P.gy.splice(l[0].i,1)[0];P.mz[z]=newInst(card,'def',true);G.fx.summon=P.mz[z].uid;log(`${N(side)}はすてばから「${card.name}」をまもり形態で特別呼び出し！`,'p'+side);render();await sleep(400);await afterSummon(side,z);}
       return 'negateOne';}
     case 'destroyST':{const ks=G.p[o].sz.map((x,i)=>x?i:-1).filter(i=>i>=0);if(!ks.length)return 'ok';const fd=ks.filter(i=>!G.p[o].sz[i].faceUp);const pool=fd.length?fd:ks;await destroyST(o,pool[Math.floor(Math.random()*pool.length)]);return 'ok';}
-    case 'skipDraw':G.skipDraw[o]=(+G.skipDraw[o]||0)+1;log(`${N(o)}は次のドローフェイズにドローできない！`,'p'+side);return 'ok';
+    case 'skipDraw':G.skipDraw[o]=(+G.skipDraw[o]||0)+1;log(`${N(o)}は次のひく時間に引くできない！`,'p'+side);return 'ok';
     case 'bounceAtk':await returnToHand(ctx.a,ctx.ai);return 'destroyed';
     case 'summonWeaken':if(G.p[ctx.side].mz[ctx.i]===ctx.m){ctx.m.boost-=1000;G.fx.summon=ctx.m.uid;log(`「${ctx.m.card.name}」の攻撃力が1000ダウン！（ATK ${atkOf(ctx.m)}）`,'p'+side);render();}return 'ok';
-    case 'allDefTrap':{G.p[o].mz.forEach(m=>{if(m&&m.faceUp&&m.pos==='atk'&&!m.card.god)m.pos='def';});log(`攻撃は無効になり、${N(o)}の攻撃表示モンスターは全て守備表示になった！`,'p'+side);render();return 'negateOne';}
+    case 'allDefTrap':{G.p[o].mz.forEach(m=>{if(m&&m.faceUp&&m.pos==='atk'&&!m.card.god)m.pos='def';});log(`攻撃は無効になり、${N(o)}のこうげき形態モンスターは全てまもり形態になった！`,'p'+side);render();return 'negateOne';}
     case 'quickBurn':await damage(o,600,false);return 'ok';
     case 'quickPump':if(ctx.tgt&&G.p[side].mz.includes(ctx.tgt)){addTmp(ctx.tgt,800);log(`「${ctx.tgt.card.name}」の攻撃力がターン終了時まで800アップ！（ATK ${atkOf(ctx.tgt)}）`,'p'+side);render();}return 'ok';
     case 'torrential':{log('フィールドのモンスターを全て破壊！','p'+side);const js=[];for(const s2 of [0,1])G.p[s2].mz.forEach((m,j)=>{if(m&&!m.card.god)js.push(destroyMon(s2,j));});await Promise.all(js);return 'destroyed';}
     case 'ring':{const T=ctx.A||ctx.m,ts=ctx.A?ctx.a:ctx.side;const ti=G.p[ts].mz.indexOf(T);if(ti<0)return 'ok';const v=atkOf(T);await destroyMon(ts,ti);await damage(ts,v,false);await damage(side,v,false);return 'destroyed';}
     case 'cylinder':{const v=atkOf(ctx.A);log(`攻撃は無効になり、${N(ctx.a)}に跳ね返る！`,'p'+side);await damage(ctx.a,v,false);return 'negateOne';}
     case 'bottomless':await destroyMon(ctx.side,ctx.i,{banish:true});return 'destroyed';
-    case 'callDead':{const l=reviveList(side).sort((x,y)=>y.c.atk-x.c.atk);const z=freeIdx(P.mz);if(l.length&&z>=0){const card=P.gy.splice(l[0].i,1)[0];P.mz[z]=newInst(card,'atk',true);G.fx.summon=P.mz[z].uid;log(`${N(side)}は墓地から「${card.name}」を攻撃表示で特殊召喚！`,'p'+side);render();await sleep(400);}return 'ok';}
+    case 'callDead':{const l=reviveList(side).sort((x,y)=>y.c.atk-x.c.atk);const z=freeIdx(P.mz);if(l.length&&z>=0){const card=P.gy.splice(l[0].i,1)[0];P.mz[z]=newInst(card,'atk',true);G.fx.summon=P.mz[z].uid;log(`${N(side)}はすてばから「${card.name}」をこうげき形態で特別呼び出し！`,'p'+side);render();await sleep(400);}return 'ok';}
     case 'rBreak':{if(P.hand.length){const r=await humanPick(side,'コストとして捨てるカードを選んでください',P.hand,{cpu:cs=>cpuLowIdx(cs)});await discardFrom(side,r==null?0:r,'コストとして');}
       const T=ctx.A||ctx.m,ts=ctx.A?ctx.a:ctx.side;const ti=G.p[ts].mz.indexOf(T);if(ti>=0)await destroyMon(ts,ti);return 'destroyed';}
-    case 'solemn':{await payLP(side,Math.floor(P.lp/2));if(ctx.c){return 'negated';}if(G.p[ctx.side].mz[ctx.i]===ctx.m){log('召喚は無効になった！','p'+side);await destroyMon(ctx.side,ctx.i);}return 'destroyed';}
+    case 'solemn':{await payLP(side,Math.floor(P.lp/2));if(ctx.c){return 'negated';}if(G.p[ctx.side].mz[ctx.i]===ctx.m){log('呼び出しは無効になった！','p'+side);await destroyMon(ctx.side,ctx.i);}return 'destroyed';}
     case 'jammer':{const r=await humanPick(side,'コストとして捨てるカードを選んでください',P.hand,{cpu:cs=>cpuLowIdx(cs)});await discardFrom(side,r==null?0:r,'コストとして');return 'negated';}
-    case 'greed':drawCards(side,2);G.skipDraw[side]=(+G.skipDraw[side]||0)+2;log(`${N(side)}は次のドローフェイズを2回スキップする。`,'p'+side);return 'ok';
+    case 'greed':drawCards(side,2);G.skipDraw[side]=(+G.skipDraw[side]||0)+2;log(`${N(side)}は次のひく時間を2回スキップする。`,'p'+side);return 'ok';
     case 'gravity':log('レベル4以上のモンスターは攻撃できなくなった！','p'+side);if(ctx.A&&ctx.A.card.lv>=4&&!ctx.A.card.god){log('攻撃は無効になった。','p'+side);return 'negateOne';}return 'ok';
     case 'quickST':{const k2=cpuPickST(o);if(k2>=0)await destroyST(o,k2);return 'ok';}
     case 'quickMoon':{const T=ctx.A||ctx.m;if(T&&T.faceUp){setDown(T);render();}return ctx.A?'negateOne':'ok';}
-    case 'goat':{const n=summonGoats(side);log(`${N(side)}は「綿毛羊トークン」を${n}体特殊召喚！`,'p'+side);if(ctx.A){log('攻撃は無効になった。','p'+side);return 'negateOne';}return 'ok';}
+    case 'goat':{const n=summonGoats(side);log(`${N(side)}は「綿毛羊トークン」を${n}体特別呼び出し！`,'p'+side);if(ctx.A){log('攻撃は無効になった。','p'+side);return 'negateOne';}return 'ok';}
     case 'dimPrison':await destroyMon(ctx.a,ctx.ai,{banish:true});return 'destroyed';
     case 'ruin':{let b=-1,bv=-1;G.p[o].mz.forEach((m,i)=>{if(m&&m.pos==='atk'&&!m.card.god&&atkOf(m)>bv){bv=atkOf(m);b=i;}});if(b>=0)await destroyMon(o,b);return 'ok';}
     case 'waboku':G.waboku={side,turn:G.turn};log(`このターン、${N(side)}のモンスターは戦闘で破壊されず、戦闘ダメージも受けない！`,'p'+side);return 'ok';
-    case 'ojama':{const O=G.p[o];let n=0;for(let z=0;z<3;z++)if(!O.mz[z]){O.mz[z]=newInst(CARDS.k02,'def',true);G.fx.summon=O.mz[z].uid;n++;}render();log(`${N(o)}のフィールドに「邪魔者トークン」が${n}体特殊召喚された！`,'p'+side);return 'ok';}
+    case 'ojama':{const O=G.p[o];let n=0;for(let z=0;z<3;z++)if(!O.mz[z]){O.mz[z]=newInst(CARDS.k02,'def',true);G.fx.summon=O.mz[z].uid;n++;}render();log(`${N(o)}のフィールドに「邪魔者トークン」が${n}体特別呼び出された！`,'p'+side);return 'ok';}
     case 'evac':{const T=ctx.A||ctx.m,ts=ctx.A?ctx.a:ctx.side;const ti=G.p[ts].mz.indexOf(T);if(ti>=0)await returnToHand(ts,ti);return 'destroyed';}
     case 'dustshoot':{const O=G.p[o];log(`${N(side)}は${N(o)}の手札を確認した。`,'p'+side);const l=O.hand.filter(x=>x.type==='monster');
       if(!l.length){await humanPick(side,`${N(o)}の手札（モンスターカードはありません）`,O.hand.slice(),{cancel:true,cpu:()=>null});log('モンスターカードがなかった。','p'+side);return 'ok';}
       const r=await humanPick(side,`${N(o)}の手札のモンスター：デッキに戻すカードを選んでください`,l,{cpu:cs=>cpuHighIdx(cs)});const x=l[r==null?0:r];const ix=O.hand.indexOf(x);
       if(ix>=0){O.hand.splice(ix,1);O.deck.push(x);shuffle(O.deck);log(`「${x.name}」は${N(o)}のデッキに戻された。`,'p'+side);}return 'ok';}
-    case 'decree':log('このカード以外の罠カードの効果は無効になる！','p'+side);return 'ok';
+    case 'decree':log('このカード以外のしかけカードの効果は無効になる！','p'+side);return 'ok';
     case 'michizure':{const cands=monCands(o);if(!cands.length)return 'ok';let k;if(isCPU(side))k=cpuBestOpp(side);else{const r=await humanSelect(side,'「道連れの呪詛」：破壊する相手モンスターを選んでください',cands,1);k=r?r[0]:cands[0].i;}
       if(G.p[o].mz[k])await destroyMon(o,k);return 'ok';}
     case 'robbin':log(`${N(side)}のモンスターが戦闘ダメージを与えるたびに、${N(o)}は手札をランダムに捨てる！`,'p'+side);return 'ok';
-    case 'simochi':log(`${N(o)}のLP回復はダメージに変わる！`,'p'+side);return 'ok';
+    case 'simochi':log(`${N(o)}のライフ回復はダメージに変わる！`,'p'+side);return 'ok';
     case 'spellbind':{const st=P.sz[k];if(st&&G.p[ctx.a].mz[ctx.ai]===ctx.A){st.equipTo=ctx.A.uid;log(`「${ctx.A.card.name}」は呪縛された！`,'p'+side);}render();return 'negateOne';}
     case 'kunai':{const A=ctx.A;if(A&&A.faceUp){A.pos='def';G.fx.summon=A.uid;}let b=null;for(const m of P.mz)if(m&&m.faceUp&&(!b||atkOf(m)>atkOf(b)))b=m;if(b){addTmp(b,500);log(`「${b.card.name}」の攻撃力が500アップ！`,'p'+side);}log('攻撃は無効になった。','p'+side);render();return 'negateOne';}
-    case 'enemyCtrl':{const A=ctx.A;if(A&&A.faceUp){A.pos='def';G.fx.summon=A.uid;log(`「${A.card.name}」は守備表示になり、攻撃は無効になった！`,'p'+side);}render();return 'negateOne';}
+    case 'enemyCtrl':{const A=ctx.A;if(A&&A.faceUp){A.pos='def';G.fx.summon=A.uid;log(`「${A.card.name}」はまもり形態になり、攻撃は無効になった！`,'p'+side);}render();return 'negateOne';}
     case 'shrink':{const A=ctx.A;if(A&&A.faceUp){addTmp(A,-Math.floor(A.card.atk/2));log(`「${A.card.name}」の攻撃力はターン終了時まで半分ダウン！（ATK ${atkOf(A)}）`,'p'+side);}render();return 'ok';}
-    case 'negate':log('攻撃は無効になり、バトルフェイズが終了した。','p'+side);G.battleOver=true;return 'negate';
+    case 'negate':log('攻撃は無効になり、たたかいの時間が終了した。','p'+side);G.battleOver=true;return 'negate';
     case 'destroyAttacker':await destroyMon(ctx.a,ctx.ai);return 'destroyed';
     case 'noDamage':G.battleMod={side,kind:'zero'};await heal(side,500);return 'ok';
     case 'reflect':G.battleMod={side,kind:'reflect'};log('この戦闘のダメージは跳ね返される！','p'+side);return 'ok';
-    case 'wipeAtk':{const o=1-side;const idx=G.p[o].mz.map((m,i)=>m&&m.pos==='atk'&&!m.card.god?i:-1).filter(i=>i>=0);log(`${N(o)}の攻撃表示モンスターを全て破壊！`,'p'+side);await Promise.all(idx.map(i=>destroyMon(o,i)));return 'ok';}
+    case 'wipeAtk':{const o=1-side;const idx=G.p[o].mz.map((m,i)=>m&&m.pos==='atk'&&!m.card.god?i:-1).filter(i=>i>=0);log(`${N(o)}のこうげき形態モンスターを全て破壊！`,'p'+side);await Promise.all(idx.map(i=>destroyMon(o,i)));return 'ok';}
     case 'summonTrap':await destroyMon(ctx.side,ctx.i);return 'destroyed';
-    case 'negateSpell':P.lp-=1000;log(`${N(side)}は1000LPを払った。（LP ${P.lp}）`,'p'+side);await tweenLP(side);return 'negated';
+    case 'negateSpell':P.lp-=1000;log(`${N(side)}は1000ライフを払った。（ライフ ${P.lp}）`,'p'+side);await tweenLP(side);return 'negated';
   }
   return 'ok';
 }
@@ -1925,12 +1938,12 @@ async function doAttack(a,ai,ti){
     const av=atkOf(A);const bbT=!!(tgt.card.fx&&tgt.card.fx.banishBattle);
     if(tgt.pos==='atk'){
       const dv=atkOf(tgt);
-      if(av>dv){await battleKill(d,ti,{banish:bbA});await damage(d,av-dv,true);}
+      if(av>dv){await battleKill(d,ti,{banish:bbA});await killHeal(a,A,d,ti,tgt);await damage(d,av-dv,true);}
       else if(av===dv){log('攻撃力が同じため、相打ち！');await Promise.all([battleKill(d,ti,{banish:bbA}),battleKill(a,ai,{banish:bbT})]);}
       else{log('攻撃側が返り討ちにあった！');await battleKill(a,ai,{banish:bbT});await damage(a,dv-av,true);}
     }else{
       const dv=defOf(tgt);
-      if(av>dv){await battleKill(d,ti,{banish:bbA});if(A.card.fx&&A.card.fx.pierce){log(`「${A.card.name}」の貫通ダメージ！`,'p'+a);await damage(d,av-dv,true);}}
+      if(av>dv){await battleKill(d,ti,{banish:bbA});await killHeal(a,A,d,ti,tgt);if(A.card.fx&&A.card.fx.pierce){log(`「${A.card.name}」の貫通ダメージ！`,'p'+a);await damage(d,av-dv,true);}}
       else if(av<dv){log('守備力が上回った！反射ダメージ！');await damage(a,dv-av,true);}
       else log('攻撃力と守備力が同じ。どちらも破壊されない。');
     }
@@ -1953,7 +1966,7 @@ async function preDamage(a,ai,A,d,ti,tgt){
   for(const [me,M] of [[a,A],[d,tgt]]){
     if(!M||!M.faceUp||!M.card.fx||!M.card.fx.lily||G.p[me].lp<=2000||G.over)continue;
     const opp=me===a?tgt:A;
-    const r=await humanPick(me,`「${M.card.name}」の効果：2000LP払って攻撃力を3000アップしますか？（カードを選ぶと発動）`,[M.card],{cancel:true,cpu:()=>{const ov=opp?(opp.pos==='atk'||me===d?atkOf(opp):defOf(opp)):0;return G.p[me].lp>=4000&&(opp?ov>=atkOf(M):G.p[1-me].lp<=atkOf(M)+3000)?0:null;}});
+    const r=await humanPick(me,`「${M.card.name}」の効果：2000ライフ払って攻撃力を3000アップしますか？（カードを選ぶと発動）`,[M.card],{cancel:true,cpu:()=>{const ov=opp?(opp.pos==='atk'||me===d?atkOf(opp):defOf(opp)):0;return G.p[me].lp>=4000&&(opp?ov>=atkOf(M):G.p[1-me].lp<=atkOf(M)+3000)?0:null;}});
     if(r===0){await payLP(me,2000);if(G.over)return 'stop';addTmp(M,3000);log(`「${M.card.name}」の攻撃力が3000アップ！（ATK ${atkOf(M)}）`,'p'+me);render();await sleep(300);}}
   return 'ok';
 }
@@ -1961,20 +1974,20 @@ async function afterBattle(a,ai,A,d,ti,tgt,dealt,wasFD){
   const f=A.card.fx||{};const onF=G.p[a].mz[ai]===A;
   if(dealt>0){
     const rb=trapOn('robbin',a);if(rb&&G.p[d].hand.length&&!G.over){log(`「${rb.card.name}」の効果！`,'p'+a);await discardFrom(d,Math.floor(Math.random()*G.p[d].hand.length),'ランダムに');}
-    if(onF&&f.dmgMill&&!G.over){const D=G.p[d];const n=Math.min(f.dmgMill,D.deck.length);for(let k=0;k<n;k++)D.gy.push(D.deck.pop());log(`「${A.card.name}」の効果で${N(d)}はデッキの上から${n}枚を墓地へ送った。`,'p'+a);render();}
-    if(onF&&f.zaloog&&!G.over){log(`「${A.card.name}」の効果！`,'p'+a);const D=G.p[d];if(D.hand.length)await discardFrom(d,Math.floor(Math.random()*D.hand.length),'ランダムに');else{const n=Math.min(2,D.deck.length);for(let k=0;k<n;k++)D.gy.push(D.deck.pop());log(`${N(d)}はデッキの上から${n}枚を墓地へ送った。`,'p'+a);render();}}
+    if(onF&&f.dmgMill&&!G.over){const D=G.p[d];const n=Math.min(f.dmgMill,D.deck.length);for(let k=0;k<n;k++)D.gy.push(D.deck.pop());log(`「${A.card.name}」の効果で${N(d)}はデッキの上から${n}枚をすてばへ送った。`,'p'+a);render();}
+    if(onF&&f.zaloog&&!G.over){log(`「${A.card.name}」の効果！`,'p'+a);const D=G.p[d];if(D.hand.length)await discardFrom(d,Math.floor(Math.random()*D.hand.length),'ランダムに');else{const n=Math.min(2,D.deck.length);for(let k=0;k<n;k++)D.gy.push(D.deck.pop());log(`${N(d)}はデッキの上から${n}枚をすてばへ送った。`,'p'+a);render();}}
   }
   if(tgt&&!G.over){const tOn=G.p[d].mz[ti]===tgt;
     if(wasFD&&tgt.card.fx&&tgt.card.fx.marsh){log(`「${tgt.card.name}」の効果！`,'p'+d);await damage(a,1000,false);}
     if(tOn&&tgt.card.fx&&tgt.card.fx.reflectB&&tgt.pos==='atk'&&!G.over){await destroyMon(d,ti);}
-    else if(tOn&&tgt.faceUp&&tgt.pos==='def'&&tgt.card.fx&&tgt.card.fx.toAtkAfter){tgt.pos='atk';G.fx.summon=tgt.uid;log(`「${tgt.card.name}」は攻撃表示になった。`,'p'+d);render();}}
+    else if(tOn&&tgt.faceUp&&tgt.pos==='def'&&tgt.card.fx&&tgt.card.fx.toAtkAfter){tgt.pos='atk';G.fx.summon=tgt.uid;log(`「${tgt.card.name}」はこうげき形態になった。`,'p'+d);render();}}
   for(const s2 of [...new Set(G.blost||[])]){if(G.over)break;const t=await askTrap(s2,'lost',{side:s2},`${N(s2)}のモンスターが戦闘で破壊された！`);if(t!=null)await activateTrap(s2,t,{side:s2});}
   G.blost=[];
   if(dealt>0&&onF){
     if(f.dmgDiscard&&!tgt&&G.p[d].hand.length){log(`「${A.card.name}」の効果！`,'p'+a);await discardFrom(d,Math.floor(Math.random()*G.p[d].hand.length),'ランダムに');}
     if(f.dmgDraw){log(`「${A.card.name}」の効果！`,'p'+a);drawCards(a,1);}
     if(f.dmgBanishGY){const g=G.p[d].gy;const l=g.filter(c=>c.type==='monster').sort((x,y)=>cardVal(y)-cardVal(x)).slice(0,2);
-      if(l.length){for(const c of l){g.splice(g.indexOf(c),1);G.p[d].ban.push(c);}log(`「${A.card.name}」の効果で${N(d)}の墓地の${l.map(c=>'「'+c.name+'」').join('')}を除外！`,'p'+a);render();}}
+      if(l.length){for(const c of l){g.splice(g.indexOf(c),1);G.p[d].ban.push(c);}log(`「${A.card.name}」の効果で${N(d)}のすてばの${l.map(c=>'「'+c.name+'」').join('')}を除外！`,'p'+a);render();}}
   }
   const ladyA=!!f.ddLady,ladyT=!!(tgt&&tgt.faceUp&&tgt.card.fx&&tgt.card.fx.ddLady);
   if(tgt&&(ladyA||ladyT)&&!G.over){const tOn=G.p[d].mz[ti]===tgt;
@@ -2084,10 +2097,10 @@ async function cpuSummon(){
     if(holdGod&&t>0)return;
     const tr=cpuTribs(own,t);if(!tr)return;
     if(t===0&&freeIdx(P.mz)<0)return;
-    const est=c.effect==='handAtk'?(P.hand.length-1)*1000:c.atk;
+    const est=c.effect==='handBoost'?c.atk+Math.min(1500,300*(P.hand.length-1)):c.atk;
     if(tr.some(x=>x.v>=est))return;
     if(c.effect==='handAtk'&&est<2500)return;
-    let score=est-tr.reduce((s,x)=>s+x.v,0)*(t>=2?.35:.6)+(t?200:0)+(c.god?1500:0);
+    let score=est-tr.reduce((s,x)=>s+x.v,0)*(t>=2?.35:.6)+(t?200:0)+(c.god?1500:c.spirit?600:0);
     if(c.fx)score+=c.fx.sum?250:c.fx.lord?400:c.fx.ign?300:150;
     if(c.fx&&c.fx.flip==='destroy'&&monCount(1-S))score+=900;
     if(c.fx&&c.fx.dblTrib&&P.hand.some(x=>tribNeed(x)>=2))score+=300;
@@ -2128,6 +2141,9 @@ async function cpuGodEffects(){
       const others=P.mz.map((x,k)=>x&&x!==m?{k,v:atkOf(x)}:null).filter(Boolean).sort((a,b)=>a.v-b.v);
       const oppVal=G.p[1-S_CPU].mz.filter(Boolean).reduce((s,x)=>s+mval(x),0);
       if(oppVal>=others[0].v+others[1].v||monCount(1-S_CPU)>=2)await godEffect(S_CPU,i,[others[0].k,others[1].k]);
+    }else if(m.card.effect==='defSwitch'){
+      const O=G.p[1-S_CPU];let b=-1,bv=-1;O.mz.forEach((x,k)=>{if(x&&x.faceUp&&x.pos==='atk'&&atkOf(x)>bv){bv=atkOf(x);b=k;}});
+      if(b>=0&&bv>=1000)await godEffect(S_CPU,i,[b]);
     }else if(m.card.effect==='payLp'){
       if(P.lp>=3000&&atkOf(m)<=oppMaxAtk()+500)await godEffect(S_CPU,i,[]);
     }
@@ -2147,7 +2163,7 @@ async function cpuSetCards(){
   for(let k=P.hand.length-1;k>=0;k--){
     const c=P.hand[k];if(c.type!=='trap'&&!c.quick)continue;const z=freeIdx(P.sz);if(z<0)break;
     P.hand.splice(k,1);P.sz[z]={uid:++uidc,card:c,faceUp:false,setTurn:G.turn};G.fx.summon=P.sz[z].uid;
-    log(`${N(S_CPU)}は魔法・罠カードを1枚セットした。`,'p1');render();await sleep(400);
+    log(`${N(S_CPU)}はじゅもん・しかけカードを1枚セットした。`,'p1');render();await sleep(400);
   }
 }
 function cpuPickTarget(m){
@@ -2252,7 +2268,7 @@ async function cpuTurn(){
   await cpuPositions();if(G.over)return;
   await cpuSetCards();if(G.over)return;
   if(G.turn>1){
-    G.phase='battle';log(`${N(S_CPU)}はバトルフェイズに入った。`,'p1');render();await banner('バトルフェイズ',true);
+    G.phase='battle';log(`${N(S_CPU)}はたたかいの時間に入った。`,'p1');render();await banner('たたかいの時間',true);
     for(let guard=0;guard<7;guard++){
       if(G.over||G.battleOver)break;
       const cands=G.p[S_CPU].mz.map((m,i)=>m&&canAttack(m)?{m,i}:null).filter(Boolean).sort((a,b)=>atkOf(b.m)-atkOf(a.m));
@@ -2283,7 +2299,7 @@ function renderSetup(){
   $('#selMode').querySelectorAll('button').forEach(b=>b.onclick=()=>{setup.mode=b.dataset.k;renderSetup();});
 }
 let zTab='all';
-const ZTABS=[['all','すべて',c=>true],['e04','04環境',c=>c.era==='04'],['lim','制限',c=>LIMITED.has(c.id)],['semi','準制限',c=>SEMI.has(c.id)],['ritual','儀式',c=>!!c.ritual],['god','神',c=>c.god],['normal','通常モンスター',c=>c.type==='monster'&&!c.god&&!c.fx&&!c.token&&!c.ritual],['effect','効果モンスター',c=>c.type==='monster'&&!!c.fx],['spell','魔法',c=>c.type==='spell'],['trap','罠',c=>c.type==='trap']];
+const ZTABS=[['all','すべて',c=>true],['e04','04環境',c=>c.era==='04'],['lim','制限',c=>LIMITED.has(c.id)],['semi','準制限',c=>SEMI.has(c.id)],['ritual','儀式',c=>!!c.ritual],['god','精霊獣',c=>c.god||c.spirit],['normal','通常モンスター',c=>c.type==='monster'&&!c.god&&!c.fx&&!c.token&&!c.ritual],['effect','効果モンスター',c=>c.type==='monster'&&!!c.fx],['spell','じゅもん',c=>c.type==='spell'],['trap','しかけ',c=>c.type==='trap']];
 function openZukan(){
   const f=ZTABS.find(t=>t[0]===zTab)[2];
   const ALL=Object.values(CARDS).filter(c=>!c.token);const list=ALL.filter(f);
@@ -2296,8 +2312,8 @@ function openZukan(){
 }
 function zukanDetail(id){
   const c=CARDS[id];
-  const inDecks=Object.values(DECKS).filter(d=>d.list[id]).map(d=>`${d.name}×${d.list[id]}`).join('、')||(c.fusion?'「白竜三位融合」で融合召喚':'—');
-  const b=showModal(`<div style="--w:min(62vw,230px)">${cardHTML(c,{big:true})}</div><div class="hint">${c.type==='monster'?`Lv${c.lv}／${c.attr}属性／${c.race}${c.god?'／生贄3体':''}<br>`:''}${LIMITED.has(id)?'<b style="color:#ff6b80">制限カード（デッキに1枚まで）</b><br>':SEMI.has(id)?'<b style="color:#ffa040">準制限カード（デッキに2枚まで）</b><br>':''}${c.era==='04'?'04環境モチーフのカード<br>':''}収録：${inDecks}</div><div class="acts"><button class="abtn gray">図鑑にもどる</button></div>`,openZukan);
+  const inDecks=Object.values(DECKS).filter(d=>d.list[id]).map(d=>`${d.name}×${d.list[id]}`).join('、')||(c.fusion?'「雷鳴の合一」で合体呼び出し':'—');
+  const b=showModal(`<div style="--w:min(62vw,230px)">${cardHTML(c,{big:true})}</div><div class="hint">${c.type==='monster'?`Lv${c.lv}／${c.attr}属性／${c.race}${c.god?'／ささげもの3体':c.spirit?'／ささげもの2体':''}<br>`:''}${LIMITED.has(id)?'<b style="color:#ff6b80">制限カード（デッキに1枚まで）</b><br>':SEMI.has(id)?'<b style="color:#ffa040">準制限カード（デッキに2枚まで）</b><br>':''}${c.era==='04'?'04環境モチーフのカード<br>':''}収録：${inDecks}</div><div class="acts"><button class="abtn gray">図鑑にもどる</button></div>`,openZukan);
   b.querySelector('button').onclick=openZukan;
 }
 
