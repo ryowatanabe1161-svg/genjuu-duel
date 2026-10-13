@@ -265,6 +265,7 @@ button{font-family:inherit;cursor:pointer;border:none}
   <div id="waitbar" class="hidden"></div>
 </div>
 
+<script src="../fuusan-games/party.js"></script>
 <script>
 /*! PeerJS v1.5.5 | https://peerjs.com | MIT License
 Copyright (c) 2015 Michelle Bu and Eric Zhang, http://peerjs.com
@@ -2306,7 +2307,8 @@ const ICE_SERVERS=[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.co
 const PEER_PREFIX='ygduel-';
 const CODE_CH='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 function isRemote(s){return !!G&&G.mode==='online'&&NET.role==='host'&&s===1;}
-function genCode(){const a=new Uint32Array(6);crypto.getRandomValues(a);let s='';for(const x of a)s+=CODE_CH[x%CODE_CH.length];return s;}
+let PARTY_CONNS=[],PARTY_WAIT=false;
+function genCode(){if((window.FuuParty&&FuuParty.info)&&FuuParty.info.host)return 'FU'+FuuParty.info.code;const a=new Uint32Array(6);crypto.getRandomValues(a);let s='';for(const x of a)s+=CODE_CH[x%CODE_CH.length];return s;}
 const peerIdOf=code=>PEER_PREFIX+code.toLowerCase();
 function netStatus(t,cls){const e=$('#netStatus');e.textContent=t;e.className='netstatus '+(cls||'');}
 function netSend(o){try{if(NET.conn&&NET.conn.open)NET.conn.send(o);}catch(e){console.warn(e);}}
@@ -2373,6 +2375,8 @@ async function answerAsk(m){
 }
 function onNetData(m){
   NET.lastRx=Date.now();if(!m||typeof m!=='object')return;
+  if(m.t==='fuu-goto'){if((window.FuuParty&&FuuParty.info))FuuParty.handle(m);return;}
+  if(m.k==='party-busy'){PARTY_WAIT=true;clearInterval(NET.hb);netStatus('このゲームは2人用です。いまは ほかの2人が対戦中。\nホストが次のゲームを選ぶと、みんなで移動します','ok');return;}
   if(NET.role==='host'){
     switch(m.k){
       case 'hello':
@@ -2410,11 +2414,13 @@ function hostCreate(tries=0){
   const peer=new Peer(peerIdOf(code),{config:{iceServers:ICE_SERVERS},debug:0});NET.peer=peer;
   peer.on('open',()=>{if(NET.peer===peer)netStatus('相手の参加を待っています…\nコードを相手に伝えてください');});
   peer.on('connection',conn=>{
+    if(NET.conn&&(window.FuuParty&&FuuParty.info)){PARTY_CONNS=PARTY_CONNS.filter(c=>c.open);PARTY_CONNS.push(conn);conn.on('open',()=>conn.send({k:'party-busy'}));return;} // みんなの部屋：3人目以降は待機
     if(NET.conn){conn.on('open',()=>{conn.send({k:'full'});setTimeout(()=>conn.close(),500);});return;}
     NET.conn=conn;setupConn(conn);
   });
   peer.on('error',e=>{
     if(NET.peer!==peer)return;
+    if(e.type==='unavailable-id'&&(window.FuuParty&&FuuParty.info)&&tries<25){peer.destroy();setTimeout(()=>{if(NET.peer===peer)hostCreate(tries+1);},2500);return;}
     if(e.type==='unavailable-id'&&tries<3){peer.destroy();hostCreate(tries+1);return;}
     if(NET.connected&&(e.type==='network'||e.type==='server-error'||e.type==='socket-error'||e.type==='socket-closed'))return; // 対戦中はブローカー切断を無視（P2Pは継続）
     netStatus('エラー：'+errText(e),'err');
@@ -2431,11 +2437,12 @@ function guestJoin(){
   const peer=new Peer({config:{iceServers:ICE_SERVERS},debug:0});NET.peer=peer;
   peer.on('open',()=>{
     const conn=peer.connect(peerIdOf(code),{reliable:true});NET.conn=conn;setupConn(conn);
-    NET.joinTimer=setTimeout(()=>{if(!NET.connected){netStatus('接続できませんでした。コードを確認するか、同じWi-Fiで試してください','err');$('#btnJoinGo').disabled=false;}},20000);
+    NET.joinTimer=setTimeout(()=>{if(!NET.connected&&!(window.FuuParty&&FuuParty.info)){netStatus('接続できませんでした。コードを確認するか、同じWi-Fiで試してください','err');$('#btnJoinGo').disabled=false;}},20000);
   });
   peer.on('error',e=>{
     if(NET.peer!==peer)return;
     if(NET.connected&&e.type!=='peer-unavailable')return;
+    if(e.type==='peer-unavailable'&&(window.FuuParty&&FuuParty.info)&&!NET.connected&&(NET.ptries=(NET.ptries||0)+1)<FuuParty.retries){netStatus('ホストを待っています…');setTimeout(()=>{if(NET.peer===peer&&!NET.connected){const c=peer.connect(peerIdOf(code),{reliable:true});NET.conn=c;setupConn(c);}},FuuParty.retryMs);return;}
     netStatus('エラー：'+errText(e),'err');$('#btnJoinGo').disabled=false;
     if(G&&G.mode==='online'&&!G.over)netLost();
   });
@@ -2506,6 +2513,14 @@ $('#codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')guestJoin();})
 $('#codeInput').addEventListener('input',e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);});
 $('#btnCopy').onclick=copyCode;$('#btnShare').onclick=shareCode;
 $('#btnLobbyBack').onclick=backToTitle;
+// ---- ひろばの「みんなの部屋」 ----
+if(window.FuuParty&&FuuParty.info){
+  const P=FuuParty.info;
+  FuuParty.init({game:'genjuu-duel',isHost:()=>NET.role==='host',inGame:()=>!!(G&&G.mode==='online'&&!G.over),
+    broadcast:m=>{const o=Object.assign({k:'fuu-goto'},m);try{NET.conn&&NET.conn.open&&NET.conn.send(o);}catch(e){}PARTY_CONNS.forEach(c=>{try{c.send(o);}catch(e){}});}});
+  FuuParty.status=()=>NET.role==='host'?{host:1,n:(NET.connected?1:0)+PARTY_CONNS.filter(c=>c.open).length}:{host:0,joined:!!(NET.connected||PARTY_WAIT)};
+  setTimeout(()=>{if(P.host)openLobby('host');else{openLobby('guest');$('#codeInput').value='FU'+P.code;guestJoin();}},100);
+}
 renderSetup();
 $('#btnStart').onclick=startGame;
 $('#btnZukan').onclick=openZukan;
