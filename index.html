@@ -2234,7 +2234,7 @@ function openZukan(){
 function zukanDetail(id){
   const c=CARDS[id];
   const inDecks=Object.values(DECKS).filter(d=>d.list[id]).map(d=>`${d.name}×${d.list[id]}`).join('、')||(c.fusion?'「雷鳴の合一」で合体呼び出し':'—');
-  const b=showModal(`<div style="--w:min(62vw,230px)">${cardHTML(c,{big:true})}</div><div class="hint">${c.type==='monster'?`Lv${c.lv}／${c.attr}属性／${c.race}${c.god?'／ささげもの3体':c.spirit?'／ささげもの2体':''}<br>`:''}${LIMITED.has(id)?'<b style="color:#ff6b80">制限カード（デッキに1枚まで）</b><br>':SEMI.has(id)?'<b style="color:#ffa040">準制限カード（デッキに2枚まで）</b><br>':''}収録：${inDecks}</div><div class="acts"><button class="abtn gray">図鑑にもどる</button></div>`,openZukan);
+  const b=showModal(`<div style="--w:min(62vw,230px)">${cardHTML(c,{big:true})}</div><div class="hint">${c.type==='monster'?`Lv${c.lv}／${c.attr}属性／${c.race}${c.god?'／ささげもの3体':c.spirit?'／ささげもの2体':''}<br>`:''}収録：${inDecks}</div><div class="acts"><button class="abtn gray">図鑑にもどる</button></div>`,openZukan);
   b.querySelector('button').onclick=openZukan;
 }
 
